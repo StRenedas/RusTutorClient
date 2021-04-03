@@ -29,6 +29,7 @@ html {
 *::after {
   box-sizing: border-box;
   margin: 0;
+  /* border: 1px solid red; */
 }
 
 .button--green {
