@@ -1,6 +1,6 @@
 <template>
-  <div class="main-container" >
-    <div class="main-container__forms" v-if="$route.path=='/'">
+  <div class="main-page" >
+    <div class="main-page__forms" v-if="$route.path=='/'">
       <div class="signup">
         <p class="signup__description">Sign Up</p>
         <form class="signup__form">
@@ -27,18 +27,18 @@
 export default {
   data() {
     return {
-      
-    } 
+
+    }
   },
 };
 </script>
 
 <style scoped>
-.main-container {
+.main-page {
   height: 800px;
-  background-color: #d7e0f5;
+  background-color: #0A132D;
 }
-.main-container__forms {
+.main-page__forms {
   height: 100%;
   display: flex;
   justify-content: space-evenly;
@@ -117,3 +117,4 @@ export default {
   background-color: chartreuse;
 }
 </style>
+

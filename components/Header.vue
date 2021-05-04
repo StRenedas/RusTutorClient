@@ -53,7 +53,7 @@ export default {
   width: 100%;
 }
 .header__condition {
-  background-color: #0a132d;
+  background-color: #111111;
   width: 100%;
   display: flex;
   justify-content: space-around;
