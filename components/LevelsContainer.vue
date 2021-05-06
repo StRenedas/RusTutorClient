@@ -37,7 +37,7 @@
     .level-cards__border {
         width: 300px;
         height: 300px;
-        border: 2px solid black;
+        border: 2px solid white;
         border-radius: 10px;
         display: flex;
         flex-direction: column;

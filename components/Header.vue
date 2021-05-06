@@ -58,7 +58,6 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 1px 0;
 }
 .header__logo {
   height: 75px;

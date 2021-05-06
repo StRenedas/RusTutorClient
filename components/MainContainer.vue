@@ -4,19 +4,19 @@
       <div class="signup">
         <p class="signup__description">Sign Up</p>
         <form class="signup__form">
-          <input class="form-input" type="text" name="reg_login" required placeholder="Login:">
-          <input class="form-input" type="email" name="email" required placeholder="E-mail:">
-          <input class="form-input" type="password" name="reg_pass" required placeholder="Password:">
-          <input class="form-input" type="password" name="reg_pass_repeat" required placeholder="Repeat password:">
-          <button class="form-submit" type="submit">SIGN UP</button>
+          <input class="form-input" type="text" name="reg_login" placeholder="Login:" v-model="signUser.username">
+          <input class="form-input" type="email" name="email" placeholder="E-mail:" v-model="signUser.email">
+          <input class="form-input" type="password" name="reg_pass" placeholder="Password:" v-model="signUser.password">
+          <input class="form-input" type="password" name="reg_pass_repeat" placeholder="Repeat password:">
+          <button class="form-submit" @click.prevent="registerUser()" >SIGN UP</button>
         </form>
       </div>
       <div class="signin">
         <p class="signin__description">Sign In</p>
         <form class="signin__form">
-          <input class="form-input" type="text" name="auth_login" required placeholder="Login:">
-          <input class="form-input" type="password" name="auth_pass" required placeholder="Password:">
-          <button class="form-submit" type="submit">SIGN IN</button>
+          <input class="form-input" type="text" name="auth_login" placeholder="Login:" v-model="logUser.logusername">
+          <input class="form-input" type="password" name="auth_pass" placeholder="Password:" v-model="logUser.logpassword">
+          <button class="form-submit" @click.prevent="loginUser()">SIGN IN</button>
         </form>
       </div>
     </div>
@@ -24,12 +24,45 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
-
+      signUser: {
+        username: '',
+        email: '',
+        password: ''
+      },
+      logUser: {
+        logusername: '',
+        logpassword: ''
+      }
     }
   },
+  methods: {
+    registerUser() {
+      console.log(this.signUser);
+      const res = fetch('http://localhost:3001/register', {
+      credentials: 'include',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.signUser),
+    })
+    },
+    loginUser() {
+      console.log(this.logUser);
+      const res = fetch('http://localhost:3001/login', {
+      credentials: 'include',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.logUser),
+    })
+    }
+  }
 };
 </script>
 

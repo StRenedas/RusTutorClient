@@ -27,6 +27,7 @@ export default {
 <style scoped>
 .FAQ {
     max-width: 1600px;
+    height: 800px;
 }
 .FAQ__container {
     display: flex;
