@@ -18,7 +18,7 @@ export default {
 
 <style scoped>
   .container {
-      height: 85vh;
+      height: 800px;
       width: 100%;
       display: flex;
       flex-direction: column;

@@ -1,56 +1,63 @@
 <template>
-    <div class="tasks-container">
-        <div class="tasks-container">
-        <div class="tasks-cards__container" v-for="task in taskCards" :key="task.id">
-            <div class="tasks-cards__border">
-                <img :src=task.taskImage alt="" class="tasks-cards__image">
-                <p class="tasks-cards__title">{{task.taskName}}</p>
-            </div>
-        </div>
+  <div class='task'>
+    <p class='task__description'>Translate the highlighted word into Russian</p>
+    <div class='task__place'>
+      <p class='task__name'>HERE'S TASK TEXT</p>
     </div>
-    </div>
+    <div class='task__points'>Points for this task:</div>
+    <input type='text' class='task__answer'>
+    <button class='task__submit'>Next</button>
+  </div>
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                taskCards: [
-                    {id:1, taskName: "Translation", taskImage: "/TaskCardsImages/translation.svg"},
-                    {id:2, taskName: "Pictures", taskImage: "/TaskCardsImages/pickapicture.svg"},
-                    {id:3, taskName: "1 of many", taskImage: "/TaskCardsImages/1ofmany.svg"}
-                ]
-            }
-        },
-    }
+export default {
+
+}
 </script>
 
 <style scoped>
-    .tasks-container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        background-color: #0A132D;
-        color: white;
-    }
-    .tasks-cards__border {
-        width: 300px;
-        height: 300px;
-        border: 2px solid white;
-        border-radius: 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-    }
-    .tasks-cards__image {
-        width: 150px;
-        height: 150px;
-    }
-    .tasks-cards__title {
-        font-size: 28px;
-        font-weight: 500;
-    }
+  .task {
+    width: 100%;
+    height: 100%;
+    background-color: #25618C;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .task__description {
+    color: white;
+    font-size: 46px;
+    font-weight: 400;
+    /*padding: 200px 0 100px;*/
+  }
+  .task__place {
+    padding: 20px 20px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 30px;
+    font-weight: 300;
+  }
+  .task__points {
+    color: white;
+    font-size: 25px;
+  }
+  .task__answer {
+    width: 300px;
+    height: 50px;
+    font-size: 26px;
+  }
+  .task__submit {
+    font-size: 30px;
+    font-weight: 300;
+    padding: 25px 75px;
+    background-color: white;
+    border: 2px solid darkseagreen;
+    border-radius: 10px;
+  }
+  .task__submit:hover {
+    background-color: darkseagreen;
+  }
 </style>

@@ -12,7 +12,7 @@ import LevelsContainer from "@/components/LevelsContainer.vue"
         },
         data() {
             return {
-                
+
             }
         },
     }
@@ -20,7 +20,7 @@ import LevelsContainer from "@/components/LevelsContainer.vue"
 
 <style scoped>
 .container {
-  height: 85vh;
+  height: 800px;
   width: 100%;
 }
 </style>

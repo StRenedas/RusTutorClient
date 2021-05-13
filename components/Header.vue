@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="header__condition" v-if="$route.path=='/'">
+    <div class="header__container" v-if="$route.path=='/'">
       <img class="header__logo" src="../static/susuLogoBig.png" alt="SUSU logo">
       <nav class="header__menu">
         <a
@@ -12,8 +12,8 @@
         <p class="header__loggedout">You're not logged in</p>
       </nav>
     </div>
-    <div class="header__condition" v-else>
-      <nuxt-link to="/"><img class="header__logo" src="../static/susuLogoBig.png" alt="SUSU logo"></nuxt-link>
+    <div class="header__container" v-else>
+      <nuxt-link class="header__logo-link" to="/"><img class="header__logo" src="../static/susuLogoBig.png" alt="SUSU logo"></nuxt-link>
       <nav class="header__menu">
         <a
           class="header__link"
@@ -21,7 +21,7 @@
           :key="link.id"
           :href="link.url"
         >{{ link.description }}</a>
-        <p class="header__loggedout">You're not logged in</p>
+        <p class="header__loggedout">{{ this.$auth.$storage.getLocalStorage('username') }}</p>
       </nav>
     </div>
   </div>
@@ -49,10 +49,11 @@ export default {
 </script>
 
 <style scoped>
+
 .header {
   width: 100%;
 }
-.header__condition {
+.header__container {
   background-color: #111111;
   width: 100%;
   display: flex;
@@ -62,6 +63,9 @@ export default {
 .header__logo {
   height: 75px;
   width: 600px;
+}
+.header__logo-link {
+  height: 75px;
 }
 .header__menu {
   width: 50%;
