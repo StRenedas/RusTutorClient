@@ -21,7 +21,8 @@
           :key="link.id"
           :href="link.url"
         >{{ link.description }}</a>
-        <p class="header__loggedout">{{ this.$auth.$storage.getLocalStorage('username') }}</p>
+        <p class="header__username">Hello, {{ this.$auth.$storage.getLocalStorage('username') }}</p>
+        <button class="header__logout" @click.prevent="logout()">LOGOUT</button>
       </nav>
     </div>
   </div>
@@ -45,6 +46,14 @@ export default {
       ],
     };
   },
+  methods: {
+    async logout() {
+      this.$auth.$storage.removeLocalStorage('username');
+      this.$auth.$storage.removeLocalStorage('rating');
+      this.$auth.$storage.removeLocalStorage('userid');
+      await this.$auth.logout();
+    }
+  }
 };
 </script>
 
@@ -74,8 +83,43 @@ export default {
   color: white;
   font-size: 28px;
 }
+.header__menu_mobile {
+  width: 100%;
+  font-size: 20px;
+  flex-direction: column;
+}
 .header__link {
   text-decoration: none;
   color: white;
+  cursor: pointer;
+  text-align: center;
+}
+.header__loggedout {
+  text-align: center;
+}
+.header__logout {
+  background-color: #111111;
+  color: white;
+  font-size: 22px;
+  font-family: 'Open Sans', sans-serif;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+@media (max-width: 1250px) {
+  .header__container {
+    flex-direction: column;
+  }
+  .header__logo {
+    width: 400px;
+    height: 50px;
+  }
+  .header__logo-link {
+    height: 50px;
+  }
+  .header__menu {
+    width: 100%;
+    flex-direction: column;
+    font-size: 18px;
+  }
 }
 </style>

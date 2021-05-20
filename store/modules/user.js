@@ -6,11 +6,11 @@ export default {
     setUser(state, res) {
       this.$auth.$storage.setLocalStorage('username', res.username);
       this.$auth.$storage.setLocalStorage('rating', res.rating);
+      this.$auth.$storage.setLocalStorage('userid', res.userid);
       this.$router.push({path: '/Levels'});
     },
     checkAuth(state) {
-      if(this.$auth.$storage.username !== '' && this.$auth.$storage.username) state.authenticated = true;
-      else state.authenticated = false
+      state.authenticated = !!(this.$auth.$storage.getLocalStorage('username') !== '' && this.$auth.$storage.getLocalStorage('username'));
     }
   },
   getters: {

@@ -1,18 +1,37 @@
 <template>
   <div class='task'>
     <p class='task__description'>Translate the highlighted word into Russian</p>
-    <div class='task__place'>
-      <p class='task__name'>HERE'S TASK TEXT</p>
+    <div class="task__itself">
+      <div class='task__place' v-html="">{{ getFirstQuestion['value'] }}</div>
+      <div class='task__points'>Points for this task: {{ getFirstQuestion['points'] }}</div>
+      <input type='text' class='task__answer'>
     </div>
-    <div class='task__points'>Points for this task:</div>
-    <input type='text' class='task__answer'>
-    <button class='task__submit'>Next</button>
+    <button class='task__submit'>Submit all</button>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters, mapMutations } from "vuex";
 export default {
-
+  data() {
+    return {
+      answers: []
+    }
+  },
+  methods: {
+    ...mapActions(["getQuestionsFromServer"]),
+    ...mapMutations(["removeFirstQuestion"]),
+  },
+  computed: {
+    ...mapGetters(["getQuestions", "getLevel", "getType", "getFirstQuestion"]),
+  },
+  created() {
+      this.getQuestionsFromServer({
+        level: this.getLevel,
+        type: this.getType,
+        userid: this.$auth.$storage.getLocalStorage('userid')
+      });
+  }
 }
 </script>
 
@@ -30,7 +49,11 @@ export default {
     color: white;
     font-size: 46px;
     font-weight: 400;
-    /*padding: 200px 0 100px;*/
+  }
+  .task__itself {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .task__place {
     padding: 20px 20px;

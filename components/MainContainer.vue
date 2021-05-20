@@ -1,9 +1,9 @@
 <template>
   <div class="main-page" >
     <div class="main-page__forms" v-if="$route.path=='/'">
-      <div class="signup">
-        <p class="signup__description">Sign Up</p>
-        <form class="signup__form">
+      <div class="form">
+        <p class="form__description">Sign Up</p>
+        <form class="form__sign">
           <input class="form-input" type="text" name="reg_login" placeholder="Login:" v-model.trim="$v.signUser.username.$model">
           <input class="form-input" type="email" name="email" placeholder="E-mail:" v-model.trim="$v.signUser.email.$model">
           <input class="form-input" type="password" name="reg_pass" placeholder="Password:" v-model.trim="$v.signUser.password.$model">
@@ -15,9 +15,9 @@
           <button class="form-submit" @click.prevent="registerUser()" :disabled="$v.signUser.invalid">SIGN UP</button>
         </form>
       </div>
-      <div class="signin">
-        <p class="signin__description">Sign In</p>
-        <form class="signin__form">
+      <div class="form">
+        <p class="form__description">Sign In</p>
+        <form class="form__sign">
           <input class="form-input" type="text" name="auth_login" placeholder="Login:" v-model.trim="$v.logUser.logusername.$model">
           <input class="form-input" type="password" name="auth_pass" placeholder="Password:" v-model.trim="$v.logUser.logpassword.$model">
           <error v-if="!$v.logUser.logusername.minLength" :error-description='"Username must be at least 8 characters long!"'></error>
@@ -87,19 +87,11 @@ export default {
     ...mapActions(['signin']),
     async loginAuth() {
       await this.signin(this.logUser);
-      console.log(this.getUser);
     },
     async registerUser() {
       let isRegistered = await this.$axios.$post('http://127.0.0.1:3001/register', this.signUser);
       console.log(isRegistered);
     },
-    async fetchUsers() {
-      const users = await this.$axios.$get('http://127.0.0.1:3001/users');
-      console.log(users[0].username);
-    },
-    async logout() {
-      await this.$auth.logout();
-    }
   },
 };
 </script>
@@ -117,7 +109,7 @@ export default {
 }
 
 
-.signup{
+.form{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -127,41 +119,18 @@ export default {
   border: 2px solid #ffffff;
   border-radius: 10px;
 }
-.signup__description {
+.form__description {
   color: white;
   font-size: 36px;
   margin: 5px 0;
 }
-.signup__form {
+.form__sign {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 350px;
 }
 
-
-
-.signin{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: auto;
-  background-color: #1E3878;
-  border: 2px solid #ffffff;
-  border-radius: 10px;
-}
-.signin__description {
-  color: white;
-  font-size: 36px;
-  margin: 5px 0;
-}
-.signin__form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 300px;
-}
 
 
 .form-input {
@@ -186,6 +155,20 @@ export default {
 }
 .form-submit:hover {
   background-color: chartreuse;
+}
+@media (max-width: 1250px) {
+  .main-page__forms {
+    flex-direction: column;
+  }
+  .form__description {
+    font-size: 24px;
+  }
+  .form-input {
+    font-size: 16px;
+  }
+  .form-submit {
+    font-size: 16px;
+  }
 }
 </style>
 

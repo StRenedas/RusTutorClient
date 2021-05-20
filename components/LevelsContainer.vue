@@ -4,8 +4,8 @@
       <p class="user-text">Get yourself some practice!</p>
       <p class="user-rating">Your current rating is {{ this.$auth.$storage.getLocalStorage("rating") }}</p>
     </div>
-    <div class="levels-container" v-if="questionsToGet.level === 0">
-      <div class="levels-cards__container" v-for="card in cards" :key="card.id" @click="setLevel(card.id)">
+    <div class="levels-container" v-if="getLevel == 0">
+      <div class="levels-cards__container" v-for="card in cards" :key="card.id" @click="setNewLevel(card.id)">
         <div class="level-cards__border">
           <img :src=card.levelImage alt="" class="level-cards__image">
           <p class="level-cards__title">{{ card.levelName }}</p>
@@ -13,9 +13,8 @@
         </div>
       </div>
     </div>
-    <div class="tasks-container" v-if="questionsToGet.level !== 0">
-      <div class="tasks-cards__container" v-for="task in taskCards" :key="task.id"
-           @click="setTask(task.id); getQuestions()">
+    <div class="tasks-container" v-if="getLevel != 0">
+      <div class="tasks-cards__container" v-for="task in taskCards" :key="task.id" @click="setNewType(task.id)">
         <div class="tasks-cards__border">
           <img :src=task.taskImage alt="" class="tasks-cards__image">
           <p class="tasks-cards__title">{{ task.taskName }}</p>
@@ -26,8 +25,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
-
+import { mapActions, mapGetters, mapMutations} from "vuex";
 export default {
   data() {
     return {
@@ -52,38 +50,42 @@ export default {
         }
       ],
       taskCards: [
-        { id: 1, taskName: "Translation", taskImage: "/TaskCardsImages/translation.svg" },
-        { id: 2, taskName: "Pictures", taskImage: "/TaskCardsImages/pickapicture.svg" },
-        { id: 3, taskName: "1 of many", taskImage: "/TaskCardsImages/1ofmany.svg" }
+        { id: 1,
+          taskName: "Translation",
+          taskImage: "/TaskCardsImages/translation.svg"
+        },
+        { id: 2,
+          taskName: "Pictures",
+          taskImage: "/TaskCardsImages/pickapicture.svg"
+        },
+        { id: 3,
+          taskName: "1 of many",
+          taskImage: "/TaskCardsImages/1ofmany.svg"
+        }
       ],
-      levelPicked: 0,
-      taskPicked: 0,
-      questionsToGet: { level: "", type: "" }
+      userid: 0,
     };
   },
   methods: {
-    ...mapMutations(["checkAuth"]),
-    setLevel(id) {
-      this.questionsToGet.level = id;
-      console.log(this.questionsToGet);
+    ...mapMutations(["checkAuth", "setLevel", "setType"]),
+    ...mapActions(['getQuestionsFromServer']),
+    setNewLevel(id) {
+      this.setLevel(id);
     },
-    setTask(id) {
-      this.questionsToGet.type = id;
+    setNewType(id) {
+      this.setType(id);
+      this.$router.push({path: '/Tasks'});
     },
-    async getQuestions() {
-      const questions = await this.$axios.$post("http://127.0.0.1:3001/questions", this.questionsToGet);
-      console.log(questions);
-    }
   },
   computed: {
-    ...mapGetters(["authenticated"])
+    ...mapGetters(["authenticated", "getLevel", "getType"]),
   },
-  async created() {
-    await this.checkAuth()
+  async mounted() {
+    this.checkAuth()
     if(!this.authenticated) {
-      await this.$router.replace('/');
+      await this.$router.push({path: '/'});
     }
-  }
+  },
 };
 </script>
 
