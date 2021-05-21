@@ -51,6 +51,7 @@ export default {
       this.$auth.$storage.removeLocalStorage('username');
       this.$auth.$storage.removeLocalStorage('rating');
       this.$auth.$storage.removeLocalStorage('userid');
+      this.$auth.$storage.removeLocalStorage('isadmin');
       await this.$auth.logout();
     }
   }

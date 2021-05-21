@@ -1,6 +1,6 @@
 <template>
   <div class="main-page" >
-    <div class="main-page__forms" v-if="$route.path=='/'">
+    <div class="main-page__forms">
       <div class="form">
         <p class="form__description">Sign Up</p>
         <form class="form__sign">

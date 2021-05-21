@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
   data() {
     return {
@@ -20,12 +22,21 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['checkAdmin', 'checkAuth']),
     async getRatings() {
       this.studentsInfo = await this.$axios.$get('http://127.0.0.1:3001/users')
     }
   },
+  computed: {
+    ...mapGetters(['authenticated', 'isadmin'])
+  },
   async mounted() {
-    await this.getRatings();
+    this.checkAuth();
+    this.checkAdmin();
+    if(!this.authenticated || !this.isadmin) {
+      await this.$router.push({path: '/'});
+    }
+    this.getRatings();
     console.log(this.studentsInfo);
   }
 };
