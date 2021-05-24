@@ -102,12 +102,18 @@ export default {
   color: white;
   font-size: 24px;
   display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 .new-task__first-type {
-  width: 50%;
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 30px 10px;
 }
 .new-task__third-type {
-  width: 50%;
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 30px 10px;
 }
 .new-task__selection {
   width: 200px;
@@ -117,7 +123,18 @@ export default {
   width: 300px;
   padding: 10px;
 }
-.new-task__option {
 
+@media (max-width: 1235px) {
+  .new-task {
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+  }
+  .new-task__first-type {
+    width: 50%;
+  }
+  .new-task__third-type {
+    width: 50%;
+  }
 }
 </style>

@@ -170,5 +170,10 @@ export default {
     font-size: 16px;
   }
 }
+@media (max-width: 380px) {
+  .form__sign {
+    width: 250px;
+  }
+}
 </style>
 

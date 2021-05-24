@@ -6,10 +6,10 @@
     </div>
     <div class="levels-container" v-if="getLevel == 0">
       <div class="levels-cards__container" v-for="card in cards" :key="card.id" @click="setNewLevel(card.id)">
-        <div class="level-cards__border">
-          <img :src=card.levelImage alt="" class="level-cards__image">
-          <p class="level-cards__title">{{ card.levelName }}</p>
-          <p class="level-cards__description">{{ card.levelDescription }}</p>
+        <div class="levels-cards__border">
+          <img :src=card.levelImage alt="" class="levels-cards__image">
+          <p class="levels-cards__title">{{ card.levelName }}</p>
+          <p class="levels-cards__description">{{ card.levelDescription }}</p>
         </div>
       </div>
     </div>
@@ -80,12 +80,12 @@ export default {
   computed: {
     ...mapGetters(["authenticated", "getLevel", "getType"]),
   },
-  async mounted() {
+/*  async mounted() {
     this.checkAuth()
     if(!this.authenticated) {
       await this.$router.push({path: '/'});
     }
-  },
+  },*/
 };
 </script>
 
@@ -107,6 +107,7 @@ export default {
 }
 
 .user-text {
+  text-align: center;
   padding-top: 50px;
   font-size: 42px;
   font-weight: 400;
@@ -116,6 +117,7 @@ export default {
   padding-top: 50px;
   font-size: 30px;
   font-weight: 200;
+  text-align: center;
 }
 
 .levels-container {
@@ -128,7 +130,7 @@ export default {
   color: white;
 }
 
-.level-cards__border {
+.levels-cards__border {
   width: 300px;
   height: 300px;
   border: 2px solid white;
@@ -137,19 +139,20 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  margin: 20px;
 }
 
-.level-cards__image {
+.levels-cards__image {
   width: 150px;
   height: 150px;
 }
 
-.level-cards__title {
+.levels-cards__title {
   font-size: 28px;
   font-weight: 500;
 }
 
-.level-cards__description {
+.levels-cards__description {
   font-size: 22px;
   font-weight: 300;
 }
@@ -174,6 +177,7 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  margin: 20px;
 }
 
 .tasks-cards__image {
@@ -184,5 +188,45 @@ export default {
 .tasks-cards__title {
   font-size: 28px;
   font-weight: 500;
+}
+
+@media (max-width: 1250px) {
+  .levels-container {
+    /*flex-direction: column;*/
+  }
+  .levels-cards__border {
+    width: 200px;
+    height: 200px;
+  }
+  .levels-cards__title {
+    font-size: 20px;
+  }
+  .levels-cards__description {
+    text-align: center;
+    font-size: 18px;
+  }
+  .levels-cards__image {
+    width: 100px;
+    height: 100px;
+  }
+  .tasks-container {
+    /*flex-direction: column;*/
+  }
+  .tasks-cards__border {
+    width: 200px;
+    height: 200px;
+  }
+  .tasks-cards__image {
+    width: 100px;
+    height: 100px;
+  }
+}
+@media (max-width: 800px) {
+  .levels-container {
+    flex-direction: column;
+  }
+  .tasks-container {
+    flex-direction: column;
+  }
 }
 </style>

@@ -36,7 +36,7 @@ export default {
     if(!this.authenticated || !this.isadmin) {
       await this.$router.push({path: '/'});
     }
-    this.getRatings();
+    await this.getRatings();
     console.log(this.studentsInfo);
   }
 };
@@ -54,9 +54,10 @@ export default {
   align-items: center;
 }
 .students-ratings__description {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 600;
   padding: 100px 0 150px;
+  text-align: center;
 }
 .students-ratings__header {
   width: 70%;

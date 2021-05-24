@@ -2,6 +2,7 @@ export default {
   state: {
     authenticated: false,
     admin: false,
+    username: ''
   },
   mutations: {
     setUser(state, res) {
@@ -9,6 +10,7 @@ export default {
       this.$auth.$storage.setLocalStorage('rating', res.rating);
       this.$auth.$storage.setLocalStorage('userid', res.userid);
       this.$auth.$storage.setLocalStorage('isadmin', res.isadmin);
+      state.username = res.username;
       if (this.$auth.$storage.getLocalStorage('isadmin')===0) {
         this.$router.push({path: '/Levels'});
       } else {
@@ -22,6 +24,14 @@ export default {
       if (this.$auth.$storage.getLocalStorage('isadmin') === 1) {
         state.admin = true;
       } else this.state.admin = false;
+    },
+    logoutUser(state) {
+      this.$auth.$storage.removeLocalStorage('username');
+      this.$auth.$storage.removeLocalStorage('rating');
+      this.$auth.$storage.removeLocalStorage('userid');
+      this.$auth.$storage.removeLocalStorage('isadmin');
+      state.username = ''
+      this.$auth.logout();
     }
   },
   getters: {
@@ -30,6 +40,9 @@ export default {
     },
     isadmin(state) {
       return state.admin;
+    },
+    loggedUsername(state) {
+      return state.username;
     }
   },
   actions: {

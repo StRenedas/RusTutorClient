@@ -16,6 +16,6 @@ export default {};
 .footer__copyright {
   color: white;
   text-align: center;
-  padding: 20px;
+  padding: 18px 0 17px;
 }
 </style>

@@ -14,9 +14,6 @@ export default {
     setType(state, res) {
       state.typePicked = res;
     },
-    removeFirstQuestion(state, res) {
-      state.questions.shift();
-    }
   },
   getters: {
     getQuestions(state) {
@@ -28,9 +25,6 @@ export default {
     getType(state) {
       return state.typePicked;
     },
-    getFirstQuestion(state) {
-      return state.questions[0];
-    }
   },
   actions: {
     async getQuestionsFromServer ({commit}, payload) {
@@ -38,7 +32,7 @@ export default {
         const questions = await this.$axios.$post("http://127.0.0.1:3001/tasks", payload);
         console.log(questions);
         if (!questions.empty) commit('setQuestions', questions)
-        else console.log('you dumb fucker');
+        else console.log('Something is wrong');
       } catch (err) {
         console.log(err);
       }
