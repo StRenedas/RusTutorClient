@@ -15,6 +15,15 @@ export default {
         this.$router.push({path: '/Teacher'});
       }
     },
+    logoutUser(state) {
+      this.$auth.$storage.removeLocalStorage('username');
+      this.$auth.$storage.removeLocalStorage('rating');
+      this.$auth.$storage.removeLocalStorage('userid');
+      this.$auth.$storage.removeLocalStorage('isadmin');
+      state.authenticated = false;
+      state.admin = false;
+      this.$auth.logout();
+    },
     checkAuth(state) {
       state.authenticated = !!(this.$auth.$storage.getLocalStorage('username') !== '' && this.$auth.$storage.getLocalStorage('username'));
     },
@@ -22,14 +31,6 @@ export default {
       if (this.$auth.$storage.getLocalStorage('isadmin') === 1) {
         state.admin = true;
       } else this.state.admin = false;
-    },
-    logoutUser(state) {
-      this.$auth.$storage.removeLocalStorage('username');
-      this.$auth.$storage.removeLocalStorage('rating');
-      this.$auth.$storage.removeLocalStorage('userid');
-      this.$auth.$storage.removeLocalStorage('isadmin');
-      state.username = ''
-      this.$auth.logout();
     }
   },
   getters: {

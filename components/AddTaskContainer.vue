@@ -3,32 +3,36 @@
     <div class="new-task__container">
       <div class="new-task__first-type">
         <p class="new-task__description">Введите предложение для задания "Перевод слова"</p>
-        <input class="new-task__text" type="text" v-model="textTask1" placeholder="Текст задания">
+        <input class="new-task__text" type="text" v-model="task1.text" placeholder="Текст задания">
         <p class="new-task__tip">Выберите слово для перевода</p>
-        <select class="new-task__selection" v-model="wordTask1">
+        <select class="new-task__selection" v-model="task1.word">
           <option v-for="word in splitTaskText1" :key="word">{{word}}</option>
         </select>
         <p class="new-task__tip">Укажите уровень сложности</p>
-        <select class="new-task__level" v-model="levelTask1">
+        <select class="new-task__level" v-model="task1.level">
           <option v-for="level in levels" :key="level">{{level}}</option>
         </select>
         <p class="new-task__answer-description">Введите правильный ответ на задание</p>
-        <input class="new-task__answer" type="text" v-model="answerTask1">
+        <input class="new-task__answer" type="text" v-model="task1.answer">
+        <p class="new-task__points-description">Введите количество очков за задание</p>
+        <input class="new-task__points" type="text" v-model.trim="$v.task1.points.$model">
         <button class="new-task__submit" @click.prevent="addTaskType1">Добавить задание</button>
       </div>
       <div class="new-task__third-type">
         <p class="new-task__description">Введите слово для задания "Выбор варианта"</p>
-        <input class="new-task__text" type="text" v-model="wordTask3" placeholder="Слово для задания">
+        <input class="new-task__text" type="text" v-model="task3.word" placeholder="Слово для задания">
         <p class="new-task__tip">Введите варианты ответа через пробел</p>
-        <input type="text" class="new-task__options" v-model="optionsTask3">
+        <input type="text" class="new-task__options" v-model="task3.options">
         <p class="new-task__tip">Выберите правильный ответ из введенных слов</p>
-        <select class="new-task__selection" v-model="selectedWordTask3">
+        <select class="new-task__selection" v-model="task3.selectedWord">
           <option v-for="option in splitTaskText3" :key="option">{{option}}</option>
         </select>
         <p class="new-task__tip">Укажите уровень сложности</p>
-        <select class="new-task__level" v-model="levelTask3">
+        <select class="new-task__level" v-model="task3.level">
           <option v-for="level in levels" :key="level">{{level}}</option>
         </select>
+        <p class="new-task__points-description">Введите количество очков за задание</p>
+        <input class="new-task__points" type="text" v-model.trim="$v.task3.points.$model">
         <button class="new-task__submit" @click.prevent="addTaskType3">Добавить задание</button>
       </div>
     </div>
@@ -38,46 +42,60 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-
+import {decimal} from 'vuelidate/lib/validators'
 export default {
   data() {
     return {
       levels:[1, 2, 3],
-
-      textTask1: '',
-      splitTextTask1: [],
-      wordTask1: '',
-      answerTask1: '',
-      levelTask1: 0,
-
-      wordTask3: '',
-      optionsTask3: '',
-      selectedWordTask3: '',
-      splitOptionsTask3: [],
-      levelTask3: 0,
+      task1: {
+        text: '',
+        splitText: [],
+        word: '',
+        answer: '',
+        level: 0,
+        points: 0,
+      },
+      task3: {
+        word: '',
+        options: '',
+        selectedWord: '',
+        splitOptions: [],
+        level: 0,
+        points: 0,
+      }
+    }
+  },
+  validations: {
+    task1: {
+      points: { decimal },
+    },
+    task3: {
+      points: { decimal }
     }
   },
   methods: {
     ...mapMutations(['checkAuth', 'checkAdmin']),
     async addTaskType1() {
-      this.textTask1 = this.textTask1.replace(this.wordTask1, "<b>"+this.wordTask1+"</b>")
+      this.task1.text = this.task1.text.replace(this.task1.word, "<b>"+this.task1.word+"</b>")
       await this.$axios.$post("http://127.0.0.1:3001/task",{
-        text: this.textTask1,
-        answer: this.answerTask1,
-        level: this.levelTask1,
+        text: this.task1.text,
+        answer: this.task1.answer,
+        level: this.task1.level,
+        points: this.task1.points,
         type: 1
       });
-      this.textTask1 = '';
-      this.wordTask1 = '';
-      this.answerTask1 = '';
+      this.task1.text = '';
+      this.task1.word = '';
+      this.task1.answer = '';
     },
     async addTaskType3 () {
-      this.splitOptionsTask3 = this.splitOptionsTask3.filter(word => word !== this.selectedWordTask3);
+      this.task3.splitOptions = this.task3.splitOptions.filter(word => word !== this.task3.selectedWord);
       await this.$axios.$post("http://127.0.0.1:3001/task",{
-        text: this.wordTask3,
-        answer: this.selectedWordTask3,
-        options: this.splitOptionsTask3,
-        level: this.levelTask3,
+        text: this.task3.word,
+        answer: this.task3.selectedWord,
+        options: this.task3.splitOptions,
+        level: this.task3.level,
+        points: this.task3.points,
         type: 3
       })
     },
@@ -85,10 +103,10 @@ export default {
   computed: {
     ...mapGetters(['authenticated', 'isadmin']),
     splitTaskText1: function() {
-      return this.splitTextTask1 = this.textTask1.split(' ');
+      return this.task1.splitText = this.task1.text.split(' ');
     },
     splitTaskText3: function() {
-      return this.splitOptionsTask3 = this.optionsTask3.split(' ');
+      return this.task3.splitOptions = this.task3.options.split(' ');
     }
   },
   async mounted() {

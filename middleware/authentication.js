@@ -1,5 +1,6 @@
 export default function ({store, redirect}) {
-/*  console.log(store.getters.isadmin)
+/*  store.mutations.checkAuth(store.state);
+  store.mutations.checkAdmin(store.state);
   if(!store.state.authenticated) {
     return redirect('/');
   }
