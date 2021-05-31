@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState, mapMutations, mapActions } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import {required, minLength, email, sameAs} from 'vuelidate/lib/validators'
 import Error from '@/components/ui/Error'
 export default {
@@ -83,7 +83,11 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters(['authenticated', 'isadmin'])
+  },
   methods: {
+    ...mapMutations(['checkAuth']),
     ...mapActions(['signin']),
     async loginAuth() {
       await this.signin(this.logUser);
@@ -98,7 +102,7 @@ export default {
 
 <style scoped>
 .main-page {
-  height: 800px;
+  height: 100%;
   background-color: #0A132D;
 }
 .main-page__forms {

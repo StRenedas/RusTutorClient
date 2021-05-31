@@ -1,8 +1,8 @@
 <template>
   <div class="header">
-    <div class="header__container" v-if="!loggedUsername">
-      <img class="header__logo-big" src="../static/susuLogoBig.png" alt="SUSU Logo">
-      <img class="header__logo-small" src="../static/susuLogoSmall.png" alt="SUSU Logo">
+    <div class="header__container" v-if="$route.path==='/'">
+      <img class="header__logo-big" src="../static/LogoImages/susuLogoBig.png" alt="SUSU Logo">
+      <img class="header__logo-small" src="../static/LogoImages/susuLogoSmall.png" alt="SUSU Logo">
       <nav class="header__menu">
         <a
           class="header__link"
@@ -12,27 +12,34 @@
         >{{ link.description }}</a>
         <p class="header__loggedout">You're not logged in</p>
       </nav>
-      <a class="header__burger"><img src="../static/BURGERWHITE.png" alt="burgerbutton" class="header__burger-img"></a>
+      <a class="header__burger" @click.prevent="toggleMobile"><img src="../static/burgerMenu.png" alt="burgerbutton" class="header__burger-img"></a>
     </div>
     <div class="header__container" v-else>
-      <nuxt-link class="header__logo-link" to="/"><img class="header__logo-big" src="../static/susuLogoBig.png"></nuxt-link>
-      <nuxt-link class="header__logo-link-small" to="/"><img class="header__logo-small" src="../static/susuLogoSmall.png"></nuxt-link>
+      <nuxt-link class="header__logo-link" to="/"><img class="header__logo-big" src="../static/LogoImages/susuLogoBig.png"></nuxt-link>
+      <nuxt-link class="header__logo-link-small" to="/"><img class="header__logo-small" src="../static/LogoImages/susuLogoSmall.png"></nuxt-link>
       <nav class="header__menu">
         <a
           class="header__link"
-          v-for="link in headerLinks.slice(1)"
+          v-for="link in headerLinks"
           :key="link.id"
           :href="link.url"
         >{{ link.description }}</a>
-        <p class="header__username">Hello, {{ loggedUsername }}</p>
+        <p class="header__username">Hello, {{ this.$auth.$storage.getLocalStorage('username') }}</p>
         <button class="header__logout" @click.prevent="logoutUser">LOGOUT</button>
       </nav>
+      <a class="header__burger" @click.prevent="toggleMobile"><img src="../static/burgerMenu.png" alt="burgerbutton" class="header__burger-img"></a>
     </div>
+    <nav class="header__menu_mobile" v-if="showMobileMenu">
+      <a class="header__link" v-for="link in headerLinks" :key="link.id" :href="link.url">{{ link.description }}</a>
+      <p class="header__username" v-if="$auth.$storage.getLocalStorage('username')">Hello, {{ this.$auth.$storage.getLocalStorage('username') }}</p>
+      <p class="header__username" v-if="$auth.$storage.getLocalStorage('username') === ''"></p>
+      <button class="header__logout" @click.prevent="logoutUser">LOGOUT</button>
+    </nav>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapMutations } from "vuex";
 
 export default {
   data() {
@@ -45,18 +52,19 @@ export default {
         },
         {
           id: 2,
-          url: 'http://edu.susu.ru',
+          url: 'https://edu.susu.ru',
           description: 'E-SUSU',
         },
       ],
+      showMobileMenu: false,
     };
   },
   methods: {
     ...mapMutations(['logoutUser']),
+    toggleMobile() {
+      this.showMobileMenu = !this.showMobileMenu;
+    }
   },
-  computed: {
-    ...mapGetters(['loggedUsername']),
-  }
 };
 </script>
 
@@ -112,6 +120,11 @@ export default {
   cursor: pointer;
   text-align: center;
 }
+.header__username {
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
 .header__loggedout {
   text-align: center;
 }
@@ -123,6 +136,17 @@ export default {
   font-family: 'Open Sans', sans-serif;
   border: 2px solid white;
   border-radius: 10px;
+}
+
+
+.header__menu_mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #111111;
+  width: 100%;
+  font-size: 20px;
 }
 
 
@@ -152,6 +176,10 @@ export default {
     height: 75px;
     width: 75px;
   }
-
+}
+@media (min-width: 1240px) {
+  .header__menu_mobile {
+    display: none;
+  }
 }
 </style>

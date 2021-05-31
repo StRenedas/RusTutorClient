@@ -2,7 +2,6 @@ export default {
   state: {
     authenticated: false,
     admin: false,
-    username: ''
   },
   mutations: {
     setUser(state, res) {
@@ -10,11 +9,10 @@ export default {
       this.$auth.$storage.setLocalStorage('rating', res.rating);
       this.$auth.$storage.setLocalStorage('userid', res.userid);
       this.$auth.$storage.setLocalStorage('isadmin', res.isadmin);
-      state.username = res.username;
-      if (this.$auth.$storage.getLocalStorage('isadmin')===0) {
+      if (res.admin === 0) {
         this.$router.push({path: '/Levels'});
       } else {
-        this.$router.push({path: '/Ratings'});
+        this.$router.push({path: '/Teacher'});
       }
     },
     checkAuth(state) {
@@ -41,9 +39,6 @@ export default {
     isadmin(state) {
       return state.admin;
     },
-    loggedUsername(state) {
-      return state.username;
-    }
   },
   actions: {
     async signin({commit}, payload) {

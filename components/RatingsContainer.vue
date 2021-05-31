@@ -9,6 +9,7 @@
       <li class="students-ratings__name">{{ student.username }}</li>
       <li class="students-ratings__rating">{{ student.rating }}</li>
     </ul>
+    <slot></slot>
   </div>
 </template>
 
@@ -24,7 +25,7 @@ export default {
   methods: {
     ...mapMutations(['checkAdmin', 'checkAuth']),
     async getRatings() {
-      this.studentsInfo = await this.$axios.$get('http://127.0.0.1:3001/users')
+      this.studentsInfo = await this.$axios.$get('http://127.0.0.1:3001/ratings')
     }
   },
   computed: {
@@ -78,5 +79,28 @@ export default {
   padding-left: 0;
   font-size: 24px;
   font-weight: 300;
+}
+@media (max-width: 520px) {
+  .students-ratings__description {
+    font-size: 24px;
+    padding: 50px 0 75px;
+  }
+  .students-ratings__header {
+    font-size: 24px;
+  }
+  .students-ratings__list {
+    font-size: 22px;
+  }
+}
+@media (max-width: 400px) {
+  .students-ratings__description {
+    font-size: 22px;
+  }
+  .students-ratings__header {
+    font-size: 22px;
+  }
+  .students-ratings__list {
+    font-size: 18px;
+  }
 }
 </style>

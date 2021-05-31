@@ -6,7 +6,7 @@
     </div>
     <div class="levels-container" v-if="getLevel == 0">
       <div class="levels-cards__container" v-for="card in cards" :key="card.id" @click="setNewLevel(card.id)">
-        <div class="levels-cards__border">
+        <div class="levels-cards__border" v-bind:style="{border: card.border}">
           <img :src=card.levelImage alt="" class="levels-cards__image">
           <p class="levels-cards__title">{{ card.levelName }}</p>
           <p class="levels-cards__description">{{ card.levelDescription }}</p>
@@ -34,19 +34,22 @@ export default {
           id: 1,
           levelName: "Beginner",
           levelDescription: "Russian language basics",
-          levelImage: "/LevelCardsImages/language-white.svg"
+          levelImage: "/LevelCardsImages/language-white.svg",
+          border: '2px solid rgb(170, 255, 170)'
         },
         {
           id: 2,
           levelName: "Elementary",
           levelDescription: "Making a step forward",
-          levelImage: "/LevelCardsImages/learner-white.svg"
+          levelImage: "/LevelCardsImages/learner-white.svg",
+          border: '2px solid rgb(255, 255, 170)'
         },
         {
           id: 3,
           levelName: "Pre-Intermediate",
           levelDescription: "Not a game now!",
-          levelImage: "/LevelCardsImages/brain-white.svg"
+          levelImage: "/LevelCardsImages/brain-white.svg",
+          border: '2px solid rgb(255, 170, 170)'
         }
       ],
       taskCards: [
@@ -80,12 +83,6 @@ export default {
   computed: {
     ...mapGetters(["authenticated", "getLevel", "getType"]),
   },
-/*  async mounted() {
-    this.checkAuth()
-    if(!this.authenticated) {
-      await this.$router.push({path: '/'});
-    }
-  },*/
 };
 </script>
 
@@ -134,7 +131,7 @@ export default {
   width: 300px;
   height: 300px;
   border: 2px solid white;
-  border-radius: 10px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -172,7 +169,7 @@ export default {
   width: 300px;
   height: 300px;
   border: 2px solid white;
-  border-radius: 10px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
