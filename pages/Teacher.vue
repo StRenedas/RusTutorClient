@@ -35,7 +35,7 @@ export default {
   width: 100%;
   height: 850px;
 }
-@media (max-width: 600px) {
+@media (max-width: 880px) {
   .container {
     height: auto;
   }

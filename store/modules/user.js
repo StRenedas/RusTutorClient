@@ -23,6 +23,7 @@ export default {
       state.authenticated = false;
       state.admin = false;
       this.$auth.logout();
+      this.$router.push({path: '/'})
     },
     checkAuth(state) {
       state.authenticated = !!(this.$auth.$storage.getLocalStorage('username') !== '' && this.$auth.$storage.getLocalStorage('username'));

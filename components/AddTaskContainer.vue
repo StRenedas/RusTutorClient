@@ -1,24 +1,24 @@
 <template>
   <div class="new-task">
     <div class="new-task__container">
-      <div class="new-task__first-type">
+      <div class="new-task__type">
         <p class="new-task__description">Введите предложение для задания "Перевод слова"</p>
         <input class="new-task__text" type="text" v-model="task1.text" placeholder="Текст задания">
         <p class="new-task__tip">Выберите слово для перевода</p>
         <select class="new-task__selection" v-model="task1.word">
           <option v-for="word in splitTaskText1" :key="word">{{word}}</option>
         </select>
+        <p class="new-task__tip">Введите правильный ответ на задание</p>
+        <input class="new-task__answer" type="text" v-model="task1.answer">
         <p class="new-task__tip">Укажите уровень сложности</p>
         <select class="new-task__level" v-model="task1.level">
           <option v-for="level in levels" :key="level">{{level}}</option>
         </select>
-        <p class="new-task__answer-description">Введите правильный ответ на задание</p>
-        <input class="new-task__answer" type="text" v-model="task1.answer">
-        <p class="new-task__points-description">Введите количество очков за задание</p>
+        <p class="new-task__tip">Введите количество очков за задание</p>
         <input class="new-task__points" type="text" v-model.trim="$v.task1.points.$model">
         <button class="new-task__submit" @click.prevent="addTaskType1">Добавить задание</button>
       </div>
-      <div class="new-task__third-type">
+      <div class="new-task__type">
         <p class="new-task__description">Введите слово для задания "Выбор варианта"</p>
         <input class="new-task__text" type="text" v-model="task3.word" placeholder="Слово для задания">
         <p class="new-task__tip">Введите варианты ответа через пробел</p>
@@ -31,7 +31,7 @@
         <select class="new-task__level" v-model="task3.level">
           <option v-for="level in levels" :key="level">{{level}}</option>
         </select>
-        <p class="new-task__points-description">Введите количество очков за задание</p>
+        <p class="new-task__tip">Введите количество очков за задание</p>
         <input class="new-task__points" type="text" v-model.trim="$v.task3.points.$model">
         <button class="new-task__submit" @click.prevent="addTaskType3">Добавить задание</button>
       </div>
@@ -42,7 +42,7 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import {decimal} from 'vuelidate/lib/validators'
+import {numeric} from 'vuelidate/lib/validators'
 export default {
   data() {
     return {
@@ -67,10 +67,10 @@ export default {
   },
   validations: {
     task1: {
-      points: { decimal },
+      points: { numeric },
     },
     task3: {
-      points: { decimal }
+      points: { numeric }
     }
   },
   methods: {
@@ -137,26 +137,19 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
+
 }
-.new-task__first-type {
+.new-task__type {
   height: 500px;
   width: 500px;
-  border: 2px solid white;
+  border: 3px solid white;
   border-radius: 10px;
   padding: 30px 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-.new-task__third-type {
-  height: 500px;
-  width: 500px;
-  border: 2px solid white;
-  border-radius: 10px;
-  padding: 30px 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 .new-task__selection {
   width: 200px;
@@ -165,22 +158,69 @@ export default {
 .new-task__text {
   width: 300px;
   padding: 10px;
+  /*align-self: center;*/
+}
+.new-task__options {
+  width: 300px;
+  padding: 5px;
+  /*align-self: center;*/
+}
+.new-task__level {
+  width: 50px;
+}
+.new-task__points {
+  width: 70px;
+}
+.new-task__submit {
+  width: 200px;
+  padding: 5px;
+  /*align-self: center;*/
 }
 
 @media (max-width: 1235px) {
   .new-task {
     flex-direction: column;
     align-items: center;
-    text-align: left;
   }
+  .new-task__container {
+    /*flex-direction: column;*/
+  }
+  .new-task__type {
+    width: 400px;
+    height: 400px;
+  }
+  .new-task__tip {
+    font-size: 20px;
+  }
+  .new-task__description {
+    font-size: 20px;
+  }
+}
+@media (max-width: 880px) {
   .new-task__container {
     flex-direction: column;
   }
-  .new-task__first-type {
-
+  .new-task__type {
+    margin: 10px;
   }
-  .new-task__third-type {
-
+}
+@media (max-width: 424px) {
+  .new-task__tip {
+    font-size: 16px;
+  }
+  .new-task__description {
+    font-size: 16px;
+  }
+  .new-task__type {
+    width: 300px;
+    height: auto;
+  }
+  .new-task__text {
+    width: 250px;
+    padding: 5px;
+  }
+  .new-task__options {
+    width: 250px;
   }
 }
 </style>

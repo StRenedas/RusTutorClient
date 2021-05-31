@@ -96,7 +96,7 @@ export default {
   width: 100%;
   min-height: 850px;
   height: auto;
-  background-color: #25618C;
+  background-color: #0A132D;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -119,7 +119,7 @@ export default {
 .task__place {
   padding: 20px 20px;
   background-color: white;
-  border: 2px solid black;
+  border: 3px solid black;
   border-radius: 10px;
   font-size: 30px;
   font-weight: 300;
