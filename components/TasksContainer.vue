@@ -65,8 +65,9 @@ export default {
         rating: this.$auth.$storage.getLocalStorage('rating'),
       };
       console.log(payload);
-      const res = await this.$axios.$post('https://rustutor-backend.herokuapp.com/process', payload );
-      this.$auth.$storage.setLocalStorage('rating', res.updatedRating);
+      const res = await this.$axios.$post('https://rustutor-backend.herokuapp.com/process', payload);
+      const rat = await this.$axios.$post('https://rustutor-backend.herokuapp.com/rating', payload);
+      await this.$auth.$storage.setLocalStorage('rating', rat.updatedRating);
       await this.$router.push('/Levels');
     }
   },
@@ -150,6 +151,11 @@ export default {
   height: 100px;
   width: 100px;
   border-radius: 10px;
+}
+.task__select {
+  min-width: 200px;
+  padding: 10px;
+  font-size: 22px;
 }
 
 .task__submit {
