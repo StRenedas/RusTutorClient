@@ -89,7 +89,7 @@ export default {
   display: none;
   width: 40px;
   height: 40px;
-  padding-right: 20px;
+  margin-right: 20px;
 }
 .header__burger-img {
   width: 40px;
@@ -105,7 +105,7 @@ export default {
   display: none;
   height: 75px;
   width: 75px;
-  padding-left: 20px;
+  margin-left: 20px;
 }
 .header__logo-link {
   height: 75px;
@@ -113,7 +113,6 @@ export default {
 .header__logo-link-small {
   height: 75px;
   display: none;
-  padding-left: 20px;
 }
 .header__menu {
   width: 50%;
