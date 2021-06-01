@@ -94,6 +94,10 @@ export default {
     },
     async registerUser() {
       let isRegistered = await this.$axios.$post('https://rustutor-backend.herokuapp.com/register', this.signUser);
+      this.signUser.username = ''
+      this.signUser.email = ''
+      this.signUser.password = ''
+      this.signUser.repPassword = ''
       console.log(isRegistered);
     },
   },

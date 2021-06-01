@@ -15,8 +15,8 @@
       <a class="header__burger" @click.prevent="toggleMobile"><img src="../static/burgerMenu.png" alt="burgerbutton" class="header__burger-img"></a>
     </div>
     <div class="header__container" v-else>
-      <nuxt-link class="header__logo-link" to="/"><img class="header__logo-big" src="../static/LogoImages/susuLogoBig.png"></nuxt-link>
-      <nuxt-link class="header__logo-link-small" to="/"><img class="header__logo-small" src="../static/LogoImages/susuLogoSmall.png"></nuxt-link>
+      <nuxt-link class="header__logo-link" to="/" @click.prevent="revertLT()"><img class="header__logo-big" src="../static/LogoImages/susuLogoBig.png"></nuxt-link>
+      <nuxt-link class="header__logo-link-small" to="/" @click.prevent="revertLT()"><img class="header__logo-small" src="../static/LogoImages/susuLogoSmall.png"></nuxt-link>
       <nav class="header__menu">
         <a
           class="header__link"
@@ -33,7 +33,7 @@
       <a class="header__link" v-for="link in headerLinks" :key="link.id" :href="link.url">{{ link.description }}</a>
       <p class="header__username" v-if="$auth.$storage.getLocalStorage('username')">Hello, {{ this.$auth.$storage.getLocalStorage('username') }}</p>
       <p class="header__username" v-if="$auth.$storage.getLocalStorage('username') === ''"></p>
-      <button class="header__logout" @click.prevent="logoutUser">LOGOUT</button>
+      <button class="header__logout" v-if="$auth.$storage.getLocalStorage('username')" @click.prevent="logoutUser">LOGOUT</button>
     </nav>
   </div>
 </template>
@@ -60,9 +60,13 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(['logoutUser']),
+    ...mapMutations(['logoutUser', 'setLevel', 'setType']),
     toggleMobile() {
       this.showMobileMenu = !this.showMobileMenu;
+    },
+    revertLT() {
+      this.setType(0);
+      this.setLevel(0);
     }
   },
 };
