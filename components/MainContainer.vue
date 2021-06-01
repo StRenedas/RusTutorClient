@@ -93,7 +93,7 @@ export default {
       await this.signin(this.logUser);
     },
     async registerUser() {
-      let isRegistered = await this.$axios.$post('http://127.0.0.1:3001/register', this.signUser);
+      let isRegistered = await this.$axios.$post('https://rustutor-backend.herokuapp.com/register', this.signUser);
       console.log(isRegistered);
     },
   },

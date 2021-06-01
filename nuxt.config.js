@@ -71,7 +71,7 @@ export default {
           property: 'username'
         },
         endpoints: {
-          login: {url: 'http://127.0.0.1:3001/login', method: 'post', propertyName: 'token'},
+          login: {url: 'https://rustutor-backend.herokuapp.com/login', method: 'post', propertyName: 'token'},
           logout: {url: 'http://127.0.0.1:3001/logout', method: 'post'},
           user: false
         }
