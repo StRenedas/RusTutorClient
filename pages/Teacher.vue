@@ -33,7 +33,7 @@ export default {
 <style scoped>
 .container {
   width: 100%;
-  height: 850px;
+  height: 800px;
 }
 @media (max-width: 880px) {
   .container {

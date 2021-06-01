@@ -54,7 +54,7 @@ export default {
       this.action = 0
     },
     async getRatings() {
-      this.studentsInfo = await this.$axios.$get('http://127.0.0.1:3001/ratings')
+      this.studentsInfo = await this.$axios.$get('https://rustutor-backend.herokuapp.com/ratings')
     }
   },
   computed: {

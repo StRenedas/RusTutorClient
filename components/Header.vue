@@ -83,12 +83,13 @@ export default {
 }
 .header__burger {
   display: none;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
+  padding-right: 10px;
 }
 .header__burger-img {
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
 }
 .header__logo-big {
   display: block;
@@ -106,6 +107,7 @@ export default {
 .header__logo-link-small {
   height: 75px;
   display: none;
+  padding-left: 10px;
 }
 .header__menu {
   width: 50%;
@@ -153,6 +155,7 @@ export default {
 @media (max-width: 1240px) {
   .header__container {
     flex-direction: row;
+    justify-content: space-between;
   }
   .header__logo-big {
     display: none;
@@ -167,7 +170,9 @@ export default {
     display: block;
   }
   .header__burger {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .header__menu {
     display: none;

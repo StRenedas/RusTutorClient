@@ -77,7 +77,7 @@ export default {
     ...mapMutations(['checkAuth', 'checkAdmin']),
     async addTaskType1() {
       this.task1.text = this.task1.text.replace(this.task1.word, "<b>"+this.task1.word+"</b>")
-      await this.$axios.$post("http://127.0.0.1:3001/task",{
+      await this.$axios.$post("https://rustutor-backend.herokuapp.com/task",{
         text: this.task1.text,
         answer: this.task1.answer,
         level: this.task1.level,
@@ -90,7 +90,7 @@ export default {
     },
     async addTaskType3 () {
       this.task3.splitOptions = this.task3.splitOptions.filter(word => word !== this.task3.selectedWord);
-      await this.$axios.$post("http://127.0.0.1:3001/task",{
+      await this.$axios.$post("https://rustutor-backend.herokuapp.com/task",{
         text: this.task3.word,
         answer: this.task3.selectedWord,
         options: this.task3.splitOptions,

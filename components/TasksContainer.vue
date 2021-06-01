@@ -65,7 +65,7 @@ export default {
         rating: this.$auth.$storage.getLocalStorage('rating'),
       };
       console.log(payload);
-      const res = await this.$axios.$post('http://localhost:3001/process', payload );
+      const res = await this.$axios.$post('https://rustutor-backend.herokuapp.com/process', payload );
       this.$auth.$storage.setLocalStorage('rating', res.updatedRating);
       await this.$router.push('/Levels');
     }
