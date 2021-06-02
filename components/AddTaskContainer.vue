@@ -98,6 +98,12 @@ export default {
         points: this.task3.points,
         type: 3
       })
+      this.task3.options = '';
+      this.task3.word = '';
+      this.task3.selectedWord = '';
+      this.task3.splitOptions = [];
+      this.task3.points = '';
+      this.task3.level = '';
     },
   },
   computed: {
