@@ -89,7 +89,7 @@ export default {
       this.task1.answer = '';
     },
     async addTaskType3 () {
-      this.task3.splitOptions = this.task3.text.filter(word => word !== this.task3.selectedWord);
+      this.task3.splitOptions = this.task3.options.filter(word => word !== this.task3.selectedWord);
       await this.$axios.$post("https://rustutor-backend.herokuapp.com/task",{
         text: this.task3.word,
         answer: this.task3.selectedWord,
