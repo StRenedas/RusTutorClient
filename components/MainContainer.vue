@@ -6,13 +6,16 @@
         <form class="form__sign">
           <input class="form-input" type="text" name="reg_login" placeholder="Login:" v-model.trim="$v.signUser.username.$model">
           <input class="form-input" type="email" name="email" placeholder="E-mail:" v-model.trim="$v.signUser.email.$model">
+          <input class="form-input" type="text" name="name" placeholder="Name and surname:" v-model.trim="$v.signUser.name.$model">
           <input class="form-input" type="password" name="reg_pass" placeholder="Password:" v-model.trim="$v.signUser.password.$model">
           <input class="form-input" type="password" name="reg_pass_repeat" placeholder="Repeat password:" v-model.trim="$v.signUser.repPassword.$model">
-          <error v-if="!$v.signUser.username.minLength" :error-description='"Username must be at least 8 characters long!"'></error>
-          <error v-if="!$v.signUser.email.email" :error-description='"Please submit a correct e-mail!"'></error>
-          <error v-if="!$v.signUser.password.minLength" :error-description='"Password must be at least 8 characters long!"'></error>
-          <error v-if="!$v.signUser.repPassword.sameAs" :error-description='"Passwords must match!"'></error>
+          <error v-if="!$v.signUser.username.minLength" :error-description='"Username must be at least 8 characters long"'></error>
+          <error v-if="!$v.signUser.email.email" :error-description='"Please submit a correct e-mail"'></error>
+          <error v-if="!$v.signUser.name.required" :error-description='"Please submit your name and surname"'></error>
+          <error v-if="!$v.signUser.password.minLength" :error-description='"Password must be at least 8 characters long"'></error>
+          <error v-if="!$v.signUser.repPassword.sameAs" :error-description='"Passwords must match"'></error>
           <button class="form-submit" @click.prevent="registerUser()" :disabled="$v.signUser.invalid">SIGN UP</button>
+          <p class="form__submitted" v-if="isRegistered!==''">{{isRegistered}}</p>
         </form>
       </div>
       <div class="form">
@@ -20,8 +23,8 @@
         <form class="form__sign">
           <input class="form-input" type="text" name="auth_login" placeholder="Login:" v-model.trim="$v.logUser.logusername.$model">
           <input class="form-input" type="password" name="auth_pass" placeholder="Password:" v-model.trim="$v.logUser.logpassword.$model">
-          <error v-if="!$v.logUser.logusername.minLength" :error-description='"Username must be at least 8 characters long!"'></error>
-          <error v-if="!$v.logUser.logpassword.minLength" :error-description='"Password must be at least 8 characters long!"'></error>
+          <error v-if="!$v.logUser.logusername.minLength" :error-description='"Username must be at least 8 characters long"'></error>
+          <error v-if="!$v.logUser.logpassword.minLength" :error-description='"Password must be at least 8 characters long"'></error>
           <button class="form-submit" @click.prevent="loginAuth()" :disabled='$v.logUser.invalid'>SIGN IN</button>
         </form>
       </div>
@@ -31,7 +34,7 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
-import {required, minLength, email, sameAs} from 'vuelidate/lib/validators'
+import {required, minLength, email, sameAs, alpha} from 'vuelidate/lib/validators'
 import Error from '@/components/ui/Error'
 export default {
   components: {
@@ -42,6 +45,7 @@ export default {
       signUser: {
         username: '',
         email: '',
+        name: '',
         password: '',
         repPassword: ''
       },
@@ -50,6 +54,7 @@ export default {
         logpassword: ''
       },
       errorText: '',
+      isRegistered: ''
     }
   },
   validations: {
@@ -61,6 +66,9 @@ export default {
       email: {
         required,
         email,
+      },
+      name: {
+        required,
       },
       password: {
         required,
@@ -93,12 +101,13 @@ export default {
       await this.signin(this.logUser);
     },
     async registerUser() {
-      let isRegistered = await this.$axios.$post('https://rustutor-backend.herokuapp.com/register', this.signUser);
-      this.signUser.username = ''
-      this.signUser.email = ''
-      this.signUser.password = ''
-      this.signUser.repPassword = ''
-      console.log(isRegistered);
+      this.isRegistered = await this.$axios.$post('https://rustutor-backend.herokuapp.com/register', this.signUser);
+      this.signUser.username = '';
+      this.signUser.email = '';
+      this.signUser.name = '';
+      this.signUser.password = '';
+      this.signUser.repPassword = '';
+      console.log(this.isRegistered);
     },
   },
 };

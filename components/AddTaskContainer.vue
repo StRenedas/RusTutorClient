@@ -14,7 +14,7 @@
         <select class="new-task__level" v-model="task1.level">
           <option v-for="level in levels" :key="level">{{level}}</option>
         </select>
-        <p class="new-task__tip">Введите количество очков за задание</p>
+        <p class="new-task__tip">Введите количество баллов за задание</p>
         <input class="new-task__points" type="text" v-model.trim="$v.task1.points.$model">
         <button class="new-task__submit" @click.prevent="addTaskType1">Добавить задание</button>
       </div>
@@ -31,7 +31,7 @@
         <select class="new-task__level" v-model="task3.level">
           <option v-for="level in levels" :key="level">{{level}}</option>
         </select>
-        <p class="new-task__tip">Введите количество очков за задание</p>
+        <p class="new-task__tip">Введите количество баллов за задание</p>
         <input class="new-task__points" type="text" v-model.trim="$v.task3.points.$model">
         <button class="new-task__submit" @click.prevent="addTaskType3">Добавить задание</button>
       </div>
@@ -90,12 +90,6 @@ export default {
     },
     async addTaskType3 () {
       this.task3.splitOptions = this.task3.splitOptions.filter(word => word !== this.task3.selectedWord);
-      console.log(this.task3.word)
-      console.log(this.task3.selectedWord)
-      console.log(this.task3.splitOptions)
-      console.log(this.task3.level)
-      console.log(this.task3.word)
-      console.log(this.task3.points)
       await this.$axios.$post("https://rustutor-backend.herokuapp.com/task",{
         text: this.task3.word,
         answer: this.task3.selectedWord,
