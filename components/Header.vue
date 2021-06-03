@@ -15,8 +15,10 @@
       <a class="header__burger" @click.prevent="toggleMobile"><img src="../static/burgerMenu.png" alt="burgerbutton" class="header__burger-img"></a>
     </div>
     <div class="header__container" v-else>
-      <nuxt-link class="header__logo-link" to="/" @click.prevent="revertLT()"><img class="header__logo-big" src="../static/LogoImages/susuLogoBig.png"></nuxt-link>
-      <nuxt-link class="header__logo-link-small" to="/" @click.prevent="revertLT()"><img class="header__logo-small" src="../static/LogoImages/susuLogoSmall.png"></nuxt-link>
+<!--      <nuxt-link class="header__logo-link" to="/" @click.prevent="revertLT()"><img class="header__logo-big" src="../static/LogoImages/susuLogoBig.png"></nuxt-link>
+      <nuxt-link class="header__logo-link-small" to="/" @click.prevent="revertLT()"><img class="header__logo-small" src="../static/LogoImages/susuLogoSmall.png"></nuxt-link>-->
+      <img class="header__logo-big" src="../static/LogoImages/susuLogoBig.png" @click.prevent="revertLT()" alt="SUSU Logo">
+      <img class="header__logo-small" src="../static/LogoImages/susuLogoSmall.png" @click.prevent="revertLT()" alt="SUSU Logo">
       <nav class="header__menu">
         <a
           class="header__link"
@@ -65,6 +67,9 @@ export default {
       this.showMobileMenu = !this.showMobileMenu;
     },
     revertLT() {
+      if (this.$route.path === "/Tasks") {
+        this.$router.push("/Levels")
+      }
       this.setType(0);
       this.setLevel(0);
     }
@@ -100,12 +105,14 @@ export default {
   height: 75px;
   width: 600px;
   padding-left: 20px;
+  cursor: pointer;
 }
 .header__logo-small {
   display: none;
   height: 75px;
   width: 75px;
   margin-left: 20px;
+  cursor: pointer;
 }
 .header__logo-link {
   height: 75px;
