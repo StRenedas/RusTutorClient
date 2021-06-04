@@ -1,9 +1,12 @@
 <template>
   <div class="students-ratings">
-    <p class="students-ratings__description">Ниже отображены рейтинги всех зарегистрированных студентов</p>
+    <p class="students-ratings__description">Ниже представлены баллы всех зарегистрированных студентов</p>
+    <select name="sort" id="sort">
+      <option value=""></option>
+    </select>
     <div class="students-ratings__header">
-      <p class="students-ratings__header_name">USERNAME</p>
-      <p class="students-ratings__header_rating">RATING</p>
+      <p class="students-ratings__header_name">Имя студента</p>
+      <p class="students-ratings__header_rating">Сумма баллов</p>
     </div>
     <ul class="students-ratings__list" v-for="student in studentsInfo" :key="student.id">
       <li class="students-ratings__name">{{ student.username }}</li>
@@ -20,12 +23,16 @@ export default {
   data() {
     return {
       studentsInfo: [],
+      sortPicked: 0,
     }
   },
   methods: {
     ...mapMutations(['checkAdmin', 'checkAuth']),
     async getRatings() {
       this.studentsInfo = await this.$axios.$get('https://rustutor-backend.herokuapp.com/ratings')
+    },
+    sortByName() {
+      this.studentsInfo.sort();
     }
   },
   computed: {
@@ -38,7 +45,6 @@ export default {
       await this.$router.push({path: '/'});
     }
     await this.getRatings();
-    console.log(this.studentsInfo);
   }
 };
 

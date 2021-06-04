@@ -11,10 +11,10 @@
           <input class="form-input" type="password" name="reg_pass_repeat" placeholder="Repeat password:" v-model.trim="$v.signUser.repPassword.$model">
           <error v-if="!$v.signUser.username.minLength" :error-description='"Username must be at least 8 characters long"'></error>
           <error v-if="!$v.signUser.email.email" :error-description='"Please submit a correct e-mail"'></error>
-          <error v-if="!$v.signUser.name.required" :error-description='"Please submit your name and surname"'></error>
+          <error v-if="!$v.signUser.name.required" :error-description='"Please submit your real name and surname"'></error>
           <error v-if="!$v.signUser.password.minLength" :error-description='"Password must be at least 8 characters long"'></error>
           <error v-if="!$v.signUser.repPassword.sameAs" :error-description='"Passwords must match"'></error>
-          <button class="form-submit" @click.prevent="registerUser()" :disabled="$v.signUser.invalid">SIGN UP</button>
+          <button class="form-submit" @click.prevent="registerUser()" :disabled="$v.signUser.$anyError" :class="{'form-submit-allowed': !$v.signUser.$anyError}">SIGN UP</button>
           <p class="form__submitted" v-if="isRegistered!==''">{{isRegistered}}</p>
         </form>
       </div>
@@ -25,7 +25,7 @@
           <input class="form-input" type="password" name="auth_pass" placeholder="Password:" v-model.trim="$v.logUser.logpassword.$model">
           <error v-if="!$v.logUser.logusername.minLength" :error-description='"Username must be at least 8 characters long"'></error>
           <error v-if="!$v.logUser.logpassword.minLength" :error-description='"Password must be at least 8 characters long"'></error>
-          <button class="form-submit" @click.prevent="loginAuth()" :disabled='$v.logUser.invalid'>SIGN IN</button>
+          <button class="form-submit" @click.prevent="loginAuth()" :disabled="$v.logUser.$anyError" :class="{'form-submit-allowed': !$v.logUser.$anyError}">SIGN IN</button>
         </form>
       </div>
     </div>
@@ -168,10 +168,14 @@ export default {
   border-radius: 10px;
   font-size: 20px;
   background-color: #1E3878;
-  color: #AEA2A2
+  color: white;
 }
 .form-submit:hover {
-  background-color: chartreuse;
+  cursor: not-allowed;
+}
+.form-submit-allowed:hover {
+  background-color: darkseagreen;
+  cursor: pointer;
 }
 @media (max-width: 1250px) {
   .main-page__forms {

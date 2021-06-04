@@ -36,6 +36,7 @@
       </div>
       <button class='task__submit' @click="sendAnswers">Submit all</button>
     </div>
+
   </div>
 </template>
 

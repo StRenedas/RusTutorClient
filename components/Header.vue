@@ -15,8 +15,6 @@
       <a class="header__burger" @click.prevent="toggleMobile"><img src="../static/burgerMenu.png" alt="burgerbutton" class="header__burger-img"></a>
     </div>
     <div class="header__container" v-else>
-<!--      <nuxt-link class="header__logo-link" to="/" @click.prevent="revertLT()"><img class="header__logo-big" src="../static/LogoImages/susuLogoBig.png"></nuxt-link>
-      <nuxt-link class="header__logo-link-small" to="/" @click.prevent="revertLT()"><img class="header__logo-small" src="../static/LogoImages/susuLogoSmall.png"></nuxt-link>-->
       <img class="header__logo-big" src="../static/LogoImages/susuLogoBig.png" @click.prevent="revertLT()" alt="SUSU Logo">
       <img class="header__logo-small" src="../static/LogoImages/susuLogoSmall.png" @click.prevent="revertLT()" alt="SUSU Logo">
       <nav class="header__menu">
@@ -166,19 +164,12 @@ export default {
 
 @media (max-width: 1240px) {
   .header__container {
-    flex-direction: row;
     justify-content: space-between;
   }
   .header__logo-big {
     display: none;
   }
   .header__logo-small {
-    display: block;
-  }
-  .header__logo-link {
-    display: none;
-  }
-  .header__logo-link-small {
     display: block;
   }
   .header__burger {
