@@ -80,8 +80,8 @@ export default {
         type: this.getType,
         userid: this.$auth.$storage.getLocalStorage('userid')
       });
-      if (this.getQuesions.length === 0) {
-
+      if (this.getQuestions.length === 0) {
+        console.log('no questions to solve')
       }
       else {
         for (let i = 0; i < this.getQuestions.length; i++) {
