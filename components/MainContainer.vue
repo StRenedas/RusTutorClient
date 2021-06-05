@@ -9,11 +9,11 @@
           <input class="form-input" type="text" name="name" placeholder="Name and surname:" v-model.trim="$v.signUser.name.$model">
           <input class="form-input" type="password" name="reg_pass" placeholder="Password:" v-model.trim="$v.signUser.password.$model">
           <input class="form-input" type="password" name="reg_pass_repeat" placeholder="Repeat password:" v-model.trim="$v.signUser.repPassword.$model">
-          <error v-if="!$v.signUser.username.minLength" :error-description='"Username must be at least 8 characters long"'></error>
-          <error v-if="!$v.signUser.email.email" :error-description='"Please submit a correct e-mail"'></error>
-          <error v-if="!$v.signUser.name.required" :error-description='"Please submit your real name and surname"'></error>
-          <error v-if="!$v.signUser.password.minLength" :error-description='"Password must be at least 8 characters long"'></error>
-          <error v-if="!$v.signUser.repPassword.sameAs" :error-description='"Passwords must match"'></error>
+          <error v-if="!$v.signUser.username.minLength" :error-description='"Username must be at least 8 characters long"' />
+          <error v-if="!$v.signUser.email.email" :error-description='"Please submit a correct e-mail"' />
+          <error v-if="!$v.signUser.name.required && !$v.signUser.name.$dirty" :error-description='"Please submit your real name and surname"' />
+          <error v-if="!$v.signUser.password.minLength" :error-description='"Password must be at least 8 characters long"' />
+          <error v-if="!$v.signUser.repPassword.sameAs" :error-description='"Passwords must match"' />
           <button class="form-submit" @click.prevent="registerUser()" :disabled="$v.signUser.$anyError" :class="{'form-submit-allowed': !$v.signUser.$anyError}">SIGN UP</button>
           <p class="form__submitted" v-if="isRegistered!==''">{{isRegistered}}</p>
         </form>
@@ -23,9 +23,10 @@
         <form class="form__sign">
           <input class="form-input" type="text" name="auth_login" placeholder="Login:" v-model.trim="$v.logUser.logusername.$model">
           <input class="form-input" type="password" name="auth_pass" placeholder="Password:" v-model.trim="$v.logUser.logpassword.$model">
-          <error v-if="!$v.logUser.logusername.minLength" :error-description='"Username must be at least 8 characters long"'></error>
-          <error v-if="!$v.logUser.logpassword.minLength" :error-description='"Password must be at least 8 characters long"'></error>
+          <error v-if="!$v.logUser.logusername.minLength" :error-description='"Username must be at least 8 characters long"' />
+          <error v-if="!$v.logUser.logpassword.minLength" :error-description='"Password must be at least 8 characters long"' />
           <button class="form-submit" @click.prevent="loginAuth()" :disabled="$v.logUser.$anyError" :class="{'form-submit-allowed': !$v.logUser.$anyError}">SIGN IN</button>
+          <p class="form__submitted" v-if="noLogged!==''">{{noLogged}}</p>
         </form>
       </div>
     </div>
@@ -54,7 +55,8 @@ export default {
         logpassword: ''
       },
       errorText: '',
-      isRegistered: ''
+      isRegistered: '',
+      noLogged: ''
     }
   },
   validations: {
@@ -98,16 +100,25 @@ export default {
     ...mapMutations(['checkAuth']),
     ...mapActions(['signin']),
     async loginAuth() {
-      await this.signin(this.logUser);
+      await this.$v.logUser.$touch();
+      if (this.$v.logUser.$invalid) {
+        this.noLogged = 'invalid form';
+      } else {
+        await this.signin(this.logUser);
+      }
     },
     async registerUser() {
-      this.isRegistered = await this.$axios.$post('https://rustutor-backend.herokuapp.com/register', this.signUser);
-      this.signUser.username = '';
-      this.signUser.email = '';
-      this.signUser.name = '';
-      this.signUser.password = '';
-      this.signUser.repPassword = '';
-      console.log(this.isRegistered);
+      this.$v.signUser.$touch();
+      if (this.$v.signUser.$invalid) {
+        this.isRegistered = 'form is invalid, please try again';
+      } else {
+        this.isRegistered = await this.$axios.$post('https://rustutor-backend.herokuapp.com/register', this.signUser);
+        this.signUser.username = '';
+        this.signUser.email = '';
+        this.signUser.name = '';
+        this.signUser.password = '';
+        this.signUser.repPassword = '';
+      }
     },
   },
 };
@@ -124,8 +135,6 @@ export default {
   justify-content: space-evenly;
   align-items: center;
 }
-
-
 .form{
   display: flex;
   flex-direction: column;
@@ -147,9 +156,6 @@ export default {
   align-items: center;
   width: 350px;
 }
-
-
-
 .form-input {
   width: 70%;
   margin-top: 4%;
