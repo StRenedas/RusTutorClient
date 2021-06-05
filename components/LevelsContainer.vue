@@ -4,7 +4,7 @@
       <p class="user-text">Get yourself some practice!</p>
       <p class="user-rating">Your current rating is {{ this.$auth.$storage.getLocalStorage("rating") }}</p>
     </div>
-    <div class="levels-container" v-if="getLevel == 0">
+    <div class="levels-container" v-if="getLevel === 0">
       <div class="levels-cards__container" v-for="card in cards" :key="card.id" @click="setNewLevel(card.id)">
         <div class="levels-cards__border" v-bind:style="{border: card.border}">
           <img :src=card.levelImage alt="" class="levels-cards__image">
@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <div class="tasks-container" v-if="getLevel != 0">
+    <div class="tasks-container" v-if="getLevel !== 0">
       <div class="tasks-cards__container" v-for="task in taskCards" :key="task.id" @click="setNewType(task.id)">
         <div class="tasks-cards__border">
           <img :src=task.taskImage alt="" class="tasks-cards__image">
@@ -136,6 +136,10 @@ export default {
   justify-content: space-evenly;
   align-items: center;
   margin: 20px;
+  transition: transform .4s ease-out;
+}
+.levels-cards__border:hover {
+  transform: translate(0, -10px);
 }
 
 .levels-cards__image {
@@ -174,6 +178,10 @@ export default {
   justify-content: space-evenly;
   align-items: center;
   margin: 20px;
+  transition: transform .4s ease-out;
+}
+.tasks-cards__border:hover {
+  transform: translate(0, -10px);
 }
 
 .tasks-cards__image {

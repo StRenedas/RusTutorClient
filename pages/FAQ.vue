@@ -8,6 +8,7 @@
 import FAQContainer from "@/components/FAQContainer"
 
 export default {
+  middleware: 'authentication',
   components: {
     'faq-container': FAQContainer
   },
