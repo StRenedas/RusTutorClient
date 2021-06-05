@@ -65,7 +65,6 @@ export default {
         answers: this.answers,
         rating: this.$auth.$storage.getLocalStorage('rating'),
       };
-      console.log(payload);
       const res = await this.$axios.$post('https://rustutor-backend.herokuapp.com/process', payload);
       const rat = await this.$axios.$post('https://rustutor-backend.herokuapp.com/rating', payload);
       await this.$auth.$storage.setLocalStorage('rating', rat.updatedRating);
@@ -84,7 +83,6 @@ export default {
       for (let i = 0; i < this.getQuestions.length; i++) {
         this.answers.push({qid: this.getQuestions[i].id, ans: ''})
       }
-      console.log(this.getQuestions);
   }
 }
 </script>

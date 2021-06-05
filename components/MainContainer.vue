@@ -102,7 +102,7 @@ export default {
     async loginAuth() {
       await this.$v.logUser.$touch();
       if (this.$v.logUser.$invalid) {
-        this.noLogged = 'invalid form';
+        this.noLogged = 'Please fill the form';
       } else {
         await this.signin(this.logUser);
       }
@@ -110,7 +110,7 @@ export default {
     async registerUser() {
       this.$v.signUser.$touch();
       if (this.$v.signUser.$invalid) {
-        this.isRegistered = 'form is invalid, please try again';
+        this.isRegistered = 'Please fill the form';
       } else {
         this.isRegistered = await this.$axios.$post('https://rustutor-backend.herokuapp.com/register', this.signUser);
         this.signUser.username = '';
@@ -182,6 +182,11 @@ export default {
 .form-submit-allowed:hover {
   background-color: darkseagreen;
   cursor: pointer;
+}
+.form__submitted {
+  color: white;
+  font-weight: 400;
+  padding-bottom: 20px;
 }
 @media (max-width: 1250px) {
   .main-page__forms {

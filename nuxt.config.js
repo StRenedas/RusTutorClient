@@ -8,7 +8,9 @@ export default {
       { hid: 'description', name: 'description', content: '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: "preconnect", href: "https://fonts.gstatic.com"},
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap"}
     ]
   },
 
@@ -36,7 +38,6 @@ export default {
     '@nuxtjs/pwa',
     //auth
     '@nuxtjs/auth-next',
-    //vuelidate
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

@@ -43,7 +43,6 @@ export default {
         commit('revertQuestions');
         this.state.questions = [];
         const questions = await this.$axios.$post("https://rustutor-backend.herokuapp.com/tasks", payload);
-        console.log(questions[0].id);
         for (let i = 0; i < questions.length; i++) {
           questions[i].options = await this.$axios.$post('https://rustutor-backend.herokuapp.com/options', { id: questions[i].id });
         }

@@ -112,13 +112,6 @@ export default {
   margin-left: 20px;
   cursor: pointer;
 }
-.header__logo-link {
-  height: 75px;
-}
-.header__logo-link-small {
-  height: 75px;
-  display: none;
-}
 .header__menu {
   width: 50%;
   display: flex;
@@ -135,7 +128,7 @@ export default {
 .header__username {
   color: white;
   text-align: center;
-  cursor: pointer;
+  cursor: default;
 }
 .header__loggedout {
   text-align: center;
@@ -148,6 +141,12 @@ export default {
   font-family: 'Open Sans', sans-serif;
   border: 2px solid white;
   border-radius: 10px;
+  cursor: pointer;
+}
+.header__logout:hover {
+  color: black;
+  border: 2px solid black;
+  background-color: white;
 }
 
 
@@ -179,10 +178,6 @@ export default {
   }
   .header__menu {
     display: none;
-  }
-  .header__logo-link {
-    height: 75px;
-    width: 75px;
   }
 }
 @media (min-width: 1240px) {
