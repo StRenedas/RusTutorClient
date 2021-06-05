@@ -80,8 +80,13 @@ export default {
         type: this.getType,
         userid: this.$auth.$storage.getLocalStorage('userid')
       });
-      for (let i = 0; i < this.getQuestions.length; i++) {
-        this.answers.push({qid: this.getQuestions[i].id, ans: ''})
+      if (this.getQuesions.length === 0) {
+
+      }
+      else {
+        for (let i = 0; i < this.getQuestions.length; i++) {
+          this.answers.push({qid: this.getQuestions[i].id, ans: ''})
+        }
       }
   }
 }

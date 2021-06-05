@@ -24,8 +24,8 @@
           :key="link.id"
           :href="link.url"
         >{{ link.description }}</a>
-        <p class="header__username">Hello, {{ this.$auth.$storage.getLocalStorage('username') }}</p>
-        <button class="header__logout" @click.prevent="logoutUser">LOGOUT</button>
+        <p class="header__username" v-if="this.$auth.$storage.getLocalStorage('username')">Hello, {{ this.$auth.$storage.getLocalStorage('username') }}</p>
+        <button class="header__logout" @click.prevent="logoutUser" v-if="this.$auth.$storage.getLocalStorage('username')">LOGOUT</button>
       </nav>
       <a class="header__burger" @click.prevent="toggleMobile"><img src="../static/burgerMenu.png" alt="burgerbutton" class="header__burger-img"></a>
     </div>
