@@ -1,5 +1,5 @@
 <template>
-  <div class="main-page" >
+  <div class="main-page">
     <div class="main-page__forms">
       <div class="form">
         <p class="form__description">Sign Up</p>
@@ -35,11 +35,14 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
-import {required, minLength, email, sameAs, alpha} from 'vuelidate/lib/validators'
-import Error from '@/components/ui/Error'
+import { email, minLength, required, sameAs } from "vuelidate/lib/validators";
+import Error from "@/components/ui/Error";
+import Popup from "@/components/ui/Popup";
+
 export default {
   components: {
-    'error': Error
+    'error': Error,
+    'popup': Popup,
   },
   data() {
     return {
@@ -104,7 +107,8 @@ export default {
       if (this.$v.logUser.$invalid) {
         this.noLogged = 'Please fill the form';
       } else {
-        await this.signin(this.logUser);
+        this.noLogged = 'Pending...'
+        this.noLogged = await this.signin(this.logUser);
       }
     },
     async registerUser() {
@@ -112,6 +116,7 @@ export default {
       if (this.$v.signUser.$invalid) {
         this.isRegistered = 'Please fill the form';
       } else {
+        this.isRegistered = 'Pending...'
         this.isRegistered = await this.$axios.$post('https://rustutor-backend.herokuapp.com/register', this.signUser);
         this.signUser.username = '';
         this.signUser.email = '';

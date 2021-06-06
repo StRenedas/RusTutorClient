@@ -53,6 +53,7 @@ export default {
           }
         } else {
           console.log('go away');
+          return response.data.auth_error;
         }
       } catch (err) {
         console.log(err);
