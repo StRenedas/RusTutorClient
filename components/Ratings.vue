@@ -1,14 +1,13 @@
 <template>
   <div class="students-ratings">
     <p class="students-ratings__description">Ниже представлены баллы всех зарегистрированных студентов</p>
-    <select name="sort" id="sort">
-      <option value=""></option>
-    </select>
+    <p class="students-ratings__sort-tip">Введите имя студента для поиска в списке</p>
+    <input type="text" class="students-ratings__sort" v-model="sortField">
     <div class="students-ratings__header">
       <p class="students-ratings__header_name">Имя студента</p>
       <p class="students-ratings__header_rating">Сумма баллов</p>
     </div>
-    <ul class="students-ratings__list" v-for="student in studentsInfo" :key="student.id">
+    <ul class="students-ratings__list" v-for="student in sortByName" :key="student.id">
       <li class="students-ratings__name">{{ student.username }}</li>
       <li class="students-ratings__rating">{{ student.rating }}</li>
     </ul>
@@ -23,20 +22,26 @@ export default {
   data() {
     return {
       studentsInfo: [],
-      sortPicked: 0,
+      sortField: '',
     }
   },
   methods: {
     ...mapMutations(['checkAdmin', 'checkAuth']),
     async getRatings() {
-      this.studentsInfo = await this.$axios.$get('https://rustutor-backend.herokuapp.com/ratings')
+      this.studentsInfo = await this.$axios.$get('https://rustutor-backend.herokuapp.com/ratings');
+      await console.log(this.studentsInfo);
     },
-    sortByName() {
-      this.studentsInfo.sort();
-    }
   },
   computed: {
-    ...mapGetters(['authenticated', 'isadmin'])
+    ...mapGetters(['authenticated', 'isadmin']),
+    sortByName() {
+      if (this.sortField === '') {
+        return this.studentsInfo
+      }
+      else {
+        return this.studentsInfo.filter(student => student.username.includes(this.sortField))
+      }
+    }
   },
   async mounted() {
     this.checkAuth();
@@ -63,7 +68,7 @@ export default {
 .students-ratings__description {
   font-size: 28px;
   font-weight: 600;
-  padding: 100px 0 150px;
+  padding: 100px 0 50px;
   text-align: center;
 }
 .students-ratings__header {
@@ -74,6 +79,13 @@ export default {
   align-items: center;
   font-size: 28px;
   font-weight: 400;
+}
+.students-ratings__sort-tip {
+  font-size: 22px;
+  padding-bottom: 20px;
+}
+.students-ratings__sort {
+  margin-bottom: 20px;
 }
 .students-ratings__list {
   width: 70%;

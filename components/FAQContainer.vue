@@ -5,7 +5,7 @@
             <p class="FAQ__subtitle">That's a service to practice your skills at Russian language and get some good grades at SUSU.</p>
             <ul class="FAQ__list">
                 <li class="FAQ__list_element">Signup using the form on the main page.</li>
-                <li class="FAQ__list_element">Starting with ‘Begginer’ course, select the task type.</li>
+                <li class="FAQ__list_element">Starting with ‘Beginner’ course, select the task type.</li>
                 <li class="FAQ__list_element">Complete a block of tasks to increase your overall rating.</li>
                 <li class="FAQ__list_element">Show your results to your teacher.</li>
                 <li class="FAQ__list_element">Get some good grades!</li>
@@ -55,6 +55,7 @@ export default {
     color: #25618C;
     font-size: 26px;
     list-style-type: none;
+    padding-left: 0;
 }
 .FAQ__list_element {
     padding-top: 7px;

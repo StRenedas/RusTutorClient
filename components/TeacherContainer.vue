@@ -9,14 +9,14 @@
       </div>
     </div>
     <div class="students-ratings" v-if="action === 1">
-      <Ratings>
+      <ratings>
         <button class="teacher__button-back" @click="deleteAction()">Назад</button>
-      </Ratings>
+      </ratings>
     </div>
     <div class="task-add" v-if="action === 2">
-      <AddTask>
+      <add-task>
         <button class="teacher__button-back" @click="deleteAction()">Назад</button>
-      </AddTask>
+      </add-task>
     </div>
   </div>
 </template>
@@ -26,6 +26,10 @@ import { mapGetters, mapMutations } from "vuex";
 import Ratings from "@/components/Ratings";
 import AddTask from "@/components/AddTask";
 export default {
+  components: {
+    'ratings': Ratings,
+    'add-task': AddTask
+  },
   data() {
     return {
       action: 0,

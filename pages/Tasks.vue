@@ -15,20 +15,14 @@ export default {
     ...mapMutations(['checkAuth'])
   },
   computed: {
-    ...mapGetters(['isadmin', 'authenticated'])
+    ...mapGetters(['isadmin', 'authenticated', 'getType', 'getLevel'])
   },
-/*  async mounted() {
+  async mounted() {
     this.checkAuth()
-    if (!this.authenticated) {
-      await this.$router.push({ path: '/' });
+    if (this.getType === 0 || this.getLevel === 0) {
+      await this.$router.push('/Levels');
     }
-    else if (this.authenticated && this.isadmin){
-      await this.$router.push({path: '/Levels'})
-    }
-    else if (this.authenticated && !this.isadmin){
-      await this.$router.push({path: '/Teacher'})
-    }
-  }*/
+  }
 }
 </script>
 

@@ -12,7 +12,7 @@
         >{{ link.description }}</a>
         <p class="header__loggedout">You're not logged in</p>
       </nav>
-      <a class="header__burger" @click.prevent="toggleMobile"><img src="../static/burgerMenu.png" alt="burgerbutton" class="header__burger-img"></a>
+      <a class="header__burger" @click.prevent="toggleMobile"><img src="../static/burgerMenu.png" alt="burger-button" class="header__burger-img"></a>
     </div>
     <div class="header__container" v-else>
       <img class="header__logo-big" src="../static/LogoImages/susuLogoBig.png" @click.prevent="revertLT()" alt="SUSU Logo">
@@ -27,7 +27,7 @@
         <p class="header__username">Hello, {{ $auth.$storage.getLocalStorage('username') }}</p>
         <button class="header__logout" @click.prevent="logoutUser">LOGOUT</button>
       </nav>
-      <a class="header__burger" @click.prevent="toggleMobile"><img src="../static/burgerMenu.png" alt="burgerbutton" class="header__burger-img"></a>
+      <a class="header__burger" @click.prevent="toggleMobile"><img src="../static/burgerMenu.png" alt="burger-button" class="header__burger-img"></a>
     </div>
     <nav class="header__menu_mobile" v-if="showMobileMenu">
       <a class="header__link header__link_mobile" v-for="link in headerLinks" :key="link.id" :href="link.url">{{ link.description }}</a>
