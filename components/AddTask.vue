@@ -16,6 +16,7 @@
         </select>
         <p class="new-task__tip">Введите количество баллов за задание</p>
         <input class="new-task__points" type="text" v-model.trim="$v.task1.points.$model">
+        <p class="new-task__pending" v-if="task1.pending !== ''">{{ task1.pending }}</p>
         <button class="new-task__submit" @click.prevent="addTaskType1">Добавить задание</button>
       </div>
       <div class="new-task__type">
@@ -33,6 +34,7 @@
         </select>
         <p class="new-task__tip">Введите количество баллов за задание</p>
         <input class="new-task__points" type="text" v-model.trim="$v.task3.points.$model">
+        <p class="new-task__pending" v-if="task3.pending !== ''">{{ task3.pending }}</p>
         <button class="new-task__submit" @click.prevent="addTaskType3">Добавить задание</button>
       </div>
     </div>
@@ -54,6 +56,7 @@ export default {
         answer: '',
         level: 0,
         points: 0,
+        pending: ''
       },
       task3: {
         word: '',
@@ -62,6 +65,7 @@ export default {
         splitOptions: [],
         level: 0,
         points: 0,
+        pending: ''
       }
     }
   },
@@ -76,7 +80,8 @@ export default {
   methods: {
     ...mapMutations(['checkAuth', 'checkAdmin']),
     async addTaskType1() {
-      this.task1.text = this.task1.text.replace(this.task1.word, "<b>"+this.task1.word+"</b>")
+      this.task1.text = this.task1.text.replace(this.task1.word, "<b>"+this.task1.word+"</b>");
+      this.task1.pending = 'Отправка..';
       await this.$axios.$post("https://rustutor-backend.herokuapp.com/task",{
         text: this.task1.text,
         answer: this.task1.answer,
@@ -87,9 +92,11 @@ export default {
       this.task1.text = '';
       this.task1.word = '';
       this.task1.answer = '';
+      this.task1.pending = 'Задание добавлено!';
     },
     async addTaskType3 () {
       this.task3.splitOptions = this.task3.splitOptions.filter(word => word !== this.task3.selectedWord);
+      this.task3.pending = 'Отправка..';
       await this.$axios.$post("https://rustutor-backend.herokuapp.com/task",{
         text: this.task3.word,
         answer: this.task3.selectedWord,
@@ -104,6 +111,7 @@ export default {
       this.task3.splitOptions = [];
       this.task3.points = '';
       this.task3.level = '';
+      this.task3.pending = 'Задание добавлено!';
     },
   },
   computed: {
@@ -164,12 +172,10 @@ export default {
 .new-task__text {
   width: 300px;
   padding: 10px;
-  /*align-self: center;*/
 }
 .new-task__options {
   width: 300px;
   padding: 5px;
-  /*align-self: center;*/
 }
 .new-task__level {
   width: 50px;
@@ -177,10 +183,12 @@ export default {
 .new-task__points {
   width: 70px;
 }
+.new-task__pending {
+  font-size: 22px;
+}
 .new-task__submit {
   width: 200px;
   padding: 5px;
-  /*align-self: center;*/
 }
 
 @media (max-width: 1235px) {
@@ -189,14 +197,16 @@ export default {
     align-items: center;
   }
   .new-task__container {
-    /*flex-direction: column;*/
   }
   .new-task__type {
     width: 400px;
     height: 400px;
   }
   .new-task__tip {
-    font-size: 20px;
+    font-size: 18px;
+  }
+  .new-task__pending {
+    font-size: 18px;
   }
   .new-task__description {
     font-size: 20px;

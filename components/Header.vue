@@ -30,10 +30,10 @@
       <a class="header__burger" @click.prevent="toggleMobile"><img src="../static/burgerMenu.png" alt="burgerbutton" class="header__burger-img"></a>
     </div>
     <nav class="header__menu_mobile" v-if="showMobileMenu">
-      <a class="header__link" v-for="link in headerLinks" :key="link.id" :href="link.url">{{ link.description }}</a>
-      <p class="header__username" v-if="$auth.$storage.getLocalStorage('username')">Hello, {{ $auth.$storage.getLocalStorage('username') }}</p>
-      <p class="header__username" v-if="$auth.$storage.getLocalStorage('username') === ''"></p>
-      <button class="header__logout" v-if="$auth.$storage.getLocalStorage('username')" @click.prevent="logoutUser">LOGOUT</button>
+      <a class="header__link header__link_mobile" v-for="link in headerLinks" :key="link.id" :href="link.url">{{ link.description }}</a>
+      <p class="header__username header__username_mobile" v-if="$auth.$storage.getLocalStorage('username')">Hello, {{ $auth.$storage.getLocalStorage('username') }}</p>
+      <p class="header__username header__username_mobile" v-if="$auth.$storage.getLocalStorage('username') === ''"></p>
+      <button class="header__logout header__logout_mobile" v-if="$auth.$storage.getLocalStorage('username')" @click.prevent="logoutUser">LOGOUT</button>
     </nav>
   </div>
 </template>
@@ -159,7 +159,15 @@ export default {
   width: 100%;
   font-size: 20px;
 }
-
+.header__link_mobile {
+  padding-top: 5px;
+}
+.header__username_mobile {
+  padding-top: 5px;
+}
+.header__logout_mobile {
+  margin-top: 5px;
+}
 
 @media (max-width: 1240px) {
   .header__container {

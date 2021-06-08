@@ -24,7 +24,7 @@
           </div>
         </div>
       </div>
-      <button class='task__submit' v-if="everythingResolved===''" @click="sendAnswers">Submit all</button>
+      <button class='task__submit' v-if="everythingResolved===''" :disabled="!answersDirty" @click="sendAnswers">Submit all</button>
     </div>
 
     <div class='task__type' v-if="getType === 3">
@@ -37,7 +37,7 @@
           <option class="task__options" v-for="option in getOptions[index]">{{option}}</option>
         </select>
       </div>
-      <button class='task__submit' v-if="everythingResolved===''" @click="sendAnswers">Submit all</button>
+      <button class='task__submit' v-if="everythingResolved===''" :disabled="!answersDirty" @click="sendAnswers">Submit all</button>
     </div>
 
   </div>
@@ -49,7 +49,8 @@ export default {
   data() {
     return {
       answers: [],
-      everythingResolved: ''
+      everythingResolved: '',
+      answersDirty: false,
     }
   },
   methods: {

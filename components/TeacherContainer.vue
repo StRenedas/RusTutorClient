@@ -9,22 +9,22 @@
       </div>
     </div>
     <div class="students-ratings" v-if="action === 1">
-      <RatingsContainer>
+      <Ratings>
         <button class="teacher__button-back" @click="deleteAction()">Назад</button>
-      </RatingsContainer>
+      </Ratings>
     </div>
     <div class="task-add" v-if="action === 2">
-      <AddTaskContainer>
+      <AddTask>
         <button class="teacher__button-back" @click="deleteAction()">Назад</button>
-      </AddTaskContainer>
+      </AddTask>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import RatingsContainer from "@/components/RatingsContainer";
-import AddTaskContainer from "@/components/AddTaskContainer";
+import Ratings from "@/components/Ratings";
+import AddTask from "@/components/AddTask";
 export default {
   data() {
     return {
