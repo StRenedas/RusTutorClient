@@ -13,6 +13,7 @@ export default {
 
     }
   },
+  middleware: 'auth',
   components: {
       'levels-container': LevelsContainer
   },
@@ -23,7 +24,7 @@ export default {
     ...mapGetters(['authenticated', 'isadmin'])
   },
   async mounted() {
-    this.checkAuth();
+/*    this.checkAuth();*/
     this.checkAdmin();
     if (!this.authenticated) {
       await this.$router.push({ path: '/' });

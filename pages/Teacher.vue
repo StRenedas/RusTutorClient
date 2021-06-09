@@ -8,6 +8,7 @@
 import TeacherContainer from "@/components/TeacherContainer";
 import { mapGetters, mapMutations } from "vuex";
 export default {
+  middleware: 'auth',
   components: {
     "teacher-container": TeacherContainer
   },
@@ -18,7 +19,7 @@ export default {
     ...mapGetters(['authenticated', 'isadmin'])
   },
   async mounted() {
-    await this.checkAuth();
+    /*await this.checkAuth();*/
     await this.checkAdmin();
     if (!this.authenticated) {
       await this.$router.push({ path: '/' });

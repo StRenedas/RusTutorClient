@@ -2,7 +2,7 @@
   <div class="students-ratings">
     <p class="students-ratings__description">Ниже представлены 10 студентов с наибольшим количеством баллов</p>
     <p class="students-ratings__sort-tip">Для поиска среди всех студентов, введите имя в поле поиска</p>
-    <input type="text" class="students-ratings__sort" v-model="sortField">
+    <input type="text" class="students-ratings__sort" v-model="sortField" placeholder="Введите имя студента">
     <div class="students-ratings__header">
       <p class="students-ratings__header_name">Имя студента</p>
       <p class="students-ratings__header_rating">Сумма баллов</p>
@@ -46,7 +46,12 @@ export default {
         return this.studentsInfo.sort().slice(0, 10);
       }
       else {
-        return this.studentsInfo.filter(student => student.username.includes(this.sortField))
+        if (this.studentsInfo.filter(student => student.username.includes(this.sortField)).length === 0) {
+          return [{ username: 'Пользователи не найдены!' }];
+        }
+        else {
+          return this.studentsInfo.filter(student => student.username.includes(this.sortField))
+        }
       }
     }
   },
@@ -86,6 +91,7 @@ export default {
   align-items: center;
   font-size: 28px;
   font-weight: 400;
+  padding-bottom: 20px;
 }
 .students-ratings__header_mobile {
   display: none;
@@ -99,6 +105,10 @@ export default {
 }
 .students-ratings__sort {
   margin-bottom: 20px;
+  font-size: 22px;
+  border: 2px solid black;
+  border-radius: 5px;
+  outline: none;
 }
 .students-ratings__header_rating {
   text-align: right;

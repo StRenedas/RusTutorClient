@@ -8,6 +8,7 @@
 import TasksContainer from '@/components/TasksContainer'
 import { mapGetters, mapMutations } from "vuex";
 export default {
+  middleware: 'auth',
   components: {
     "tasks-container": TasksContainer,
   },
@@ -18,7 +19,7 @@ export default {
     ...mapGetters(['isadmin', 'authenticated', 'getType', 'getLevel'])
   },
   async mounted() {
-    this.checkAuth()
+/*    this.checkAuth()*/
     if (this.getType === 0 || this.getLevel === 0) {
       await this.$router.push('/Levels');
     }

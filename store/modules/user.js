@@ -26,7 +26,7 @@ export default {
       this.$router.push({path: '/'})
     },
     checkAuth(state) {
-      state.authenticated = !!(this.$auth.$storage.getLocalStorage('username') !== '' && this.$auth.$storage.getLocalStorage('username'));
+      state.authenticated = this.$auth.loggedIn;
     },
     checkAdmin(state) {
       if (this.$auth.$storage.getLocalStorage('isadmin') === 1) {
