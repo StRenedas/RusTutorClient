@@ -83,6 +83,7 @@ export default {
       this.task1.text = this.task1.text.replace(this.task1.word, "<b>"+this.task1.word+"</b>");
       this.task1.pending = 'Отправка..';
       await this.$axios.$post("https://rustutor-backend.herokuapp.com/task",{
+        token: this.$auth.strategy.token.get(),
         text: this.task1.text,
         answer: this.task1.answer,
         level: this.task1.level,
@@ -98,6 +99,7 @@ export default {
       this.task3.splitOptions = this.task3.splitOptions.filter(word => word !== this.task3.selectedWord);
       this.task3.pending = 'Отправка..';
       await this.$axios.$post("https://rustutor-backend.herokuapp.com/task",{
+        token: this.$auth.strategy.token.get(),
         text: this.task3.word,
         answer: this.task3.selectedWord,
         options: this.task3.splitOptions,
@@ -136,7 +138,7 @@ export default {
 <style scoped>
 .new-task {
   width: 100%;
-  height: 100%;
+  height: auto;
   background-color: #25618C;
   color: white;
   font-size: 24px;
@@ -147,11 +149,11 @@ export default {
 }
 .new-task__container {
   width: 100%;
-  height: 100%;
+  height: auto;
+  min-height: 850px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-
 }
 .new-task__type {
   height: 500px;

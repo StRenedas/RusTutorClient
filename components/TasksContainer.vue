@@ -59,13 +59,13 @@ export default {
       for (let i = 0; i < this.answers.length; i++) {
         if (this.answers[i].qid === id) {
           this.answers[i].ans = e.target.value;
-          console.log(this.answers);
           break;
         }
       }
     },
     async sendAnswers() {
       const payload = {
+        token: this.$auth.strategy.token.get(),
         userid: this.$auth.$storage.getLocalStorage('userid'),
         answers: this.answers,
         rating: this.$auth.$storage.getLocalStorage('rating'),
@@ -81,13 +81,13 @@ export default {
   },
   async created() {
       await this.getQuestionsFromServer({
+        token: this.$auth.strategy.token.get(),
         level: this.getLevel,
         type: this.getType,
         userid: this.$auth.$storage.getLocalStorage('userid'),
       });
       if (this.getQuestions.length === 0) {
-        this.everythingResolved = 'You\'ve successfully resolved all questions from this block!'
-        console.log('no questions to solve')
+        this.everythingResolved = 'You\'ve successfully resolved all questions from this block!';
       }
       else {
         for (let i = 0; i < this.getQuestions.length; i++) {

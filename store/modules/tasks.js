@@ -3,7 +3,8 @@ export default {
     questions: [],
     options: [],
     levelPicked: 0,
-    typePicked: 0
+    typePicked: 0,
+    teacherActionPicked: 0
   },
   mutations: {
     setQuestions(state, res) {
@@ -17,11 +18,13 @@ export default {
     },
     setOptions(state, res) {
       state.options = res.map(item => item.options);
-      console.log(state.options);
     },
     revertQuestions(state) {
       state.questions = [];
-    }
+    },
+    setTeacherAction(state, res) {
+      state.teacherActionPicked = res;
+    },
   },
   getters: {
     getQuestions(state) {
@@ -36,6 +39,9 @@ export default {
     getOptions(state) {
       return state.options;
     },
+    getTeacherAction(state) {
+      return state.teacherActionPicked;
+    },
   },
   actions: {
     async getQuestionsFromServer ({commit}, payload) {
@@ -44,13 +50,12 @@ export default {
         this.state.questions = [];
         const questions = await this.$axios.$post("https://rustutor-backend.herokuapp.com/tasks", payload);
         for (let i = 0; i < questions.length; i++) {
-          questions[i].options = await this.$axios.$post('https://rustutor-backend.herokuapp.com/options', { id: questions[i].id });
+          questions[i].options = await this.$axios.$post('https://rustutor-backend.herokuapp.com/options', { id: questions[i].id});
         }
         if (!questions.empty) {
           commit('setQuestions', questions);
           commit('setOptions', questions);
         }
-        else console.log('Something is wrong');
       } catch (err) {
         console.log(err);
       }

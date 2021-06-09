@@ -60,7 +60,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(['logoutUser', 'setLevel', 'setType']),
+    ...mapMutations(['logoutUser', 'setLevel', 'setType', 'setTeacherAction']),
     toggleMobile() {
       this.showMobileMenu = !this.showMobileMenu;
     },
@@ -74,6 +74,9 @@ export default {
     logoAction() {
       if (this.$route.path === '/Levels' || this.$route.path === '/Tasks') {
         this.revertLT();
+      }
+      else if (this.$route.path === "/Teacher"){
+        this.setTeacherAction(0);
       }
       else {
         this.$router.push('/')

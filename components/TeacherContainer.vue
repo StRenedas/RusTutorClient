@@ -1,6 +1,6 @@
 <template>
   <div class="teacher">
-    <div class="teacher__events" v-if="action === 0">
+    <div class="teacher__events" v-if="getTeacherAction === 0">
       <div class="teacher-cards__container" v-for="card in teacherCards" :key="card.id" @click="setAction(card.id)">
         <div class="teacher-cards__border">
           <img :src=card.actionImage alt="" class="teacher-cards__image">
@@ -8,15 +8,11 @@
         </div>
       </div>
     </div>
-    <div class="students-ratings" v-if="action === 1">
-      <ratings>
-        <button class="teacher__button-back" @click="deleteAction()">Назад</button>
-      </ratings>
+    <div class="students-ratings" v-if="getTeacherAction === 1">
+      <ratings />
     </div>
-    <div class="task-add" v-if="action === 2">
-      <add-task>
-        <button class="teacher__button-back" @click="deleteAction()">Назад</button>
-      </add-task>
+    <div class="task-add" v-if="getTeacherAction === 2">
+      <add-task/>
     </div>
   </div>
 </template>
@@ -32,7 +28,6 @@ export default {
   },
   data() {
     return {
-      action: 0,
       teacherCards: [
         {
           id: 1,
@@ -49,20 +44,17 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['checkAdmin', 'checkAuth']),
+    ...mapMutations(['checkAdmin', 'checkAuth', 'setTeacherAction']),
     setAction(id) {
-      this.action = id;
-      if(this.action === 1) this.getRatings();
-    },
-    deleteAction() {
-      this.action = 0
+      this.setTeacherAction(id);
+      if(this.getTeacherAction === 1) this.getRatings();
     },
     async getRatings() {
-      this.studentsInfo = await this.$axios.$get('https://rustutor-backend.herokuapp.com/ratings')
+      this.studentsInfo = await this.$axios.$post('https://rustutor-backend.herokuapp.com/ratings', {token: this.$auth.strategy.token.get()})
     }
   },
   computed: {
-    ...mapGetters(['authenticated', 'isadmin'])
+    ...mapGetters(['authenticated', 'isadmin', 'getTeacherAction']),
   },
   async mounted() {
     this.checkAuth();
@@ -87,6 +79,7 @@ export default {
 }
 .teacher__events {
   width: 100%;
+  min-height: 850px;
   height: 100%;
   display: flex;
   justify-content: space-evenly;

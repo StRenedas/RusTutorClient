@@ -52,7 +52,6 @@ export default {
             commit('checkAdmin', response.data)
           }
         } else {
-          console.log('go away');
           return response.data.auth_error;
         }
       } catch (err) {

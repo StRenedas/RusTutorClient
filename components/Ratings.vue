@@ -1,16 +1,24 @@
 <template>
   <div class="students-ratings">
-    <p class="students-ratings__description">Ниже представлены баллы всех зарегистрированных студентов</p>
-    <p class="students-ratings__sort-tip">Введите имя студента для поиска в списке</p>
+    <p class="students-ratings__description">Ниже представлены 10 студентов с наибольшим количеством баллов</p>
+    <p class="students-ratings__sort-tip">Для поиска среди всех студентов, введите имя в поле поиска</p>
     <input type="text" class="students-ratings__sort" v-model="sortField">
     <div class="students-ratings__header">
       <p class="students-ratings__header_name">Имя студента</p>
       <p class="students-ratings__header_rating">Сумма баллов</p>
     </div>
-    <ul class="students-ratings__list" v-for="student in sortByName" :key="student.id">
-      <li class="students-ratings__name">{{ student.username }}</li>
-      <li class="students-ratings__rating">{{ student.rating }}</li>
-    </ul>
+    <div class="students-ratings__header_mobile">
+      <p class="students-ratings__header_name">Имя студента и сумма баллов</p>
+    </div>
+    <div class="students-ratings__list">
+      <div class="students-ratings__student" v-for="student in sortByName" :key="student.id">
+        <div class="student-ratings__credentials">
+          <p class="students-ratings__name">{{ student.username }}</p>
+          <p class="student-ratings__email">{{student.email}}</p>
+        </div>
+        <p class="students-ratings__rating">{{ student.rating }}</p>
+      </div>
+    </div>
     <slot></slot>
   </div>
 </template>
@@ -28,15 +36,14 @@ export default {
   methods: {
     ...mapMutations(['checkAdmin', 'checkAuth']),
     async getRatings() {
-      this.studentsInfo = await this.$axios.$get('https://rustutor-backend.herokuapp.com/ratings');
-      await console.log(this.studentsInfo);
+      this.studentsInfo = await this.$axios.$post('https://rustutor-backend.herokuapp.com/ratings', {token: this.$auth.strategy.token.get()});
     },
   },
   computed: {
     ...mapGetters(['authenticated', 'isadmin']),
     sortByName() {
       if (this.sortField === '') {
-        return this.studentsInfo
+        return this.studentsInfo.sort().slice(0, 10);
       }
       else {
         return this.studentsInfo.filter(student => student.username.includes(this.sortField))
@@ -60,7 +67,7 @@ export default {
   background-color: #25618C;
   color: white;
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,15 +87,31 @@ export default {
   font-size: 28px;
   font-weight: 400;
 }
+.students-ratings__header_mobile {
+  display: none;
+  font-size: 24px;
+  text-align: center;
+}
 .students-ratings__sort-tip {
   font-size: 22px;
   padding-bottom: 20px;
+  text-align: center;
 }
 .students-ratings__sort {
   margin-bottom: 20px;
 }
+.students-ratings__header_rating {
+  text-align: right;
+}
 .students-ratings__list {
   width: 70%;
+  min-height: 850px;
+  height: auto;
+}
+.students-ratings__student {
+  width: 100%;
+  border: 2px solid white;
+  border-radius: 5px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -97,8 +120,15 @@ export default {
   padding-left: 0;
   font-size: 24px;
   font-weight: 300;
+  margin-bottom: 10px;
 }
-@media (max-width: 520px) {
+.student-ratings__credentials {
+  padding-left: 10px;
+}
+.students-ratings__rating {
+  padding-right: 10px;
+}
+@media (max-width: 800px) {
   .students-ratings__description {
     font-size: 24px;
     padding: 50px 0 75px;
@@ -106,8 +136,16 @@ export default {
   .students-ratings__header {
     font-size: 24px;
   }
-  .students-ratings__list {
+  .students-ratings__student {
     font-size: 22px;
+    flex-direction: column;
+    text-align: center;
+  }
+  .students-ratings__header_mobile {
+    display: block;
+  }
+  .students-ratings__header {
+    display: none;
   }
 }
 @media (max-width: 400px) {
@@ -119,6 +157,9 @@ export default {
   }
   .students-ratings__list {
     font-size: 18px;
+  }
+  .student-ratings__email {
+    font-size: 16px;
   }
 }
 </style>
