@@ -15,8 +15,8 @@
       <a class="header__burger" @click.prevent="toggleMobile"><img src="../static/burgerMenu.png" alt="burger-button" class="header__burger-img"></a>
     </div>
     <div class="header__container" v-else>
-      <img class="header__logo-big" src="../static/LogoImages/susuLogoBig.png" @click.prevent="revertLT()" alt="SUSU Logo">
-      <img class="header__logo-small" src="../static/LogoImages/susuLogoSmall.png" @click.prevent="revertLT()" alt="SUSU Logo">
+      <img class="header__logo-big" src="../static/LogoImages/susuLogoBig.png" @click.prevent="logoAction()" alt="SUSU Logo">
+      <img class="header__logo-small" src="../static/LogoImages/susuLogoSmall.png" @click.prevent="logoAction()" alt="SUSU Logo">
       <nav class="header__menu">
         <a
           class="header__link"
@@ -24,8 +24,8 @@
           :key="link.id"
           :href="link.url"
         >{{ link.description }}</a>
-        <p class="header__username">Hello, {{ $auth.$storage.getLocalStorage('username') }}</p>
-        <button class="header__logout" @click.prevent="logoutUser">LOGOUT</button>
+        <p class="header__username" v-if="$auth.loggedIn">Hello, {{ $auth.$storage.getLocalStorage('username') }}</p>
+        <button class="header__logout" v-if="$auth.loggedIn" @click.prevent="logoutUser">LOGOUT</button>
       </nav>
       <a class="header__burger" @click.prevent="toggleMobile"><img src="../static/burgerMenu.png" alt="burger-button" class="header__burger-img"></a>
     </div>
@@ -70,6 +70,14 @@ export default {
       }
       this.setType(0);
       this.setLevel(0);
+    },
+    logoAction() {
+      if (this.$route.path === '/Levels' || this.$route.path === '/Tasks') {
+        this.revertLT();
+      }
+      else {
+        this.$router.push('/')
+      }
     }
   },
 };

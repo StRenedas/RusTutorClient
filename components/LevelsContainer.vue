@@ -120,7 +120,7 @@ export default {
 }
 .levels-container {
   width: 100%;
-  height: 100%;
+  height: 70%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -129,7 +129,7 @@ export default {
 }
 .tasks-container {
   width: 100%;
-  height: 100%;
+  height: 70%;
   display: flex;
   justify-content: space-around;
   align-items: center;
