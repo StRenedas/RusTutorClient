@@ -19,7 +19,7 @@ export default {
     ...mapGetters(['authenticated', 'isadmin'])
   },
   async mounted() {
-    /*await this.checkAuth();*/
+    await this.checkAuth();
     await this.checkAdmin();
     if (!this.authenticated) {
       await this.$router.push({ path: '/' });

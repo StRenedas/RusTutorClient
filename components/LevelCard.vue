@@ -1,5 +1,5 @@
 <template>
-  <div class="levels-cards__border" v-bind:style="{border: cardBorder}">
+  <div class="levels-cards__border" v-bind:style="{border: cardBorder, boxShadow: cardShadow}">
     <img :src=cardImg alt="" class="levels-cards__image">
     <p class="levels-cards__title">{{ cardTitle }}</p>
     <p class="levels-cards__description">{{ cardDescription }}</p>
@@ -9,7 +9,7 @@
 <script>
 export default {
   name: "LevelCard",
-  props: ['cardImg', 'cardTitle', 'cardDescription', 'cardBorder']
+  props: ['cardImg', 'cardTitle', 'cardDescription', 'cardBorder', 'cardShadow']
 };
 </script>
 

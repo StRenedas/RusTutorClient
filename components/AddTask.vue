@@ -160,6 +160,7 @@ export default {
   width: 500px;
   border: 3px solid white;
   border-radius: 10px;
+  box-shadow: 0 4px 50px -11px rgb(0,0,0);
   padding: 30px 10px;
   display: flex;
   flex-direction: column;
@@ -168,7 +169,7 @@ export default {
   text-align: center;
 }
 .new-task__selection {
-  width: 200px;
+  width: 300px;
   padding: 5px;
 }
 .new-task__text {
@@ -178,6 +179,9 @@ export default {
 .new-task__options {
   width: 300px;
   padding: 5px;
+}
+.new-task__answer {
+  width: 300px;
 }
 .new-task__level {
   width: 50px;
@@ -190,6 +194,7 @@ export default {
 }
 .new-task__submit {
   width: 200px;
+  margin-top: 10px;
   padding: 5px;
 }
 

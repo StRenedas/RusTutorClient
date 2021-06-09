@@ -1,5 +1,5 @@
 <template>
-  <div class="tasks-cards__border">
+  <div class="tasks-cards__border" v-bind:style="{boxShadow: cardShadow}">
     <img :src=cardImg alt="" class="tasks-cards__image">
     <p class="tasks-cards__title">{{ cardTitle }}</p>
   </div>
@@ -8,7 +8,7 @@
 <script>
 export default {
   name: "TaskCard",
-  props: ['cardImg', 'cardTitle']
+  props: ['cardImg', 'cardTitle', 'cardShadow']
 };
 </script>
 

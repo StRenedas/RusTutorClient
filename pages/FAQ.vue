@@ -41,10 +41,12 @@ export default {
   background-color: #ECEFF6;
 }
 .FAQ__container {
+  margin-top: 120px;
   width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-self: flex-start;
 }
 .FAQ__container:first-child {
   border-right: 1px solid black;

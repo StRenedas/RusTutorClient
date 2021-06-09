@@ -19,7 +19,7 @@ export default {
     ...mapGetters(['isadmin', 'authenticated', 'getType', 'getLevel'])
   },
   async mounted() {
-/*    this.checkAuth()*/
+    this.checkAuth()
     if (this.getType === 0 || this.getLevel === 0) {
       await this.$router.push('/Levels');
     }

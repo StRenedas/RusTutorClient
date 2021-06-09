@@ -9,14 +9,16 @@
         <level-card :card-img="card.levelImage"
               :card-border="card.border"
               :card-title="card.levelName"
-              :card-description="card.levelDescription">
+              :card-description="card.levelDescription"
+              :card-shadow="card.shadow">
         </level-card>
       </div>
     </div>
     <div class="tasks-container" v-if="getLevel !== 0">
       <div class="tasks-cards__container" v-for="task in taskCards" :key="task.id" @click="setNewType(task.id)">
         <task-card :card-img="task.taskImage"
-              :card-title="task.taskName">
+              :card-title="task.taskName"
+              :card-shadow="task.shadow">
         </task-card>
       </div>
     </div>
@@ -40,35 +42,41 @@ export default {
           levelName: "Beginner",
           levelDescription: "Russian language basics",
           levelImage: "/LevelCardsImages/language-white.svg",
-          border: '5px solid rgb(170, 255, 170)'
+          border: '5px solid rgb(170, 255, 170)',
+          shadow: '0 4px 50px -11px rgb(170,255,170);'
         },
         {
           id: 2,
           levelName: "Elementary",
           levelDescription: "Making a step forward",
           levelImage: "/LevelCardsImages/learner-white.svg",
-          border: '5px solid rgb(255, 255, 170)'
+          border: '5px solid rgb(255, 255, 170)',
+          shadow: '0 4px 50px -11px rgb(255, 255, 170);'
         },
         {
           id: 3,
           levelName: "Pre-Intermediate",
           levelDescription: "Not a game now!",
           levelImage: "/LevelCardsImages/brain-white.svg",
-          border: '5px solid rgb(255, 170, 170)'
+          border: '5px solid rgb(255, 170, 170)',
+          shadow: '0 4px 50px -11px rgb(255, 170, 170);'
         }
       ],
       taskCards: [
         { id: 1,
           taskName: "Translation",
-          taskImage: "/TaskCardsImages/translation.svg"
+          taskImage: "/TaskCardsImages/translation.svg",
+          shadow: '0 4px 50px -11px rgb(255, 255, 255);'
         },
         { id: 2,
           taskName: "Pictures",
-          taskImage: "/TaskCardsImages/pickapicture.svg"
+          taskImage: "/TaskCardsImages/pickapicture.svg",
+          shadow: '0 4px 50px -11px rgb(255, 255, 255);'
         },
         { id: 3,
           taskName: "1 of many",
-          taskImage: "/TaskCardsImages/1ofmany.svg"
+          taskImage: "/TaskCardsImages/1ofmany.svg",
+          shadow: '0 4px 50px -11px rgb(255, 255, 255);'
         }
       ],
       userid: 0,
