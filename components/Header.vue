@@ -53,7 +53,7 @@ export default {
         {
           id: 2,
           url: 'https://edu.susu.ru',
-          description: 'E-SUSU',
+          description: 'edu@SUSU',
         },
       ],
       showMobileMenu: false,

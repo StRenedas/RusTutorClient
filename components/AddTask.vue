@@ -3,42 +3,41 @@
     <div class="new-task__container">
       <div class="new-task__type">
         <p class="new-task__description">Введите предложение для задания "Перевод слова"</p>
-        <input class="new-task__text" type="text" v-model="task1.text" placeholder="Текст задания">
+        <input class="new-task__input" type="text" v-model="task1.text" placeholder="Текст задания">
         <p class="new-task__tip">Выберите слово для перевода</p>
-        <select class="new-task__selection" v-model="task1.word">
+        <select class="new-task__input" v-model="task1.word">
           <option v-for="word in splitTaskText1" :key="word">{{word}}</option>
         </select>
         <p class="new-task__tip">Введите правильный ответ на задание</p>
-        <input class="new-task__answer" type="text" v-model="task1.answer">
+        <input class="new-task__input" type="text" v-model="task1.answer">
         <p class="new-task__tip">Укажите уровень сложности</p>
-        <select class="new-task__level" v-model="task1.level">
+        <select class="new-task__input-small" v-model="task1.level">
           <option v-for="level in levels" :key="level">{{level}}</option>
         </select>
         <p class="new-task__tip">Введите количество баллов за задание</p>
-        <input class="new-task__points" type="text" v-model.trim="$v.task1.points.$model">
+        <input class="new-task__input-small" type="text" v-model.trim="$v.task1.points.$model">
         <p class="new-task__pending" v-if="task1.pending !== ''">{{ task1.pending }}</p>
         <button class="new-task__submit" @click.prevent="addTaskType1">Добавить задание</button>
       </div>
       <div class="new-task__type">
         <p class="new-task__description">Введите слово для задания "Выбор варианта"</p>
-        <input class="new-task__text" type="text" v-model="task3.word" placeholder="Слово для задания">
+        <input class="new-task__input" type="text" v-model="task3.word" placeholder="Слово для задания">
         <p class="new-task__tip">Введите варианты ответа через пробел</p>
-        <input type="text" class="new-task__options" v-model="task3.options">
+        <input type="text" class="new-task__input" v-model="task3.options">
         <p class="new-task__tip">Выберите правильный ответ из введенных слов</p>
-        <select class="new-task__selection" v-model="task3.selectedWord">
+        <select class="new-task__input" v-model="task3.selectedWord">
           <option v-for="option in splitTaskText3" :key="option">{{option}}</option>
         </select>
         <p class="new-task__tip">Укажите уровень сложности</p>
-        <select class="new-task__level" v-model="task3.level">
+        <select class="new-task__input-small" v-model="task3.level">
           <option v-for="level in levels" :key="level">{{level}}</option>
         </select>
         <p class="new-task__tip">Введите количество баллов за задание</p>
-        <input class="new-task__points" type="text" v-model.trim="$v.task3.points.$model">
+        <input class="new-task__input-small" type="text" v-model.trim="$v.task3.points.$model">
         <p class="new-task__pending" v-if="task3.pending !== ''">{{ task3.pending }}</p>
         <button class="new-task__submit" @click.prevent="addTaskType3">Добавить задание</button>
       </div>
     </div>
-    <slot></slot>
   </div>
 </template>
 
@@ -71,6 +70,7 @@ export default {
   },
   validations: {
     task1: {
+
       points: { numeric },
     },
     task3: {
@@ -168,42 +168,38 @@ export default {
   align-items: center;
   text-align: center;
 }
-.new-task__selection {
+.new-task__input {
   width: 300px;
   padding: 5px;
+  outline: none;
+  border: 2px solid white;
+  border-radius: 5px
 }
-.new-task__text {
-  width: 300px;
-  padding: 10px;
-}
-.new-task__options {
-  width: 300px;
+.new-task__input-small {
+  width: 70px;
   padding: 5px;
-}
-.new-task__answer {
-  width: 300px;
-}
-.new-task__level {
-  width: 50px;
-}
-.new-task__points {
-  width: 50px;
+  outline: none;
+  border: 2px solid white;
+  border-radius: 5px
 }
 .new-task__pending {
   font-size: 22px;
 }
 .new-task__submit {
   width: 200px;
-  margin-top: 10px;
+  margin-top: 20px;
   padding: 10px;
   border: 2px solid white;
   border-radius: 5px;
   background-color: #25618C;
   color: white;
+  font-weight: 400;
+  font-size: 18px;
+  font-family: 'Open Sans', sans-serif;
 }
 .new-task__submit:hover {
   background-color: darkseagreen;
-  color: black;
+  color: white;
   cursor: pointer;
 }
 
@@ -247,12 +243,9 @@ export default {
     width: 300px;
     height: auto;
   }
-  .new-task__text {
-    width: 250px;
-    padding: 5px;
-  }
-  .new-task__options {
+  .new-task__input {
     width: 250px;
   }
+
 }
 </style>

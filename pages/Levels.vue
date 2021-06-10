@@ -26,13 +26,13 @@ export default {
   async mounted() {
     this.checkAuth();
     this.checkAdmin();
-    if (!this.authenticated) {
+    if (!this.$auth.loggedIn) {
       await this.$router.push({ path: '/' });
     }
-    else if (this.authenticated && !this.isadmin){
+    else if (this.$auth.loggedIn && !this.isadmin){
       await this.$router.push({path: '/Levels'})
     }
-    else if (this.authenticated && this.isadmin){
+    else if (this.$auth.loggedIn && this.isadmin){
       await this.$router.push({path: '/Teacher'})
     }
   },
@@ -41,7 +41,7 @@ export default {
 
 <style scoped>
 .container {
-  height: 100vh;
+  height: 850px;
   width: 100%;
 }
 @media (max-width: 900px) {

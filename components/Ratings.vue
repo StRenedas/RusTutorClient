@@ -72,6 +72,7 @@ export default {
   background-color: #25618C;
   color: white;
   width: 100%;
+  min-height: 800px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -106,7 +107,7 @@ export default {
 .students-ratings__sort {
   margin-bottom: 20px;
   font-size: 22px;
-  border: 2px solid black;
+  border: 2px solid white;
   border-radius: 5px;
   outline: none;
 }
@@ -115,7 +116,6 @@ export default {
 }
 .students-ratings__list {
   width: 70%;
-  min-height: 850px;
   height: auto;
 }
 .students-ratings__student {

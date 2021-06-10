@@ -145,7 +145,7 @@ export default {
 .task__place {
   padding: 20px 20px;
   background-color: white;
-  border: 3px solid black;
+  border: 3px solid white;
   border-radius: 10px;
   font-size: 30px;
   font-weight: 300;
@@ -159,6 +159,8 @@ export default {
   height: 50px;
   font-size: 26px;
   outline: none;
+  border: 2px solid white;
+  border-radius: 5px;
 }
 
 .task__pictures {
@@ -183,6 +185,8 @@ export default {
   padding: 10px;
   font-size: 22px;
   outline: none;
+  border: 2px solid white;
+  border-radius: 5px;
 }
 
 .task__submit {
