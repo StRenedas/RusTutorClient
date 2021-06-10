@@ -1,5 +1,5 @@
 <template>
-  <div class="levels-cards__border" v-bind:style="{border: cardBorder, boxShadow: cardShadow}">
+  <div class="levels-cards__border" :style="{border: cardBorder, boxShadow: shadow}">
     <img :src=cardImg alt="" class="levels-cards__image">
     <p class="levels-cards__title">{{ cardTitle }}</p>
     <p class="levels-cards__description">{{ cardDescription }}</p>
@@ -9,7 +9,12 @@
 <script>
 export default {
   name: "LevelCard",
-  props: ['cardImg', 'cardTitle', 'cardDescription', 'cardBorder', 'cardShadow']
+  props: ['cardImg', 'cardTitle', 'cardDescription', 'cardBorder', 'cardShadow'],
+  computed: {
+    shadow() {
+      return this.cardShadow;
+    }
+  }
 };
 </script>
 
@@ -45,8 +50,8 @@ export default {
 }
 @media (max-width: 1250px) {
   .levels-cards__border {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
   }
   .levels-cards__title {
     font-size: 20px;
@@ -58,6 +63,12 @@ export default {
   .levels-cards__image {
     width: 100px;
     height: 100px;
+  }
+}
+@media (max-width: 900px) {
+  .levels-cards__border {
+    width: 200px;
+    height: 200px;
   }
 }
 </style>

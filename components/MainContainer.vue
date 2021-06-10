@@ -11,7 +11,7 @@
           <input class="form-input" type="password" name="reg_pass_repeat" placeholder="Repeat password:" v-model.trim="$v.signUser.repPassword.$model">
           <error v-if="!$v.signUser.username.minLength" :error-description='"Username must be at least 8 characters long"' />
           <error v-if="!$v.signUser.email.email" :error-description='"Please submit a correct e-mail"' />
-          <error v-if="!$v.signUser.name.required && !$v.signUser.name.$dirty" :error-description='"Please submit your real name and surname"' />
+          <error v-if="!$v.signUser.name.required && !$v.signUser.name.$dirty" :error-description='"Please provide your real name and surname"' />
           <error v-if="!$v.signUser.password.minLength" :error-description='"Password must be at least 8 characters long"' />
           <error v-if="!$v.signUser.repPassword.sameAs" :error-description='"Passwords must match"' />
           <button class="form-submit" @click.prevent="registerUser()" :disabled="$v.signUser.$anyError" :class="{'form-submit-allowed': !$v.signUser.$anyError}">SIGN UP</button>
@@ -169,6 +169,7 @@ export default {
   border: 1px solid black;
   border-radius: 10px;
   font-size: 20px;
+  outline: none;
 }
 .form-submit {
   width: 70%;

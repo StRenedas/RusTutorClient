@@ -31,7 +31,7 @@ export default {
       teacherCards: [
         {
           id: 1,
-          name: 'Рейтинги',
+          name: 'Список студентов',
           actionImage: "/TeacherCardsImages/ratings.svg"
         },
         {

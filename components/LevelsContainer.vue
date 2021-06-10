@@ -17,8 +17,7 @@
     <div class="tasks-container" v-if="getLevel !== 0">
       <div class="tasks-cards__container" v-for="task in taskCards" :key="task.id" @click="setNewType(task.id)">
         <task-card :card-img="task.taskImage"
-              :card-title="task.taskName"
-              :card-shadow="task.shadow">
+              :card-title="task.taskName">
         </task-card>
       </div>
     </div>
@@ -43,15 +42,15 @@ export default {
           levelDescription: "Russian language basics",
           levelImage: "/LevelCardsImages/language-white.svg",
           border: '5px solid rgb(170, 255, 170)',
-          shadow: '0 4px 50px -11px rgb(170,255,170);'
+          shadow: '0 4px 50px -11px rgb(170,255,170)'
         },
         {
-          id: 2,
+        id: 2,
           levelName: "Elementary",
           levelDescription: "Making a step forward",
           levelImage: "/LevelCardsImages/learner-white.svg",
           border: '5px solid rgb(255, 255, 170)',
-          shadow: '0 4px 50px -11px rgb(255, 255, 170);'
+          shadow: '0 4px 50px -11px rgb(255, 255, 170)'
         },
         {
           id: 3,
@@ -59,24 +58,21 @@ export default {
           levelDescription: "Not a game now!",
           levelImage: "/LevelCardsImages/brain-white.svg",
           border: '5px solid rgb(255, 170, 170)',
-          shadow: '0 4px 50px -11px rgb(255, 170, 170);'
+          shadow: '0 4px 50px -11px rgb(255, 170, 170)'
         }
       ],
       taskCards: [
         { id: 1,
           taskName: "Translation",
           taskImage: "/TaskCardsImages/translation.svg",
-          shadow: '0 4px 50px -11px rgb(255, 255, 255);'
         },
         { id: 2,
           taskName: "Pictures",
           taskImage: "/TaskCardsImages/pickapicture.svg",
-          shadow: '0 4px 50px -11px rgb(255, 255, 255);'
         },
         { id: 3,
           taskName: "1 of many",
           taskImage: "/TaskCardsImages/1ofmany.svg",
-          shadow: '0 4px 50px -11px rgb(255, 255, 255);'
         }
       ],
       userid: 0,
@@ -99,7 +95,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .container {
   width: 100%;
   height: 100%;
@@ -144,7 +140,7 @@ export default {
   background-color: #0A132D;
   color: white;
 }
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .levels-container {
     flex-direction: column;
   }

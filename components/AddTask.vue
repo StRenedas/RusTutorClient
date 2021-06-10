@@ -187,7 +187,7 @@ export default {
   width: 50px;
 }
 .new-task__points {
-  width: 70px;
+  width: 50px;
 }
 .new-task__pending {
   font-size: 22px;
@@ -195,7 +195,16 @@ export default {
 .new-task__submit {
   width: 200px;
   margin-top: 10px;
-  padding: 5px;
+  padding: 10px;
+  border: 2px solid white;
+  border-radius: 5px;
+  background-color: #25618C;
+  color: white;
+}
+.new-task__submit:hover {
+  background-color: darkseagreen;
+  color: black;
+  cursor: pointer;
 }
 
 @media (max-width: 1235px) {

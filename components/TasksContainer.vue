@@ -1,18 +1,20 @@
 <template>
   <div class="task">
     <div class='task__type' v-if="getType === 1">
-      <p class='task__description'>Translate the highlighted word into Russian</p>
+      <p class='task__description' v-if="!loading">Translate the highlighted word into Russian</p>
+      <p class="task__loading" v-if="loading">Loading...</p>
       <p class="task__resolved" v-if="everythingResolved!==''">{{everythingResolved}}</p>
       <div class="task__itself" v-for="question in getQuestions" :key="question.id">
         <div class='task__place' v-html="question.value"></div>
         <div class='task__points' >Points for this task: {{ question.points }}</div>
         <input type='text' class='task__answer' @change="setAnswer($event, question.id, question.value)" >
       </div>
-      <button class='task__submit' v-if="everythingResolved===''" @click="sendAnswers">Submit all</button>
+      <button class='task__submit' v-if="everythingResolved==='' && !loading" @click="sendAnswers">Submit all</button>
     </div>
 
     <div class='task__type' v-if="getType === 2">
-      <p class='task__description'>Choose one picture</p>
+      <p class='task__description' v-if="!loading">Choose one picture</p>
+      <p class="task__loading" v-if="loading">Loading...</p>
       <p class="task__resolved" v-if="everythingResolved!==''">{{everythingResolved}}</p>
       <div class="task__itself" v-for="(question,index) in getQuestions" :key="question.id">
         <div class='task__place' v-html="question.value"></div>
@@ -24,11 +26,12 @@
           </div>
         </div>
       </div>
-      <button class='task__submit' v-if="everythingResolved===''" @click="sendAnswers">Submit all</button>
+      <button class='task__submit' v-if="everythingResolved==='' && !loading" @click="sendAnswers">Submit all</button>
     </div>
 
     <div class='task__type' v-if="getType === 3">
-      <p class='task__description'>Choose the right translation</p>
+      <p class='task__description' v-if="!loading">Choose the right translation</p>
+      <p class="task__loading" v-if="loading">Loading...</p>
       <p class="task__resolved" v-if="everythingResolved!==''">{{everythingResolved}}</p>
       <div class="task__itself" v-for="(question, index) in getQuestions" :key="question.id">
         <div class='task__place' v-html="question.value"></div>
@@ -37,7 +40,7 @@
           <option class="task__options" v-for="option in getOptions[index]">{{option}}</option>
         </select>
       </div>
-      <button class='task__submit' v-if="everythingResolved===''" @click="sendAnswers">Submit all</button>
+      <button class='task__submit' v-if="everythingResolved==='' && !loading" @click="sendAnswers">Submit all</button>
     </div>
 
   </div>
@@ -51,6 +54,7 @@ export default {
       answers: [],
       everythingResolved: '',
       answersDirty: false,
+      loading: true,
     }
   },
   methods: {
@@ -86,6 +90,7 @@ export default {
         type: this.getType,
         userid: this.$auth.$storage.getLocalStorage('userid'),
       });
+      this.loading = false;
       if (this.getQuestions.length === 0) {
         this.everythingResolved = 'You\'ve successfully resolved all questions from this block!';
       }
@@ -120,6 +125,11 @@ export default {
   text-align: center;
   padding-top: 10px;
 }
+.task__loading {
+  color: white;
+  font-size: 28px;
+  text-align: center;
+}
 .task__resolved {
   color: white;
   font-size: 28px;
@@ -148,6 +158,7 @@ export default {
   width: 300px;
   height: 50px;
   font-size: 26px;
+  outline: none;
 }
 
 .task__pictures {
@@ -171,6 +182,7 @@ export default {
   min-width: 200px;
   padding: 10px;
   font-size: 22px;
+  outline: none;
 }
 
 .task__submit {
@@ -184,6 +196,7 @@ export default {
 }
 .task__submit:hover {
   background-color: darkseagreen;
+  cursor: pointer;
 }
 
 @media(max-width: 1020px) {

@@ -8,7 +8,7 @@
 import TeacherContainer from "@/components/TeacherContainer";
 import { mapGetters, mapMutations } from "vuex";
 export default {
-  middleware: 'auth',
+  middleware: ['auth'],
   components: {
     "teacher-container": TeacherContainer
   },

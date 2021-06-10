@@ -41,7 +41,7 @@ export default {
   background-color: #ECEFF6;
 }
 .FAQ__container {
-  margin-top: 120px;
+  margin-top: 110px;
   width: 50%;
   display: flex;
   flex-direction: column;

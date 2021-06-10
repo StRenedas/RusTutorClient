@@ -13,7 +13,7 @@ export default {
 
     }
   },
-  middleware: 'auth',
+  middleware: ['auth'],
   components: {
       'levels-container': LevelsContainer
   },
@@ -44,7 +44,7 @@ export default {
   height: 100vh;
   width: 100%;
 }
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .container {
     height: auto;
   }
