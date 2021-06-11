@@ -131,7 +131,7 @@ export default {
 
 <style scoped>
 .main-page {
-  height: calc(100vh - 100px);
+  height: 100%;
   background-color: #0A132D;
 }
 .main-page__forms {
