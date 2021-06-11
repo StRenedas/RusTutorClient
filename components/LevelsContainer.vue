@@ -41,24 +41,24 @@ export default {
           levelName: "Beginner",
           levelDescription: "Russian language basics",
           levelImage: "/LevelCardsImages/language-white.svg",
-          border: '5px solid rgb(170, 255, 170)',
-          shadow: '0 4px 50px -11px rgb(170,255,170)'
+          border: '4px solid rgb(170, 255, 170)',
+          shadow: '0 4px 40px -11px rgb(170,255,170)'
         },
         {
         id: 2,
           levelName: "Elementary",
           levelDescription: "Making a step forward",
           levelImage: "/LevelCardsImages/learner-white.svg",
-          border: '5px solid rgb(255, 255, 170)',
-          shadow: '0 4px 50px -11px rgb(255, 255, 170)'
+          border: '4px solid rgb(255, 255, 170)',
+          shadow: '0 4px 40px -11px rgb(255, 255, 170)'
         },
         {
           id: 3,
           levelName: "Pre-Intermediate",
           levelDescription: "Not a game now!",
           levelImage: "/LevelCardsImages/brain-white.svg",
-          border: '5px solid rgb(255, 170, 170)',
-          shadow: '0 4px 50px -11px rgb(255, 170, 170)'
+          border: '4px solid rgb(255, 170, 170)',
+          shadow: '0 4px 40px -11px rgb(255, 170, 170)'
         }
       ],
       taskCards: [

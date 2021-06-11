@@ -16,7 +16,7 @@ export default {
 .tasks-cards__border {
   width: 300px;
   height: 300px;
-  border: 5px solid white;
+  border: 4px solid white;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -24,7 +24,7 @@ export default {
   align-items: center;
   margin: 20px;
   transition: transform .4s ease-out;
-  box-shadow:0 4px 50px -11px rgb(255, 255, 170);
+  box-shadow:0 4px 40px -11px rgb(255, 255, 170);
 }
 .tasks-cards__border:hover {
   transform: translate(0, -10px);

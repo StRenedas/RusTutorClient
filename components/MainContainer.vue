@@ -135,7 +135,8 @@ export default {
   background-color: #0A132D;
 }
 .main-page__forms {
-  height: 100%;
+  min-height: calc(100vh - 100px);
+  height: auto;
   display: flex;
   justify-content: space-evenly;
   align-items: center;

@@ -1,7 +1,7 @@
 <template>
     <div class="FAQ">
       <div class="FAQ__container">
-        <h1 class="FAQ__title">Quick guide for students</h1>
+        <h2 class="FAQ__title">Quick guide for students</h2>
         <p class="FAQ__subtitle">That's a service to practice your skills at Russian language and to get some good grades at SUSU.</p>
         <ul class="FAQ__list">
           <li class="FAQ__list_element">Signup using the form on the main page.</li>
@@ -12,7 +12,7 @@
         </ul>
       </div>
       <div class="FAQ__container">
-        <h1 class="FAQ__title">Quick guide for professors</h1>
+        <h2 class="FAQ__title">Quick guide for professors</h2>
         <p class="FAQ__subtitle">Motivate your students to learn Russian by giving them additional points for completing tasks.</p>
         <ul class="FAQ__list">
           <li class="FAQ__list_element">Signup using the form on the main page.</li>
@@ -58,10 +58,10 @@ export default {
   text-align: center;
 }
 .FAQ__subtitle {
-  width: 60%;
+  width: 80%;
   color: #25618C;
   font-size: 32px;
-  text-align: center;
+  text-align: justify;
   padding: 3% 0 10%;
 }
 .FAQ__list {
@@ -93,6 +93,7 @@ export default {
   .FAQ__container {
     width: 100%;
     border-bottom: 1px solid black;
+    margin-top: 50px;
   }
   .FAQ__container:first-child {
     border-right: none;
@@ -109,6 +110,9 @@ export default {
 }
 
 @media (max-width: 420px) {
+  .FAQ__container {
+    margin-top: 15px;
+  }
   .FAQ__title {
     font-size: 24px;
   }

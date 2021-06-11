@@ -45,11 +45,11 @@ export default {
         return this.studentsInfo.sort().slice(0, 10);
       }
       else {
-        if (this.studentsInfo.filter(student => student.username.includes(this.sortField)).length === 0) {
+        if (this.studentsInfo.filter(student => student.username.toLowerCase().includes(this.sortField.toLowerCase())).length === 0) {
           return [{ username: 'Пользователи не найдены!' }];
         }
         else {
-          return this.studentsInfo.filter(student => student.username.includes(this.sortField))
+          return this.studentsInfo.filter(student => student.username.toLowerCase().includes(this.sortField.toLowerCase()))
         }
       }
     }
@@ -92,6 +92,9 @@ export default {
   font-weight: 400;
   padding-bottom: 20px;
 }
+.students-ratings__header_name {
+  text-align: center;
+}
 .students-ratings__header_mobile {
   display: none;
   font-size: 24px;
@@ -101,7 +104,6 @@ export default {
 }
 .students-ratings__sort-tip {
   font-size: 22px;
-/*  padding-bottom: 20px;*/
   padding: 0 15px 20px;
   text-align: center;
 }
@@ -155,6 +157,9 @@ export default {
     flex-direction: column;
     text-align: center;
   }
+  .student-ratings__credentials {
+    padding-left: 0;
+  }
   .students-ratings__name {
     text-align: center;
   }
@@ -171,8 +176,12 @@ export default {
 @media (max-width: 400px) {
   .students-ratings__description {
     font-size: 22px;
+    padding: 30px 10px 40px;
   }
   .students-ratings__header {
+    font-size: 22px;
+  }
+  .students-ratings__header_name {
     font-size: 22px;
   }
   .students-ratings__list {

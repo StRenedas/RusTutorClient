@@ -126,7 +126,7 @@ export default {
 }
 .task__description {
   color: white;
-  font-size: 46px;
+  font-size: 42px;
   font-weight: 400;
   text-align: center;
   padding-top: 10px;
@@ -214,6 +214,7 @@ export default {
   outline: none;
   border: 2px solid white;
   border-radius: 5px;
+  background-color: white;
 }
 
 .task__submit {
@@ -236,7 +237,8 @@ export default {
 }
 @media(max-width: 1020px) {
   .task__description {
-    font-size: 36px;
+    font-size: 28px;
+    padding: 10px 15px 0;
   }
   .task__block {
     grid-template-columns: 1fr 1fr;

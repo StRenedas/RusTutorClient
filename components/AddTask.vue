@@ -2,37 +2,43 @@
   <div class="new-task">
     <div class="new-task__container">
       <div class="new-task__type">
-        <p class="new-task__description">Введите предложение для задания "Перевод слова"</p>
-        <input class="new-task__input" type="text" v-model="task1.text" placeholder="Текст задания">
+        <p class="new-task__description">Предложение для задания "Перевод слова"</p>
+        <input class="new-task__input" type="text" v-model="task1.text" placeholder="Введите текст задания">
         <p class="new-task__tip">Выберите слово для перевода</p>
         <select class="new-task__input" v-model="task1.word">
           <option v-for="word in splitTaskText1" :key="word">{{word}}</option>
         </select>
-        <p class="new-task__tip">Введите правильный ответ на задание</p>
-        <input class="new-task__input" type="text" v-model="task1.answer">
+        <p class="new-task__tip">Правильный ответ</p>
+        <input class="new-task__input" type="text" v-model="task1.answer" placeholder="Введите правильный ответ">
         <p class="new-task__tip">Укажите уровень сложности</p>
-        <select class="new-task__input-small" v-model="task1.level">
-          <option v-for="level in levels" :key="level">{{level}}</option>
-        </select>
-        <p class="new-task__tip">Введите количество баллов за задание</p>
+        <div class="new-task__levels">
+          <div class="new-task__level" v-for="level in levels" :key="level">
+            <label class="new-task__level_label" for="levels1">{{level}}</label>
+            <input type="radio" class="new-task__level_button" id="levels1" :name="levels" :value="level" v-model="task1.level">
+          </div>
+        </div>
+        <p class="new-task__tip">Баллы за задание</p>
         <input class="new-task__input-small" type="text" v-model.trim="$v.task1.points.$model">
         <p class="new-task__pending" v-if="task1.pending !== ''">{{ task1.pending }}</p>
         <button class="new-task__submit" @click.prevent="addTaskType1">Добавить задание</button>
       </div>
       <div class="new-task__type">
-        <p class="new-task__description">Введите слово для задания "Выбор варианта"</p>
-        <input class="new-task__input" type="text" v-model="task3.word" placeholder="Слово для задания">
-        <p class="new-task__tip">Введите варианты ответа через пробел</p>
-        <input type="text" class="new-task__input" v-model="task3.options">
-        <p class="new-task__tip">Выберите правильный ответ из введенных слов</p>
+        <p class="new-task__description">Слово для задания "Выбор варианта"</p>
+        <input class="new-task__input" type="text" v-model="task3.word" placeholder="Введите слово для задания">
+        <p class="new-task__tip">Варианты ответа (через пробел)</p>
+        <input type="text" class="new-task__input" v-model="task3.options" placeholder="Введите варианты ответа">
+        <p class="new-task__tip">Правильный ответ</p>
         <select class="new-task__input" v-model="task3.selectedWord">
           <option v-for="option in splitTaskText3" :key="option">{{option}}</option>
         </select>
         <p class="new-task__tip">Укажите уровень сложности</p>
-        <select class="new-task__input-small" v-model="task3.level">
-          <option v-for="level in levels" :key="level">{{level}}</option>
-        </select>
-        <p class="new-task__tip">Введите количество баллов за задание</p>
+        <div class="new-task__levels">
+          <div class="new-task__level" v-for="level in levels" :key="level">
+            <label class="new-task__level_label" for="levels3">{{level}}</label>
+            <input type="radio" class="new-task__level_button" id="levels3" :name="levels" :value="level" v-model="task3.level">
+          </div>
+        </div>
+        <p class="new-task__tip">Баллы за задание</p>
         <input class="new-task__input-small" type="text" v-model.trim="$v.task3.points.$model">
         <p class="new-task__pending" v-if="task3.pending !== ''">{{ task3.pending }}</p>
         <button class="new-task__submit" @click.prevent="addTaskType3">Добавить задание</button>
@@ -150,7 +156,7 @@ export default {
 .new-task__container {
   width: 100%;
   height: auto;
-  min-height: 850px;
+  min-height: calc(100vh - 100px);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -181,6 +187,20 @@ export default {
   outline: none;
   border: 2px solid white;
   border-radius: 5px
+}
+.new-task__levels {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.new-task__level {
+  display: flex;
+  flex-direction: column;
+}
+.new-task__level_button {
+  width: 20px;
+  height: 20px;
 }
 .new-task__pending {
   font-size: 22px;

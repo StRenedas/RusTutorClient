@@ -168,13 +168,13 @@ export default {
   align-items: center;
   background-color: #111111;
   width: 100%;
-  font-size: 20px;
+  font-size: 22px;
 }
 .header__link_mobile {
-  padding-top: 5px;
+  padding: 3px;
 }
 .header__username_mobile {
-  padding-top: 5px;
+  padding: 3px;
 }
 .header__logout_mobile {
   margin: 5px;

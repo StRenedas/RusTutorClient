@@ -80,8 +80,8 @@ export default {
 }
 .teacher__events {
   width: 100%;
-  min-height: 850px;
-  height: 100%;
+  min-height: calc(100vh - 100px);
+  height: auto;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
