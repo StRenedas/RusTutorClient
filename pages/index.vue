@@ -35,7 +35,13 @@ export default {
 
 <style>
 .container {
-  height: 850px;
+  height: calc(100vh - 100px);
   width: 100%;
+}
+@media (max-width: 540px) {
+  .container {
+    min-height: calc(100vh - 100px);
+    height: auto;
+  }
 }
 </style>

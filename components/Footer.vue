@@ -11,11 +11,14 @@ export default {};
 <style scoped>
 .footer {
   width: 100%;
+  height: 60px;
   background-color: #151212;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .footer__copyright {
   color: white;
   text-align: center;
-  padding: 18px 0 17px;
 }
 </style>

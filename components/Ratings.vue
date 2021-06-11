@@ -19,7 +19,6 @@
         <p class="students-ratings__rating">{{ student.rating }}</p>
       </div>
     </div>
-    <slot></slot>
   </div>
 </template>
 
@@ -72,8 +71,7 @@ export default {
   background-color: #25618C;
   color: white;
   width: 100%;
-  min-height: 800px;
-  height: auto;
+  height: calc(100vh - 100px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -146,9 +144,18 @@ export default {
   .students-ratings__header {
     font-size: 24px;
   }
+  .students-ratings__list {
+    width: 80%;
+  }
   .students-ratings__student {
     font-size: 22px;
     flex-direction: column;
+    text-align: center;
+  }
+  .students-ratings__name {
+    text-align: center;
+  }
+  .student-ratings__email {
     text-align: center;
   }
   .students-ratings__header_mobile {

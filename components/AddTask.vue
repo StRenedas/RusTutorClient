@@ -138,7 +138,7 @@ export default {
 <style scoped>
 .new-task {
   width: 100%;
-  height: auto;
+  height: calc(100vh - 100px);
   background-color: #25618C;
   color: white;
   font-size: 24px;
@@ -225,6 +225,10 @@ export default {
   }
 }
 @media (max-width: 880px) {
+  .new-task {
+    min-height: calc(100vh - 100px);
+    height: auto;
+  }
   .new-task__container {
     flex-direction: column;
   }
@@ -240,12 +244,11 @@ export default {
     font-size: 16px;
   }
   .new-task__type {
-    width: 300px;
+    width: 275px;
     height: auto;
   }
   .new-task__input {
     width: 250px;
   }
-
 }
 </style>

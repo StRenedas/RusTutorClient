@@ -131,7 +131,7 @@ export default {
 
 <style scoped>
 .main-page {
-  height: 100%;
+  height: calc(100vh - 100px);
   background-color: #0A132D;
 }
 .main-page__forms {
@@ -194,9 +194,12 @@ export default {
   font-weight: 400;
   padding-bottom: 20px;
 }
-@media (max-width: 1250px) {
+@media (max-width: 900px) {
   .main-page__forms {
     flex-direction: column;
+  }
+  .form {
+    margin: 30px;
   }
   .form__description {
     font-size: 24px;

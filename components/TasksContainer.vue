@@ -4,10 +4,12 @@
       <p class='task__description' v-if="!loading">Translate the highlighted word into Russian</p>
       <p class="task__loading" v-if="loading">Loading...</p>
       <p class="task__resolved" v-if="everythingResolved!==''">{{everythingResolved}}</p>
-      <div class="task__itself" v-for="question in getQuestions" :key="question.id">
-        <div class='task__place' v-html="question.value"></div>
-        <div class='task__points' >Points for this task: {{ question.points }}</div>
-        <input type='text' class='task__answer' @change="setAnswer($event, question.id, question.value)" >
+      <div class="task__block">
+        <div class="task__itself" v-for="question in getQuestions" :key="question.id">
+          <div class='task__place' v-html="question.value"></div>
+          <input type='text' class='task__answer' @change="setAnswer($event, question.id, question.value)">
+          <div class='task__points' >Points: {{ question.points }}</div>
+        </div>
       </div>
       <button class='task__submit' v-if="everythingResolved==='' && !loading" @click="sendAnswers">Submit all</button>
     </div>
@@ -16,14 +18,16 @@
       <p class='task__description' v-if="!loading">Choose one picture</p>
       <p class="task__loading" v-if="loading">Loading...</p>
       <p class="task__resolved" v-if="everythingResolved!==''">{{everythingResolved}}</p>
-      <div class="task__itself" v-for="(question,index) in getQuestions" :key="question.id">
-        <div class='task__place' v-html="question.value"></div>
-        <div class='task__points' >Points for this task: {{ question.points }}</div>
-        <div class="task__pictures">
-          <div class="task__picture" v-for="option in getOptions[index]">
-            <input type="radio" class="task__picture_button" id="choice" :name="getOptions[index]" :value="option" @change="setAnswer($event, question.id, question.value)">
-            <label class="task__picture_label" for="choice"><img class="task__picture_image" :src="option" alt=""></label>
+      <div class="task__block-pictures">
+        <div class="task__itself" v-for="(question,index) in getQuestions" :key="question.id">
+          <div class='task__place' v-html="question.value"></div>
+          <div class="task__pictures">
+            <div class="task__picture" v-for="option in getOptions[index]">
+              <label class="task__picture_label" for="choice"><img class="task__picture_image" :src="option" alt=""></label>
+              <input type="radio" class="task__picture_button" id="choice" :name="getOptions[index]" :value="option" @change="setAnswer($event, question.id, question.value)">
+            </div>
           </div>
+          <div class='task__points' >Points: {{ question.points }}</div>
         </div>
       </div>
       <button class='task__submit' v-if="everythingResolved==='' && !loading" @click="sendAnswers">Submit all</button>
@@ -33,12 +37,14 @@
       <p class='task__description' v-if="!loading">Choose the right translation</p>
       <p class="task__loading" v-if="loading">Loading...</p>
       <p class="task__resolved" v-if="everythingResolved!==''">{{everythingResolved}}</p>
-      <div class="task__itself" v-for="(question, index) in getQuestions" :key="question.id">
-        <div class='task__place' v-html="question.value"></div>
-        <div class='task__points' >Points for this task: {{ question.points }}</div>
-        <select class="task__select" @change="setAnswer($event, question.id, question.value)">
-          <option class="task__options" v-for="option in getOptions[index]">{{option}}</option>
-        </select>
+      <div class="task__block">
+        <div class="task__itself" v-for="(question, index) in getQuestions" :key="question.id">
+          <div class='task__place' v-html="question.value"></div>
+          <select class="task__select" @change="setAnswer($event, question.id, question.value)">
+            <option class="task__options" v-for="option in getOptions[index]">{{option}}</option>
+          </select>
+          <div class='task__points' >Points: {{ question.points }}</div>
+        </div>
       </div>
       <button class='task__submit' v-if="everythingResolved==='' && !loading" @click="sendAnswers">Submit all</button>
     </div>
@@ -106,7 +112,7 @@ export default {
 <style scoped>
 .task {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 .task__type {
   width: 100%;
@@ -135,6 +141,16 @@ export default {
   font-size: 28px;
   text-align: center;
 }
+.task__block {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.task__block-pictures {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
 .task__itself {
   display: flex;
   flex-direction: column;
@@ -143,19 +159,22 @@ export default {
   padding: 30px;
 }
 .task__place {
-  padding: 20px 20px;
+  width: 250px;
+  padding: 10px 10px;
   background-color: white;
   border: 3px solid white;
   border-radius: 10px;
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 300;
 }
 .task__points {
   color: white;
   font-size: 25px;
+  margin-top: 10px;
 }
 .task__answer {
-  width: 300px;
+  margin-top: 20px;
+  width: 250px;
   height: 50px;
   font-size: 26px;
   outline: none;
@@ -164,24 +183,32 @@ export default {
 }
 
 .task__pictures {
-  width: 100%;
+  width: 70%;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
+  margin-top: 10px;
 }
 .task__picture {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  flex: 1 1 25%;
+  margin-top: 10px;
+  margin-right: 10px;
 }
 .task__picture_image {
   height: 100px;
   width: 100px;
+  border: 2px solid white;
   border-radius: 10px;
 }
+.task__picture_button {
+  width: 20px;
+  height: 20px;
+}
 .task__select {
-  min-width: 200px;
+  margin-top: 20px;
+  min-width: 250px;
   padding: 10px;
   font-size: 22px;
   outline: none;
@@ -202,15 +229,30 @@ export default {
   background-color: darkseagreen;
   cursor: pointer;
 }
-
+@media (max-width: 1100px) {
+  .task__block-pictures {
+    grid-template-columns: 1fr;
+  }
+}
 @media(max-width: 1020px) {
   .task__description {
     font-size: 36px;
   }
+  .task__block {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .task__block {
+    grid-template-columns: 1fr;
+  }
 }
 @media(max-width: 540px) {
   .task__pictures {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
+
 }
 </style>

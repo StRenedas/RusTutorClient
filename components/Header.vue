@@ -103,7 +103,7 @@ export default {
   display: none;
   width: 40px;
   height: 40px;
-  margin-right: 20px;
+  margin-right: 30px;
 }
 .header__burger-img {
   width: 40px;
@@ -111,16 +111,16 @@ export default {
 }
 .header__logo-big {
   display: block;
-  height: 75px;
+  height: 70px;
   width: 600px;
-  padding-left: 20px;
+  padding-left: 30px;
   cursor: pointer;
 }
 .header__logo-small {
   display: none;
-  height: 75px;
-  width: 75px;
-  margin-left: 20px;
+  height: 70px;
+  width: 70px;
+  margin-left: 30px;
   cursor: pointer;
 }
 .header__menu {
@@ -177,10 +177,10 @@ export default {
   padding-top: 5px;
 }
 .header__logout_mobile {
-  margin-top: 5px;
+  margin: 5px;
 }
 
-@media (max-width: 1240px) {
+@media (max-width: 1260px) {
   .header__container {
     justify-content: space-between;
   }
@@ -199,7 +199,7 @@ export default {
     display: none;
   }
 }
-@media (min-width: 1240px) {
+@media (min-width: 1260px) {
   .header__menu_mobile {
     display: none;
   }

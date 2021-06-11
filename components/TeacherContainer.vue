@@ -69,7 +69,8 @@ export default {
 <style scoped>
 .teacher {
   width: 100%;
-  height: 100%;
+  min-height: calc(100vh - 100px);
+  height: auto;
   background-color: #25618C;
   color: white;
   display: flex;
@@ -104,16 +105,10 @@ export default {
   font-size: 32px;
   text-align: center;
 }
-.teacher__button-back {
-  width: 100px;
-  padding: 20px;
-  font-size: 20px;
-  border: 2px solid black;
-  border-radius: 10px;
-}
 .students-ratings {
   width: 100%;
-  height: 100%;
+  height: auto;
+  min-height: calc(100vh - 100px);;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -123,6 +118,10 @@ export default {
   height: 100%;
 }
 @media (max-width: 768px) {
+/*  .teacher {
+    min-height: calc(100vh - 100px);
+    height: auto;
+  }*/
   .teacher-cards__border {
     height: 250px;
     width: 250px;
