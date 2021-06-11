@@ -8,7 +8,7 @@
         </div>
       </div>
     </div>
-    <div class="students-ratings" v-if="getTeacherAction === 1">
+    <div class="ratings__students" v-if="getTeacherAction === 1">
       <ratings />
     </div>
     <div class="task-add" v-if="getTeacherAction === 2">
@@ -105,7 +105,7 @@ export default {
   font-size: 32px;
   text-align: center;
 }
-.students-ratings {
+.ratings__students {
   width: 100%;
   height: auto;
   min-height: calc(100vh - 100px);;

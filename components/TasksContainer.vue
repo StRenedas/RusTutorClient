@@ -112,11 +112,11 @@ export default {
 <style scoped>
 .task {
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 .task__type {
   width: 100%;
-  min-height: 850px;
+  min-height: calc(100vh - 100px);
   height: auto;
   background-color: #0A132D;
   display: flex;

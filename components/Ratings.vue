@@ -71,7 +71,7 @@ export default {
   background-color: #25618C;
   color: white;
   width: 100%;
-  height: calc(100vh - 100px);
+  min-height: calc(100vh - 100px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,7 +79,7 @@ export default {
 .students-ratings__description {
   font-size: 28px;
   font-weight: 600;
-  padding: 100px 0 50px;
+  padding: 100px 15px 50px;
   text-align: center;
 }
 .students-ratings__header {
@@ -96,10 +96,13 @@ export default {
   display: none;
   font-size: 24px;
   text-align: center;
+  font-weight: 400;
+  padding-bottom: 20px;
 }
 .students-ratings__sort-tip {
   font-size: 22px;
-  padding-bottom: 20px;
+/*  padding-bottom: 20px;*/
+  padding: 0 15px 20px;
   text-align: center;
 }
 .students-ratings__sort {
@@ -139,7 +142,7 @@ export default {
 @media (max-width: 800px) {
   .students-ratings__description {
     font-size: 24px;
-    padding: 50px 0 75px;
+    padding: 50px 15px 75px;
   }
   .students-ratings__header {
     font-size: 24px;

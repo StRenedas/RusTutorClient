@@ -34,12 +34,12 @@ export default {
 <style scoped>
 .container {
   min-height: calc(100vh - 100px);
+  height: auto;
   width: 100%;
 }
-@media (max-width: 800px) {
+/*@media (max-width: 800px) {
   .container {
     min-height: calc(100vh - 100px);
-    height: auto;
   }
-}
+}*/
 </style>
