@@ -2,7 +2,7 @@
   <div class="container">
     <div class="user-info">
       <p class="user-text">Get yourself some practice!</p>
-      <p class="user-rating">Your current rating is {{ this.$auth.$storage.getLocalStorage("rating") }}</p>
+      <p class="user-rating">Your current score is {{ this.$auth.$storage.getLocalStorage("rating") }}</p>
     </div>
     <div class="levels-container" v-if="getLevel === 0">
       <div class="levels-cards__container" v-for="card in cards" :key="card.id" @click="setNewLevel(card.id)">

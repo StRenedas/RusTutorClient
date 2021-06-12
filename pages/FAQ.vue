@@ -6,7 +6,7 @@
         <ul class="FAQ__list">
           <li class="FAQ__list_element">Signup using the form on the main page.</li>
           <li class="FAQ__list_element">Starting with ‘Beginner’ level, select the task type.</li>
-          <li class="FAQ__list_element">Complete tasks to increase your overall rating.</li>
+          <li class="FAQ__list_element">Complete tasks to increase your total score.</li>
           <li class="FAQ__list_element">Show your results to your teacher.</li>
           <li class="FAQ__list_element">Get some good grades!</li>
         </ul>
