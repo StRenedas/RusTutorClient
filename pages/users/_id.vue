@@ -14,7 +14,7 @@
 <script>
 export default {
   async asyncData({params, $axios}) {
-    let res = await $axios.$post('https://rustutor-backend/stats', {userid: `${params.id}`});
+    let res = await $axios.$post('https://rustutor-backend.herokuapp.com/stats', {userid: `${params.id}`});
     /*let nickname = await $axios.$post('http://127.0.0.1:3001:')*/
     return {res};
   },
