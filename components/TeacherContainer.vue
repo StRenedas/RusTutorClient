@@ -119,10 +119,6 @@ export default {
   height: 100%;
 }
 @media (max-width: 768px) {
-/*  .teacher {
-    min-height: calc(100vh - 100px);
-    height: auto;
-  }*/
   .teacher-cards__border {
     height: 250px;
     width: 250px;
