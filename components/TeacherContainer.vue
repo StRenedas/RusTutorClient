@@ -50,7 +50,7 @@ export default {
       if(this.getTeacherAction === 1) this.getRatings();
     },
     async getRatings() {
-      this.studentsInfo = await this.$axios.$post('https://rustutor-backend.herokuapp.com/ratings', {token: this.$auth.strategy.token.get()})
+      this.studentsInfo = await this.$axios.$get('https://rustutor-backend.herokuapp.com/ratings')
     }
   },
   computed: {
