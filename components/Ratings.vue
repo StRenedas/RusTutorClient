@@ -71,7 +71,7 @@ export default {
     },*/
     async getStats(id) {
       this.student = await this.studentsInfo.filter(student => student.id.toString()===id.toString());
-      let res = await this.$axios.$post('https://rustutor-backend.herokuapp.com/statistics', {userid: this.student[0].id});
+      let res = await this.$axios.$post('https://rustutor-backend.herokuapp.com/statistics', {userid: this.student[0].id, token: this.$auth.strategy.token.get()});
       console.log(res);
       this.student[0].stat = []
       for (let i = 0; i < res.length; i++) {

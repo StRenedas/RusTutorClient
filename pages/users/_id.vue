@@ -16,7 +16,7 @@ import { mapGetters, mapMutations } from "vuex";
 
 export default {
   async asyncData({params, $axios}) {
-    let res = await $axios.$post('https://rustutor-backend.herokuapp.com/errors', {userid: `${params.id}`});
+    let res = await $axios.$post('https://rustutor-backend.herokuapp.com/errors', {userid: `${params.id}`, token: this.$auth.strategy.token.get()});
     return {res};
   },
   middleware: 'auth',
