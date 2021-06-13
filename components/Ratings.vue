@@ -3,6 +3,12 @@
     <p class="students-ratings__description">Ниже представлены 10 студентов с наибольшим количеством баллов</p>
     <p class="students-ratings__sort-tip">Для поиска среди всех студентов, введите имя в поле поиска</p>
     <p class="students-ratings__sort-tip">Для просмотра неверно отвеченных заданий, нажмите на имя студента</p>
+    <div class="students-ratings__stats" v-for="stat in totalQuestions">
+      <p class="students-ratings__level">Заданий в модуле {{stat.level}}: {{stat.total }}</p>
+      <p class="students-ratings__level-type"> Из них на перевод: {{stat.translate}}</p>
+      <p class="students-ratings__level-type"> Из них на картинки: {{stat.pics}}</p>
+      <p class="students-ratings__level-type"> Из них на выбор слова: {{stat.choice}}</p>
+    </div>
     <input type="text" class="students-ratings__sort" v-model="sortField" placeholder="Введите имя студента">
     <div class="students-ratings__header">
       <p class="students-ratings__header_name">Имя студента</p>
@@ -38,9 +44,10 @@ export default {
   data() {
     return {
       studentsInfo: [],
+      totalQuestions: [],
       sortField: '',
       student: {},
-      levels: [{lvl: 1, name:"Beginner"}, {lvl: 2, name: "Elementary"}, {lvl: 3, name: "Pre-intermediate"}],
+/*      levels: [{lvl: 1, name:"Beginner"}, {lvl: 2, name: "Elementary"}, {lvl: 3, name: "Pre-intermediate"}],*/
     }
   },
   methods: {
@@ -48,27 +55,10 @@ export default {
     async getRatings() {
       this.studentsInfo = await this.$axios.$get('https://rustutor-backend.herokuapp.com/ratings');
     },
-/*    async getCorrects(id) {
-      this.student = await this.studentsInfo.filter(student => student.id.toString()===id.toString());
-      let res = await this.$axios.post('http://127.0.0.1:3001/test2', {userid: this.student[0].id});
-      for (let i = 0; i < res.data.length; i++) {
-        this.student[0].resolved.push({level: this.levels[i].lvl, points: res.data[i]});
-      }
-      console.log(this.student)
+    async getTotal() {
+      this.totalQuestions = await this.$axios.get('https://rustutor-backend.herokuapp.com/total');
+      this.totalQuestions = this.totalQuestions.data;
     },
-    async getCorrectsByType(id, level) {
-      this.student = await this.studentsInfo.filter(student => student.id.toString()===id.toString());
-      let res = await this.$axios.$post('http://127.0.0.1:3001/test3', {userid: this.student[0].id, level});
-      console.log(this.student);
-      console.log(res);
-      console.log(this.student.resolved);
-      this.student.resolved.types = res;
-/!*      for (let i = 0; i < res.length; i++) {
-
-        this.student[0].resolved[i].types = res;
-      }*!/
-      /!*console.log(this.student[0].resolved[1].types);*!/
-    },*/
     async getStats(id) {
       this.student = await this.studentsInfo.filter(student => student.id.toString()===id.toString());
       let res = await this.$axios.$get(`https://rustutor-backend.herokuapp.com/statistics/${id}`);
@@ -103,6 +93,7 @@ export default {
       await this.$router.push({path: '/'});
     }
     await this.getRatings();
+    await this.getTotal();
   }
 };
 
