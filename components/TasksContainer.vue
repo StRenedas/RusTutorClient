@@ -80,8 +80,8 @@ export default {
         answers: this.answers,
         rating: this.$auth.$storage.getLocalStorage('rating'),
       };
-      const res = await this.$axios.$post('https://rustutor-backend.herokuapp.com/process', payload);
-      const rat = await this.$axios.$post('https://rustutor-backend.herokuapp.com/rating', payload);
+      await this.$axios.$post('https://rustutor-backend.herokuapp.com/process', payload);
+      const rat = await this.$axios.$get(`https://rustutor-backend.herokuapp.com/rating/${payload.userid}`);
       await this.$auth.$storage.setLocalStorage('rating', rat.updatedRating);
       await this.$router.push('/Levels');
     }
