@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <h1 class="task__title">Ниже представлены вопросы, на которые пользователь {{ name_surname.name_surname }} ответил неверно</h1>
+    <h1 class="task__title">Ниже представлены вопросы, на которые пользователь {{ res[1] }} ответил неверно</h1>
     <div class="task__block">
-      <div class="task__itself" v-for="question in res" :key="question.id">
+      <div class="task__itself" v-for="question in res[0]" :key="question.id">
         <p class="task__param">Модуль задания: {{question.level}}</p>
         <p class="task__param">Тип задания: {{question.type}}</p>
         <div class='task__place' v-html="question.value"></div>
@@ -16,9 +16,8 @@ import { mapGetters, mapMutations } from "vuex";
 
 export default {
   async asyncData({params, $axios}) {
-    let name_surname = await $axios.$post('http://127.0.0.1:3001/name', {userid: `${params.id}`})
     let res = await $axios.$post('https://rustutor-backend.herokuapp.com/stats', {userid: `${params.id}`});
-    return {res, name_surname};
+    return {res};
   },
   middleware: 'auth',
   methods: {
