@@ -55,6 +55,8 @@ export default {
 .task__block {
   width: 100%;
   display: grid;
+  min-height: calc(100vh - 100px);
+  height: auto;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 .task__param {
