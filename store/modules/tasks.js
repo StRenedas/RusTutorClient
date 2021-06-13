@@ -4,7 +4,6 @@ export default {
     options: [],
     levelPicked: 0,
     typePicked: 0,
-    teacherActionPicked: 0
   },
   mutations: {
     setQuestions(state, res) {
@@ -22,9 +21,6 @@ export default {
     revertQuestions(state) {
       state.questions = [];
     },
-    setTeacherAction(state, res) {
-      state.teacherActionPicked = res;
-    },
   },
   getters: {
     getQuestions(state) {
@@ -38,9 +34,6 @@ export default {
     },
     getOptions(state) {
       return state.options;
-    },
-    getTeacherAction(state) {
-      return state.teacherActionPicked;
     },
   },
   actions: {

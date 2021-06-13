@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <header class="header">
     <div class="header__container" v-if="$route.path==='/'">
       <img class="header__logo-big" src="../static/LogoImages/susuLogoBig.png" alt="SUSU Logo">
       <img class="header__logo-small" src="../static/LogoImages/susuLogoSmall.png" alt="SUSU Logo">
@@ -35,7 +35,7 @@
       <p class="header__username header__username_mobile" v-if="$auth.$storage.getLocalStorage('username') === ''"></p>
       <button class="header__logout header__logout_mobile" v-if="$auth.$storage.getLocalStorage('username')" @click.prevent="logoutUser">LOGOUT</button>
     </nav>
-  </div>
+  </header>
 </template>
 
 <script>

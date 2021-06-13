@@ -53,7 +53,7 @@ export default {
   methods: {
     ...mapMutations(['checkAdmin', 'checkAuth']),
     async getRatings() {
-      this.studentsInfo = await this.$axios.$get('https://rustutor-backend.herokuapp.com/ratings');
+      this.studentsInfo = await this.$axios.$get('https://rustutor-backend.herokuapp.com/users');
     },
     async getTotal() {
       this.totalQuestions = await this.$axios.get('https://rustutor-backend.herokuapp.com/total');

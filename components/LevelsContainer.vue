@@ -75,7 +75,6 @@ export default {
           taskImage: "/TaskCardsImages/1ofmany.svg",
         }
       ],
-      userid: 0,
     };
   },
   methods: {

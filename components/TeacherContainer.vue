@@ -50,7 +50,7 @@ export default {
       if(this.getTeacherAction === 1) this.getRatings();
     },
     async getRatings() {
-      this.studentsInfo = await this.$axios.$get('https://rustutor-backend.herokuapp.com/ratings')
+      this.studentsInfo = await this.$axios.$get('https://rustutor-backend.herokuapp.com/users')
     }
   },
   computed: {
@@ -90,6 +90,7 @@ export default {
   width: 350px;
   height: 350px;
   border: 4px solid white;
+  box-shadow: 0 4px 50px -11px rgb(0,0,0);
   border-radius: 10px;
   display: flex;
   flex-direction: column;

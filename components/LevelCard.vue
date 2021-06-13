@@ -11,9 +11,7 @@ export default {
   name: "LevelCard",
   props: ['cardImg', 'cardTitle', 'cardDescription', 'cardBorder', 'cardShadow'],
   computed: {
-    shadow() {
-      return this.cardShadow;
-    }
+    shadow() {return this.cardShadow;}
   }
 };
 </script>
