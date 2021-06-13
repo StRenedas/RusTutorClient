@@ -79,7 +79,10 @@ export default {
         this.setTeacherAction(0);
       }
       else {
-        this.$router.push('/')
+        if (this.$auth.$storage.getLocalStorage('isadmin')===true) {
+          this.$router.push('/Teacher')
+        }
+        this.$router.push('/Levels');
       }
     }
   },

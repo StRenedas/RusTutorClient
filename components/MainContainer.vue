@@ -5,12 +5,10 @@
         <p class="form__description">Sign Up</p>
         <form class="form__sign">
           <input class="form-input" type="text" name="reg_login" placeholder="Login:" v-model.trim="$v.signUser.username.$model">
-          <input class="form-input" type="email" name="email" placeholder="E-mail:" v-model.trim="$v.signUser.email.$model">
           <input class="form-input" type="text" name="name" placeholder="Name and surname:" v-model.trim="$v.signUser.name.$model">
           <input class="form-input" type="password" name="reg_pass" placeholder="Password:" v-model.trim="$v.signUser.password.$model">
           <input class="form-input" type="password" name="reg_pass_repeat" placeholder="Repeat password:" v-model.trim="$v.signUser.repPassword.$model">
           <error v-if="!$v.signUser.username.minLength" :error-description='"Username must be at least 8 characters long"' />
-          <error v-if="!$v.signUser.email.email" :error-description='"Please submit a correct e-mail"' />
           <error v-if="!$v.signUser.name.required && !$v.signUser.name.$dirty" :error-description='"Please provide your real name and surname"' />
           <error v-if="!$v.signUser.password.minLength" :error-description='"Password must be at least 8 characters long"' />
           <error v-if="!$v.signUser.repPassword.sameAs" :error-description='"Passwords must match"' />
@@ -48,7 +46,6 @@ export default {
     return {
       signUser: {
         username: '',
-        email: '',
         name: '',
         password: '',
         repPassword: ''
@@ -67,10 +64,6 @@ export default {
       username: {
         required,
         minLength: minLength(8),
-      },
-      email: {
-        required,
-        email,
       },
       name: {
         required,
@@ -119,7 +112,6 @@ export default {
         this.isRegistered = 'Pending...'
         this.isRegistered = await this.$axios.$post('https://rustutor-backend.herokuapp.com/register', this.signUser);
         this.signUser.username = '';
-        this.signUser.email = '';
         this.signUser.name = '';
         this.signUser.password = '';
         this.signUser.repPassword = '';

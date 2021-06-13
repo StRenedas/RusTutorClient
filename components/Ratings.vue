@@ -2,29 +2,26 @@
   <div class="students-ratings">
     <p class="students-ratings__description">Ниже представлены 10 студентов с наибольшим количеством баллов</p>
     <p class="students-ratings__sort-tip">Для поиска среди всех студентов, введите имя в поле поиска</p>
-    <p class="students-ratings__sort-tip">Для просмотра неверно отвеченных задание, нажмите на имя студента</p>
+    <p class="students-ratings__sort-tip">Для просмотра неверно отвеченных заданий, нажмите на имя студента</p>
     <input type="text" class="students-ratings__sort" v-model="sortField" placeholder="Введите имя студента">
     <div class="students-ratings__header">
-<!--      <p class="students-ratings__header_name">Имя студента</p>
-      <p class="students-ratings__header_name">Email</p>
-      <p class="students-ratings__header_rating">Сумма баллов</p>-->
-      <p class="students-ratings__header_name">Имя студента, email и сумма баллов</p>
+      <p class="students-ratings__header_name">Имя студента</p>
+      <p class="students-ratings__header_rating">Сумма баллов</p>
     </div>
     <div class="students-ratings__header_mobile">
-<!--      <p class="students-ratings__header_name">Имя студента и сумма баллов</p>-->
+      <p class="students-ratings__header_name">Имя студента и сумма баллов</p>
     </div>
     <div class="students-ratings__list">
       <div class="students-ratings__student" v-for="student in sortByName" :key="student.id">
         <div class="student-ratings__credentials">
-          <nuxt-link :to="`/users/${student.id}`"><p class="students-ratings__name">{{ student.username }}</p></nuxt-link>
-          <p class="student-ratings__email">{{student.email}}</p>
+          <nuxt-link class="students-ratings__link" :to="`/users/${student.id}`"><p class="students-ratings__name">{{ student.username }}</p></nuxt-link>
           <p class="students-ratings__rating">{{ student.rating }}</p>
         </div>
         <div class="students-ratings__stats" v-for="stat in student.stat">
           <p class="students-ratings__level">Решено в модуле {{stat.level}}: {{ stat.total }}</p>
-          <p class="students-ratings__level-translate"> Из них на перевод: {{stat.translate}}</p>
-          <p class="students-ratings__level-pics"> Из них на картинки: {{stat.pics}}</p>
-          <p class="students-ratings__level-choice"> Из них на выбор слова: {{stat.choice}}</p>
+          <p class="students-ratings__level-type"> Из них на перевод: {{stat.translate}}</p>
+          <p class="students-ratings__level-type"> Из них на картинки: {{stat.pics}}</p>
+          <p class="students-ratings__level-type"> Из них на выбор слова: {{stat.choice}}</p>
         </div>
         <div class="students-ratings__stats_button" @click="getStats(student.id)">
           <img src="../static/down-arrow.png" alt="" class="students-ratings__stats_button_img">
@@ -132,15 +129,13 @@ export default {
 .students-ratings__header {
   width: 70%;
   display: flex;
-  align-items: center;
-  text-align: center;
+  justify-content: space-between;
   font-size: 28px;
   font-weight: 400;
   padding-bottom: 20px;
 }
 .students-ratings__header_name {
   text-align: center;
-  width: 100%;
 }
 .students-ratings__header_mobile {
   display: none;
@@ -185,6 +180,10 @@ export default {
   display: flex;
   width: 100%;
   justify-content: space-between;
+}
+.students-ratings__link {
+  text-decoration: underline;
+  color: white;
 }
 .students-ratings__rating {
   padding-right: 10px;
@@ -240,9 +239,6 @@ export default {
   .students-ratings__name {
     text-align: center;
   }
-  .student-ratings__email {
-    text-align: center;
-  }
   .students-ratings__header_mobile {
     display: block;
   }
@@ -264,8 +260,12 @@ export default {
   .students-ratings__list {
     font-size: 18px;
   }
-  .student-ratings__email {
+  .students-ratings__level {
     font-size: 16px;
+  }
+  .students-ratings__level-type {
+    font-size: 16px;
+
   }
 }
 </style>
