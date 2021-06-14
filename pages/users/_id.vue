@@ -54,10 +54,14 @@ export default {
 }
 .task__block {
   width: 100%;
-  display: grid;
+  /*display: grid;
   min-height: calc(100vh - 100px);
   height: auto;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;*/
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-around;
 }
 .task__param {
   color: white;
