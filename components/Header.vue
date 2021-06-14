@@ -47,8 +47,8 @@ export default {
       headerLinks: [
         {
           id: 1,
-          url: 'FAQ',
-          description: 'FAQ',
+          url: 'Info',
+          description: 'Info',
         },
         {
           id: 2,

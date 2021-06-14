@@ -57,11 +57,12 @@ export default {
     ...mapGetters(['authenticated', 'isadmin', 'getTeacherAction']),
   },
   async mounted() {
-    this.checkAuth();
-    this.checkAdmin();
+    await this.checkAuth();
+    await this.checkAdmin();
     if(!this.authenticated || !this.isadmin) {
       await this.$router.push({path: '/'});
     }
+    await this.setTeacherAction(0);
   }
 };
 </script>

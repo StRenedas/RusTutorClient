@@ -1,7 +1,6 @@
 export default {
   state: {
     questions: [],
-    options: [],
     levelPicked: 0,
     typePicked: 0,
   },
