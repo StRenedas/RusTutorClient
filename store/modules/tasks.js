@@ -1,6 +1,8 @@
 export default {
   state: {
     questions: [],
+    correct: [],
+    uncorrects: [],
     levelPicked: 0,
     typePicked: 0,
   },
@@ -17,6 +19,18 @@ export default {
     revertQuestions(state) {
       state.questions = [];
     },
+    setCorrects(state, res) {
+      state.correct = res;
+    },
+    revertCorrects(state) {
+      state.correct = [];
+    },
+    setUncorrects(state) {
+      state.uncorrects = state.questions.filter(({id}) => !state.correct.find(other => other.corrid === id));
+    },
+    revertUncorrects(state, res) {
+      state.uncorrects = [];
+    }
   },
   getters: {
     getQuestions(state) {
@@ -28,9 +42,12 @@ export default {
     getType(state) {
       return state.typePicked;
     },
-    getOptions(state) {
-      return state.options;
+    getCorrects(state) {
+      return state.correct
     },
+    getUncorrects(state) {
+      return state.uncorrects;
+    }
   },
   actions: {
     async getQuestionsFromServer ({commit}, payload) {
@@ -43,6 +60,17 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+    async getCorrectsFromServer({commit}, payload) {
+      try {
+        commit('revertCorrects');
+        commit('revertUncorrects');
+        const corrects = await this.$axios.$post("https://rustutor-backend.herokuapp.com/results", payload);
+        commit('setCorrects', corrects);
+        commit('setUncorrects');
+      } catch (err) {
+        console.log(err);
+      }
     }
-  }
+  },
 }

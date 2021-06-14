@@ -51,6 +51,21 @@
       </div>
       <button class='task__submit' v-if="everythingResolved==='' && !loading" @click="sendAnswers">Submit all</button>
     </div>
+
+    <div class="task__type" v-if="getType === -1">
+      <h2 class="task__stats">You've answered these questions wrong</h2>
+      <div class="task__block">
+        <div class="task__itself_simple" v-for="uncorrect in getUncorrects" :key="uncorrect.id">
+          <div class='task__place_uncorr' v-html="uncorrect.value"></div>
+        </div>
+      </div>
+      <h2 class="task__stats">You've answered these questions correct</h2>
+      <div class="task__block">
+        <div class="task__itself_simple" v-for="correct in getCorrects" :key="correct.corrid">
+          <div class='task__place_corr' v-html="correct.value"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -67,8 +82,8 @@ export default {
   },
   middleware: 'auth',
   methods: {
-    ...mapMutations(['checkAuth']),
-    ...mapActions(["getQuestionsFromServer"]),
+    ...mapMutations(['checkAuth', 'setType']),
+    ...mapActions(["getQuestionsFromServer", "getCorrectsFromServer"]),
     setAnswer(e, id, value) {
       for (let i = 0; i < this.answers.length; i++) {
         if (this.answers[i].qid === id) {
@@ -84,14 +99,15 @@ export default {
         answers: this.answers,
         rating: this.$auth.$storage.getLocalStorage('rating'),
       };
-      await this.$axios.$post('https://rustutor-backend.herokuapp.com/check', payload);
+      const corr = await this.$axios.$post('https://rustutor-backend.herokuapp.com/check', payload);
       const rat = await this.$axios.$get(`https://rustutor-backend.herokuapp.com/rating/${payload.userid}`);
       await this.$auth.$storage.setLocalStorage('rating', rat.updatedRating);
-      await this.$router.push('/Levels');
+      await this.getCorrectsFromServer({ corrs: corr });
+      await this.setType(-1);
     }
   },
   computed: {
-    ...mapGetters(['isadmin', 'authenticated', 'getType', 'getLevel', 'getQuestions'])
+    ...mapGetters(['isadmin', 'authenticated', 'getType', 'getLevel', 'getQuestions', 'getCorrects', 'getUncorrects'])
   },
   async mounted() {
     this.checkAuth()
@@ -142,6 +158,12 @@ export default {
   text-align: center;
   padding-top: 10px;
 }
+.task__stats {
+  text-align: center;
+  padding-top: 10px;
+  font-size: 32px;
+  color: white;
+}
 .task__loading {
   color: white;
   font-size: 28px;
@@ -179,6 +201,42 @@ export default {
   justify-content: space-between;
   padding: 30px;
   height: 330px;
+}
+.task__itself_simple {
+  height: auto;
+  padding: 10px;
+}
+.task__place_corr {
+  background-color: darkseagreen;
+  color: black;
+  width: 250px;
+  padding: 10px 10px;
+  border: 3px solid white;
+  border-radius: 10px;
+  font-size: 26px;
+  font-weight: 300;
+  height: 150px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.task__place_uncorr {
+  background-color: indianred;
+  color: black;
+  width: 250px;
+  padding: 10px 10px;
+  border: 3px solid white;
+  border-radius: 10px;
+  font-size: 26px;
+  font-weight: 300;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
 }
 .task__itself_pictures {
   display: flex;
