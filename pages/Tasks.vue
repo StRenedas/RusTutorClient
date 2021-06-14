@@ -23,8 +23,8 @@
           <div class='task__place' v-html="question.value"></div>
           <div class="task__pictures">
             <div class="task__picture" v-for="option in getQuestions[index].options">
-              <label class="task__picture_label" :for="question[index]"><img class="task__picture_image" :src="option" alt=""></label>
-              <input type="radio" class="task__picture_button" :id="question[index]" :name="question[index]" :value="option" @change="setAnswer($event, question.id, question.value)">
+              <label class="task__picture_label" for="choice"><img class="task__picture_image" :src="option" alt=""></label>
+              <input type="radio" class="task__picture_button" id=choice :name="index" :value="option" @change="setAnswer($event, question.id, question.value)">
             </div>
           </div>
           <div class='task__points' >Points: {{ question.points }}</div>
