@@ -22,7 +22,7 @@
         <div class="task__itself" v-for="(question,index) in getQuestions" :key="question.id">
           <div class='task__place' v-html="question.value"></div>
           <div class="task__pictures">
-            <div class="task__picture" v-for="option in getOptions[index]">
+            <div class="task__picture" v-for="option in getQuestions[index].options">
               <label class="task__picture_label" for="choice"><img class="task__picture_image" :src="option" alt=""></label>
               <input type="radio" class="task__picture_button" id="choice" :name="getOptions[index]" :value="option" @change="setAnswer($event, question.id, question.value)">
             </div>
@@ -41,7 +41,7 @@
         <div class="task__itself" v-for="(question, index) in getQuestions" :key="question.id">
           <div class='task__place' v-html="question.value"></div>
           <select class="task__select" @change="setAnswer($event, question.id, question.value)">
-            <option class="task__options" v-for="option in getOptions[index]">{{option}}</option>
+            <option class="task__options" v-for="option in getQuestions[index].options">{{option}}</option>
           </select>
           <div class='task__points' >Points: {{ question.points }}</div>
         </div>
@@ -81,7 +81,7 @@ export default {
         answers: this.answers,
         rating: this.$auth.$storage.getLocalStorage('rating'),
       };
-      await this.$axios.$post('https://rustutor-backend.herokuapp.com/process', payload);
+      await this.$axios.$post('https://rustutor-backend.herokuapp.com/check', payload);
       const rat = await this.$axios.$get(`https://rustutor-backend.herokuapp.com/rating/${payload.userid}`);
       await this.$auth.$storage.setLocalStorage('rating', rat.updatedRating);
       await this.$router.push('/Levels');

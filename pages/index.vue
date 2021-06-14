@@ -35,14 +35,12 @@
 
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import Error from "@/components/ui/Error";
-import Popup from "@/components/ui/Popup";
 import { minLength, required, sameAs } from "vuelidate/lib/validators";
 
 export default {
   layout: 'authreg',
   components: {
     'error': Error,
-    'popup': Popup,
   },
   data() {
     return {

@@ -113,6 +113,12 @@ export default {
   height: calc(100vh - 100px);
   width: 100%;
 }
+.home-page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 .user-info {
   width: 100%;
   display: flex;
@@ -152,10 +158,6 @@ export default {
   color: white;
 }
 @media (max-width: 900px) {
-  .container {
-    min-height: calc(100vh - 100px);
-    height: auto;
-  }
   .levels-container {
     flex-direction: column;
   }

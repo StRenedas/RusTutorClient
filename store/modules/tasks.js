@@ -40,13 +40,13 @@ export default {
     async getQuestionsFromServer ({commit}, payload) {
       try {
         commit('revertQuestions');
-        const questions = await this.$axios.$post("https://rustutor-backend.herokuapp.com/tasks", payload);
-        for (let i = 0; i < questions.length; i++) {
+        const questions = await this.$axios.$post("https://rustutor-backend.herokuapp.com/questions", payload);
+/*        for (let i = 0; i < questions.length; i++) {
           questions[i].options = await this.$axios.$post('https://rustutor-backend.herokuapp.com/options', {id: questions[i].id});
-        }
+        }*/
         if (!questions.empty) {
           commit('setQuestions', questions);
-          commit('setOptions', questions);
+/*          commit('setOptions', questions);*/
         }
       } catch (err) {
         console.log(err);
