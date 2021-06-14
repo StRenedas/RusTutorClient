@@ -3,45 +3,45 @@
     <div class="new-task__container">
       <div class="new-task__type">
         <p class="new-task__description">Предложение для задания "Перевод слова"</p>
-        <input class="new-task__input" type="text" v-model="task1.text" placeholder="Введите текст задания">
+        <input class="new-task__input" type="text" v-model.trim="$v.task1.text.$model" placeholder="Введите текст задания">
         <p class="new-task__tip">Выберите слово для перевода</p>
-        <select class="new-task__input" v-model="task1.word">
+        <select class="new-task__input" v-model.trim="$v.task1.word.$model">
           <option v-for="word in splitTaskText1" :key="word">{{word}}</option>
         </select>
         <p class="new-task__tip">Правильный ответ</p>
-        <input class="new-task__input" type="text" v-model="task1.answer" placeholder="Введите правильный ответ">
+        <input class="new-task__input" type="text" v-model.trim="$v.task1.answer.$model" placeholder="Введите правильный ответ">
         <p class="new-task__tip">Укажите уровень сложности</p>
         <div class="new-task__levels">
           <div class="new-task__level" v-for="level in levels" :key="level">
             <label class="new-task__level_label" for="levels1">{{level}}</label>
-            <input type="radio" class="new-task__level_button" id="levels1" :name="levels" :value="level" v-model="task1.level">
+            <input type="radio" class="new-task__level_button" id="levels1" :name="levels" :value="level" v-model.trim="$v.task1.level.$model">
           </div>
         </div>
         <p class="new-task__tip">Баллы за задание</p>
         <input class="new-task__input-small" type="text" v-model.trim="$v.task1.points.$model">
         <p class="new-task__pending" v-if="task1.pending !== ''">{{ task1.pending }}</p>
-        <button class="new-task__submit" @click.prevent="addTaskType1">Добавить задание</button>
+        <button class="new-task__submit" @click.prevent="addTaskType1" :disabled="$v.task1.$anyError" :class="{'new-task__submit-allowed': !$v.task1.$anyError }">Добавить задание</button>
       </div>
       <div class="new-task__type">
         <p class="new-task__description">Слово для задания "Выбор варианта"</p>
-        <input class="new-task__input" type="text" v-model="task3.word" placeholder="Введите слово для задания">
+        <input class="new-task__input" type="text" v-model.trim="$v.task3.word.$model" placeholder="Введите слово для задания">
         <p class="new-task__tip">Варианты ответа (через пробел)</p>
-        <input type="text" class="new-task__input" v-model="task3.options" placeholder="Введите варианты ответа">
+        <input type="text" class="new-task__input" v-model.trim="$v.task3.options.$model" placeholder="Введите варианты ответа">
         <p class="new-task__tip">Правильный ответ</p>
-        <select class="new-task__input" v-model="task3.selectedWord">
+        <select class="new-task__input" v-model.trim="$v.task3.selectedWord.$model">
           <option v-for="option in splitTaskText3" :key="option">{{option}}</option>
         </select>
         <p class="new-task__tip">Укажите уровень сложности</p>
         <div class="new-task__levels">
           <div class="new-task__level" v-for="level in levels" :key="level">
             <label class="new-task__level_label" for="levels3">{{level}}</label>
-            <input type="radio" class="new-task__level_button" id="levels3" :name="levels" :value="level" v-model="task3.level">
+            <input type="radio" class="new-task__level_button" id="levels3" :name="levels" :value="level" v-model.trim="$v.task3.level.$model">
           </div>
         </div>
         <p class="new-task__tip">Баллы за задание</p>
         <input class="new-task__input-small" type="text" v-model.trim="$v.task3.points.$model">
         <p class="new-task__pending" v-if="task3.pending !== ''">{{ task3.pending }}</p>
-        <button class="new-task__submit" @click.prevent="addTaskType3">Добавить задание</button>
+        <button class="new-task__submit" @click.prevent="addTaskType3" :disabled="$v.task3.$anyError" :class="{'new-task__submit-allowed': !$v.task3.$anyError }">Добавить задание</button>
       </div>
     </div>
   </div>
@@ -49,7 +49,7 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import {numeric} from 'vuelidate/lib/validators'
+import {numeric, required} from 'vuelidate/lib/validators'
 export default {
   data() {
     return {
@@ -59,8 +59,8 @@ export default {
         splitText: [],
         word: '',
         answer: '',
-        level: 0,
-        points: 0,
+        level: undefined,
+        points: undefined,
         pending: ''
       },
       task3: {
@@ -68,58 +68,75 @@ export default {
         options: '',
         selectedWord: '',
         splitOptions: [],
-        level: 0,
-        points: 0,
+        level: undefined,
+        points: undefined,
         pending: ''
       }
     }
   },
   validations: {
     task1: {
-
-      points: { numeric },
+      text: { required },
+      word: {required},
+      answer: {required},
+      level: {required, numeric},
+      points: { numeric, required },
     },
     task3: {
-      points: { numeric }
+      word: {required},
+      options: {required},
+      selectedWord: {required},
+      level: {required, numeric},
+      points: { numeric, required}
     }
   },
   methods: {
     ...mapMutations(['checkAuth', 'checkAdmin']),
     async addTaskType1() {
-      this.task1.text = this.task1.text.replace(this.task1.word, "<b>"+this.task1.word+"</b>");
-      this.task1.pending = 'Отправка..';
-      await this.$axios.$post("https://rustutor-backend.herokuapp.com/task",{
-        token: this.$auth.strategy.token.get(),
-        text: this.task1.text,
-        answer: this.task1.answer,
-        level: this.task1.level,
-        points: this.task1.points,
-        type: 1
-      });
-      this.task1.text = '';
-      this.task1.word = '';
-      this.task1.answer = '';
-      this.task1.pending = 'Задание добавлено!';
+      this.$v.task1.$touch();
+      if (this.$v.task1.$invalid) {
+        this.task1.pending = 'Заполните все поля!';
+      }
+      else {
+        this.task1.text = this.task1.text.replace(this.task1.word, "<b>"+this.task1.word+"</b>");
+        this.task1.pending = 'Отправка..';
+        await this.$axios.$post("https://rustutor-backend.herokuapp.com/task",{
+          text: this.task1.text,
+          answer: this.task1.answer,
+          level: this.task1.level,
+          points: this.task1.points,
+          type: 1
+        });
+        this.task1.text = '';
+        this.task1.word = '';
+        this.task1.answer = '';
+        this.task1.pending = 'Задание добавлено!';
+      }
     },
     async addTaskType3 () {
-      this.task3.splitOptions = this.task3.splitOptions.filter(word => word !== this.task3.selectedWord);
-      this.task3.pending = 'Отправка..';
-      await this.$axios.$post("https://rustutor-backend.herokuapp.com/task",{
-        token: this.$auth.strategy.token.get(),
-        text: this.task3.word,
-        answer: this.task3.selectedWord,
-        options: this.task3.splitOptions,
-        level: this.task3.level,
-        points: this.task3.points,
-        type: 3
-      })
-      this.task3.options = '';
-      this.task3.word = '';
-      this.task3.selectedWord = '';
-      this.task3.splitOptions = [];
-      this.task3.points = '';
-      this.task3.level = '';
-      this.task3.pending = 'Задание добавлено!';
+      this.$v.task3.$touch();
+      if (this.$v.task3.$invalid) {
+        this.task3.pending = 'Заполните все поля!';
+      }
+      else {
+        this.task3.splitOptions = this.task3.splitOptions.filter(word => word !== this.task3.selectedWord);
+        this.task3.pending = 'Отправка..';
+        await this.$axios.$post("https://rustutor-backend.herokuapp.com/task",{
+          text: this.task3.word,
+          answer: this.task3.selectedWord,
+          options: this.task3.splitOptions,
+          level: this.task3.level,
+          points: this.task3.points,
+          type: 3
+        })
+        this.task3.options = '';
+        this.task3.word = '';
+        this.task3.selectedWord = '';
+        this.task3.splitOptions = [];
+        this.task3.points = '';
+        this.task3.level = '';
+        this.task3.pending = 'Задание добавлено!';
+      }
     },
   },
   computed: {
@@ -218,6 +235,9 @@ export default {
   font-family: 'Open Sans', sans-serif;
 }
 .new-task__submit:hover {
+  cursor: not-allowed;
+}
+.new-task__submit-allowed:hover {
   background-color: darkseagreen;
   color: white;
   cursor: pointer;
@@ -231,8 +251,8 @@ export default {
   .new-task__container {
   }
   .new-task__type {
-    width: 400px;
-    height: 400px;
+    width: 430px;
+    height: 430px;
   }
   .new-task__tip {
     font-size: 18px;
@@ -256,7 +276,7 @@ export default {
     margin: 10px;
   }
 }
-@media (max-width: 424px) {
+@media (max-width: 460px) {
   .new-task__tip {
     font-size: 16px;
   }
