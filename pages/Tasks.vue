@@ -19,12 +19,12 @@
       <p class="task__loading" v-if="loading">Loading...</p>
       <p class="task__resolved" v-if="everythingResolved!==''">{{everythingResolved}}</p>
       <div class="task__block-pictures">
-        <div class="task__itself" v-for="(question,index) in getQuestions" :key="question.id">
+        <div class="task__itself_pictures" v-for="(question,index) in getQuestions" :key="question.id">
           <div class='task__place' v-html="question.value"></div>
           <div class="task__pictures">
             <div class="task__picture" v-for="option in getQuestions[index].options">
               <label class="task__picture_label" for="choice"><img class="task__picture_image" :src="option" alt=""></label>
-              <input type="radio" class="task__picture_button" id="choice" :name="getOptions[index]" :value="option" @change="setAnswer($event, question.id, question.value)">
+              <input type="radio" class="task__picture_button" id="choice" :name="getQuestions[index]" :value="option" @change="setAnswer($event, question.id, question.value)">
             </div>
           </div>
           <div class='task__points' >Points: {{ question.points }}</div>
@@ -38,8 +38,8 @@
       <p class="task__loading" v-if="loading">Loading...</p>
       <p class="task__resolved" v-if="everythingResolved!==''">{{everythingResolved}}</p>
       <div class="task__block">
-        <div class="task__itself" v-for="(question, index) in getQuestions" :key="question.id">
-          <div class='task__place' v-html="question.value"></div>
+        <div class="task__itself_choice" v-for="(question, index) in getQuestions" :key="question.id">
+          <div class='task__place_choice' v-html="question.value"></div>
           <select class="task__select" @change="setAnswer($event, question.id, question.value)">
             <option
               value="none" selected disabled hidden>
@@ -91,7 +91,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isadmin', 'authenticated', 'getType', 'getLevel', 'getOptions', 'getQuestions'])
+    ...mapGetters(['isadmin', 'authenticated', 'getType', 'getLevel', 'getQuestions'])
   },
   async mounted() {
     this.checkAuth()
@@ -154,20 +154,49 @@ export default {
 }
 .task__block {
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+/*  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;*/
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-around;
 }
 .task__block-pictures {
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  /*display: grid;
+  grid-template-columns: 1fr 1fr;*/
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-around;
+  height: auto;
 }
 .task__itself {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  justify-content: space-between;
   padding: 30px;
+  height: 330px;
+}
+.task__itself_pictures {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  padding: 30px;
+  height: auto;
+}
+.task__itself_choice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  padding: 20px;
+  height: 200px;
 }
 .task__place {
   width: 250px;
@@ -177,14 +206,29 @@ export default {
   border-radius: 10px;
   font-size: 26px;
   font-weight: 300;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.task__place_choice {
+  width: 250px;
+  padding: 10px 10px;
+  background-color: white;
+  border: 3px solid white;
+  border-radius: 10px;
+  font-size: 26px;
+  font-weight: 300;
+  height: 70px;
 }
 .task__points {
   color: white;
   font-size: 25px;
-  margin-top: 10px;
+/*  margin-top: 10px;*/
 }
 .task__answer {
-  margin-top: 20px;
+/*  margin-top: 20px;*/
   width: 250px;
   height: 50px;
   font-size: 26px;
@@ -197,15 +241,14 @@ export default {
   width: 70%;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   margin-top: 10px;
 }
 .task__picture {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
-  margin-right: 10px;
+  margin: 10px 10px 0;
 }
 .task__picture_image {
   height: 100px;
@@ -242,9 +285,9 @@ export default {
   cursor: pointer;
 }
 @media (max-width: 1100px) {
-  .task__block-pictures {
+/*  .task__block-pictures {
     grid-template-columns: 1fr;
-  }
+  }*/
 }
 @media(max-width: 1020px) {
   .task__description {
@@ -252,13 +295,13 @@ export default {
     padding: 10px 15px 0;
   }
   .task__block {
-    grid-template-columns: 1fr 1fr;
+    /*grid-template-columns: 1fr 1fr;*/
   }
 }
 
 @media (max-width: 640px) {
   .task__block {
-    grid-template-columns: 1fr;
+    /*grid-template-columns: 1fr;*/
   }
 }
 @media(max-width: 540px) {
@@ -266,6 +309,8 @@ export default {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
-
+  .task__block-pictures {
+    height: auto;
+  }
 }
 </style>

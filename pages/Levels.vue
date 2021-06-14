@@ -159,6 +159,7 @@ export default {
 }
 @media (max-width: 900px) {
   .container {
+    min-height: calc(100vh - 100px);
     height: auto;
   }
   .levels-container {
