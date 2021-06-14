@@ -53,14 +53,14 @@
     </div>
 
     <div class="task__type" v-if="getType === -1">
-      <h2 class="task__stats">You've answered these questions wrong</h2>
-      <div class="task__block">
+      <h2 class="task__stats" v-if="getUncorrects.length !== 0">You've answered these questions wrong</h2>
+      <div class="task__block" v-if="getUncorrects.length !== 0">
         <div class="task__itself_simple" v-for="uncorrect in getUncorrects" :key="uncorrect.id">
           <div class='task__place_uncorr' v-html="uncorrect.value"></div>
         </div>
       </div>
-      <h2 class="task__stats">You've answered these questions correct</h2>
-      <div class="task__block">
+      <h2 class="task__stats" v-if="getCorrects.length !== 0">You've answered these questions correct</h2>
+      <div class="task__block" v-if="getCorrects.length !== 0">
         <div class="task__itself_simple" v-for="correct in getCorrects" :key="correct.corrid">
           <div class='task__place_corr' v-html="correct.value"></div>
         </div>
