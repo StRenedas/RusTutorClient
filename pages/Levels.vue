@@ -158,6 +158,9 @@ export default {
   color: white;
 }
 @media (max-width: 900px) {
+  .container {
+    height: auto;
+  }
   .levels-container {
     flex-direction: column;
   }

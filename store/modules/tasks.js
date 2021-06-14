@@ -15,9 +15,6 @@ export default {
     setType(state, res) {
       state.typePicked = res;
     },
-    setOptions(state, res) {
-      state.options = res.map(item => item.options);
-    },
     revertQuestions(state) {
       state.questions = [];
     },
@@ -41,12 +38,8 @@ export default {
       try {
         commit('revertQuestions');
         const questions = await this.$axios.$post("https://rustutor-backend.herokuapp.com/questions", payload);
-/*        for (let i = 0; i < questions.length; i++) {
-          questions[i].options = await this.$axios.$post('https://rustutor-backend.herokuapp.com/options', {id: questions[i].id});
-        }*/
         if (!questions.empty) {
           commit('setQuestions', questions);
-/*          commit('setOptions', questions);*/
         }
       } catch (err) {
         console.log(err);

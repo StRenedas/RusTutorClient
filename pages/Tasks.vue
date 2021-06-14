@@ -41,6 +41,9 @@
         <div class="task__itself" v-for="(question, index) in getQuestions" :key="question.id">
           <div class='task__place' v-html="question.value"></div>
           <select class="task__select" @change="setAnswer($event, question.id, question.value)">
+            <option
+              value="none" selected disabled hidden>
+            </option>
             <option class="task__options" v-for="option in getQuestions[index].options">{{option}}</option>
           </select>
           <div class='task__points' >Points: {{ question.points }}</div>
