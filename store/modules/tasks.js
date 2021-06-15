@@ -53,7 +53,7 @@ export default {
     async getQuestionsFromServer ({commit}, payload) {
       try {
         commit('revertQuestions');
-        const questions = await this.$axios.$post("https://rustutor-backend.herokuapp.com/questions", payload);
+        const questions = await this.$axios.$post("https://rustutor-backend.herokuapp.com/questions", payload, {headers: {'User Role': this.$auth.$storage.getLocalStorage('isadmin')}});
         if (!questions.empty) {
           commit('setQuestions', questions);
         }
@@ -65,7 +65,7 @@ export default {
       try {
         commit('revertCorrects');
         commit('revertUncorrects');
-        const corrects = await this.$axios.$post("https://rustutor-backend.herokuapp.com/results", payload);
+        const corrects = await this.$axios.$post("https://rustutor-backend.herokuapp.com/results", payload, {headers: {'User Role': this.$auth.$storage.getLocalStorage('isadmin')}});
         commit('setCorrects', corrects);
         commit('setUncorrects');
       } catch (err) {

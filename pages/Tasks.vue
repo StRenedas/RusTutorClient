@@ -97,11 +97,10 @@ export default {
         token: this.$auth.strategy.token.get(),
         userid: this.$auth.$storage.getLocalStorage('userid'),
         answers: this.answers,
-        role: this.$auth.$storage.getLocalStorage('isadmin')
 /*        rating: this.$auth.$storage.getLocalStorage('rating'),*/
       };
-      const corr = await this.$axios.$post('https://rustutor-backend.herokuapp.com/check', payload);
-      const rat = await this.$axios.$get(`https://rustutor-backend.herokuapp.com/rating/${payload.userid}`);
+      const corr = await this.$axios.$post('https://rustutor-backend.herokuapp.com/check', payload, {headers: {'User Role': this.$auth.$storage.getLocalStorage('isadmin')}});
+      const rat = await this.$axios.$get(`https://rustutor-backend.herokuapp.com/rating/${payload.userid}`, {headers: {'User-Role': this.$auth.$storage.getLocalStorage('isadmin')}});
       await this.$auth.$storage.setLocalStorage('rating', rat.updatedRating);
       await this.getCorrectsFromServer({ corrs: corr });
       await this.setType(-1);
@@ -122,7 +121,6 @@ export default {
         level: this.getLevel,
         type: this.getType,
         userid: this.$auth.$storage.getLocalStorage('userid'),
-        role: this.$auth.$storage.getLocalStorage('isadmin')
       });
       this.loading = false;
       if (this.getQuestions.length === 0) {

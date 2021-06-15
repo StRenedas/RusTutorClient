@@ -16,7 +16,7 @@ import { mapGetters, mapMutations } from "vuex";
 
 export default {
   async asyncData({params, $axios, $auth}) {
-    let res = await $axios.$get(`https://rustutor-backend.herokuapp.com/errors/${params.id}`);
+    let res = await $axios.$get(`https://rustutor-backend.herokuapp.com/errors/${params.id}`, {headers: {'User Role': this.$auth.$storage.getLocalStorage('isadmin')}});
     return {res};
   },
   middleware: ['auth', 'admin'],

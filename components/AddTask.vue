@@ -106,8 +106,7 @@ export default {
           level: this.task1.level,
           points: this.task1.points,
           type: 1,
-          role: this.$auth.$storage.getLocalStorage('isadmin')
-        });
+        }, {headers: {'User Role': this.$auth.$storage.getLocalStorage('isadmin')}});
         this.task1.text = '';
         this.task1.word = '';
         this.task1.answer = '';
@@ -129,8 +128,7 @@ export default {
           level: this.task3.level,
           points: this.task3.points,
           type: 3,
-          role: this.$auth.$storage.getLocalStorage('isadmin')
-        })
+        }, {headers: {'User Role': this.$auth.$storage.getLocalStorage('isadmin')}})
         this.task3.options = '';
         this.task3.word = '';
         this.task3.selectedWord = '';

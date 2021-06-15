@@ -45,7 +45,7 @@ export default {
     credentials: true,
     common: {
       'Accept': 'application/json, text/plain, */*',
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*',
     }
   },
 
