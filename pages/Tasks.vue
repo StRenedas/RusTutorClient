@@ -99,7 +99,7 @@ export default {
         answers: this.answers,
 /*        rating: this.$auth.$storage.getLocalStorage('rating'),*/
       };
-      const corr = await this.$axios.$post('https://rustutor-backend.herokuapp.com/check', payload, {headers: {'User Role': this.$auth.$storage.getLocalStorage('isadmin')}});
+      const corr = await this.$axios.$post('https://rustutor-backend.herokuapp.com/check', payload, {headers: {'User-Role': this.$auth.$storage.getLocalStorage('isadmin')}});
       const rat = await this.$axios.$get(`https://rustutor-backend.herokuapp.com/rating/${payload.userid}`, {headers: {'User-Role': this.$auth.$storage.getLocalStorage('isadmin')}});
       await this.$auth.$storage.setLocalStorage('rating', rat.updatedRating);
       await this.getCorrectsFromServer({ corrs: corr });

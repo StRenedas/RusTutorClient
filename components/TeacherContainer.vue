@@ -51,7 +51,7 @@ export default {
     },
     async getRatings() {
       this.studentsInfo = await this.$axios.$get('https://rustutor-backend.herokuapp.com/users',
-        {headers: {'User Role': this.$auth.$storage.getLocalStorage('isadmin')}})
+        {headers: {'User-Role': this.$auth.$storage.getLocalStorage('isadmin')}})
     }
   },
   computed: {

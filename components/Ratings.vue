@@ -53,15 +53,15 @@ export default {
   methods: {
     ...mapMutations(['checkAdmin', 'checkAuth']),
     async getRatings() {
-      this.studentsInfo = await this.$axios.$get('https://rustutor-backend.herokuapp.com/users', {headers: {'User Role': this.$auth.$storage.getLocalStorage('isadmin')}});
+      this.studentsInfo = await this.$axios.$get('https://rustutor-backend.herokuapp.com/users', {headers: {'User-Role': this.$auth.$storage.getLocalStorage('isadmin')}});
     },
     async getTotal() {
-      this.totalQuestions = await this.$axios.get('https://rustutor-backend.herokuapp.com/total', {headers: {'User Role': this.$auth.$storage.getLocalStorage('isadmin')}});
+      this.totalQuestions = await this.$axios.get('https://rustutor-backend.herokuapp.com/total', {headers: {'User-Role': this.$auth.$storage.getLocalStorage('isadmin')}});
       this.totalQuestions = this.totalQuestions.data;
     },
     async getStats(id) {
       this.student = await this.studentsInfo.filter(student => student.id.toString()===id.toString());
-      let res = await this.$axios.$get(`https://rustutor-backend.herokuapp.com/statistics/${id}`, {headers: {'User Role': this.$auth.$storage.getLocalStorage('isadmin')}});
+      let res = await this.$axios.$get(`https://rustutor-backend.herokuapp.com/statistics/${id}`, {headers: {'User-Role': this.$auth.$storage.getLocalStorage('isadmin')}});
       this.student[0].stat = []
       for (let i = 0; i < res.length; i++) {
         this.student[0].stat.push(res[i]);
