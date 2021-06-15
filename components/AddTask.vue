@@ -105,7 +105,8 @@ export default {
           answer: this.task1.answer,
           level: this.task1.level,
           points: this.task1.points,
-          type: 1
+          type: 1,
+          role: this.$auth.$storage.getLocalStorage('isadmin')
         });
         this.task1.text = '';
         this.task1.word = '';
@@ -127,7 +128,8 @@ export default {
           options: this.task3.splitOptions,
           level: this.task3.level,
           points: this.task3.points,
-          type: 3
+          type: 3,
+          role: this.$auth.$storage.getLocalStorage('isadmin')
         })
         this.task3.options = '';
         this.task3.word = '';

@@ -80,7 +80,7 @@ export default {
       loading: true,
     }
   },
-  middleware: 'auth',
+  middleware: ['auth', 'student'],
   methods: {
     ...mapMutations(['checkAuth', 'setType']),
     ...mapActions(["getQuestionsFromServer", "getCorrectsFromServer"]),
@@ -97,7 +97,8 @@ export default {
         token: this.$auth.strategy.token.get(),
         userid: this.$auth.$storage.getLocalStorage('userid'),
         answers: this.answers,
-        rating: this.$auth.$storage.getLocalStorage('rating'),
+        role: this.$auth.$storage.getLocalStorage('isadmin')
+/*        rating: this.$auth.$storage.getLocalStorage('rating'),*/
       };
       const corr = await this.$axios.$post('https://rustutor-backend.herokuapp.com/check', payload);
       const rat = await this.$axios.$get(`https://rustutor-backend.herokuapp.com/rating/${payload.userid}`);
@@ -110,25 +111,27 @@ export default {
     ...mapGetters(['isadmin', 'authenticated', 'getType', 'getLevel', 'getQuestions', 'getCorrects', 'getUncorrects'])
   },
   async mounted() {
-    this.checkAuth()
+/*    this.checkAuth()*/
     if (this.getType === 0 || this.getLevel === 0) {
       await this.$router.push('/Levels');
     }
   },
   async created() {
-    await this.getQuestionsFromServer({
-      token: this.$auth.strategy.token.get(),
-      level: this.getLevel,
-      type: this.getType,
-      userid: this.$auth.$storage.getLocalStorage('userid'),
-    });
-    this.loading = false;
-    if (this.getQuestions.length === 0) {
-      this.everythingResolved = 'You\'ve successfully resolved all questions from this block!';
-    }
-    else {
-      for (let i = 0; i < this.getQuestions.length; i++) {
-        this.answers.push({qid: this.getQuestions[i].id, ans: ''})
+    if (this.getType !== 0 && this.getLevel !== 0 ) {
+      await this.getQuestionsFromServer({
+        level: this.getLevel,
+        type: this.getType,
+        userid: this.$auth.$storage.getLocalStorage('userid'),
+        role: this.$auth.$storage.getLocalStorage('isadmin')
+      });
+      this.loading = false;
+      if (this.getQuestions.length === 0) {
+        this.everythingResolved = 'You\'ve successfully resolved all questions from this block!';
+      }
+      else {
+        for (let i = 0; i < this.getQuestions.length; i++) {
+          this.answers.push({qid: this.getQuestions[i].id, ans: ''})
+        }
       }
     }
   }

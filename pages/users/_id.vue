@@ -19,14 +19,14 @@ export default {
     let res = await $axios.$get(`https://rustutor-backend.herokuapp.com/errors/${params.id}`);
     return {res};
   },
-  middleware: 'auth',
+  middleware: ['auth', 'admin'],
   methods: {
     ...mapMutations(['checkAuth', 'checkAdmin'])
   },
   computed: {
     ...mapGetters(['authenticated', 'isadmin'])
   },
-  async mounted() {
+  /*async mounted() {
     await this.checkAuth();
     await this.checkAdmin();
     if (!this.authenticated) {
@@ -35,7 +35,7 @@ export default {
     else if (this.authenticated && !this.isadmin) {
       await this.$router.push('/Levels');
     }
-  },
+  },*/
 };
 </script>
 
