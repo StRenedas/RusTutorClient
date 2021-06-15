@@ -2,8 +2,7 @@
   <div class='container'>
     <div class='task__type' v-if="getType === 1">
       <p class='task__description' v-if="!loading">Translate the highlighted word into Russian</p>
-      <p class="task__loading" v-if="loading">Loading...</p>
-      <p class="task__resolved" v-if="everythingResolved!==''">{{everythingResolved}}</p>
+      <p class="task__resolved" v-if="error!==''">{{error}}</p>
       <div class="task__block">
         <div class="task__itself" v-for="question in getQuestions" :key="question.id">
           <div class='task__place' v-html="question.value"></div>
@@ -11,13 +10,13 @@
           <div class='task__points' >Points: {{ question.points }}</div>
         </div>
       </div>
-      <button class='task__submit' v-if="everythingResolved==='' && !loading" @click="sendAnswers">Submit all</button>
+      <p class="task__loading" v-if="loading">Loading...</p>
+      <button class='task__submit' v-if="error==='' && !loading" @click="sendAnswers">Submit all</button>
     </div>
 
     <div class='task__type' v-if="getType === 2">
       <p class='task__description' v-if="!loading">Choose one picture</p>
-      <p class="task__loading" v-if="loading">Loading...</p>
-      <p class="task__resolved" v-if="everythingResolved!==''">{{everythingResolved}}</p>
+      <p class="task__resolved" v-if="error!==''">{{error}}</p>
       <div class="task__block-pictures">
         <div class="task__itself_pictures" v-for="(question,index) in getQuestions" :key="question.id">
           <div class='task__place' v-html="question.value"></div>
@@ -30,13 +29,13 @@
           <div class='task__points' >Points: {{ question.points }}</div>
         </div>
       </div>
-      <button class='task__submit' v-if="everythingResolved==='' && !loading" @click="sendAnswers">Submit all</button>
+      <p class="task__loading" v-if="loading">Loading...</p>
+      <button class='task__submit' v-if="error==='' && !loading" @click="sendAnswers">Submit all</button>
     </div>
 
     <div class='task__type' v-if="getType === 3">
       <p class='task__description' v-if="!loading">Choose the right translation</p>
-      <p class="task__loading" v-if="loading">Loading...</p>
-      <p class="task__resolved" v-if="everythingResolved!==''">{{everythingResolved}}</p>
+      <p class="task__resolved" v-if="error!==''">{{error}}</p>
       <div class="task__block">
         <div class="task__itself_choice" v-for="(question, index) in getQuestions" :key="question.id">
           <div class='task__place_choice' v-html="question.value"></div>
@@ -49,7 +48,8 @@
           <div class='task__points' >Points: {{ question.points }}</div>
         </div>
       </div>
-      <button class='task__submit' v-if="everythingResolved==='' && !loading" @click="sendAnswers">Submit all</button>
+      <p class="task__loading" v-if="loading">Loading...</p>
+      <button class='task__submit' v-if="error==='' && !loading" @click="sendAnswers">Submit all</button>
     </div>
 
     <div class="task__type" v-if="getType === -1">
@@ -75,7 +75,7 @@ export default {
   data() {
     return {
       answers: [],
-      everythingResolved: '',
+      error: '',
       answersDirty: false,
       loading: true,
     }
@@ -93,8 +93,8 @@ export default {
       }
     },
     async sendAnswers() {
+      this.loading = true;
       const payload = {
-        token: this.$auth.strategy.token.get(),
         userid: this.$auth.$storage.getLocalStorage('userid'),
         answers: this.answers,
 /*        rating: this.$auth.$storage.getLocalStorage('rating'),*/
@@ -124,7 +124,7 @@ export default {
       });
       this.loading = false;
       if (this.getQuestions.length === 0) {
-        this.everythingResolved = 'You\'ve successfully resolved all questions from this block!';
+        this.error = 'An error occurred, please try again later';
       }
       else {
         for (let i = 0; i < this.getQuestions.length; i++) {
